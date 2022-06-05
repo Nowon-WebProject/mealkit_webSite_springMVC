@@ -15,7 +15,6 @@ public class UserDAO {
 	
 	private UserMapper userMapper;
 	
-	@Autowired
 	public UserDAO(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}

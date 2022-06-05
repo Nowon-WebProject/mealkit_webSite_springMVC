@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import kr.co.EZHOME.database.ItemMapper;
 import kr.co.EZHOME.database.UserMapper;
 
 
@@ -84,6 +85,15 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Bean
 	public MapperFactoryBean<UserMapper> user_mapper(SqlSessionFactory factory)throws Exception{
 		MapperFactoryBean<UserMapper> factoryBean=new MapperFactoryBean<UserMapper>(UserMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		
+		return factoryBean;
+		
+	}
+
+	@Bean
+	public MapperFactoryBean<ItemMapper> item_mapper(SqlSessionFactory factory)throws Exception{
+		MapperFactoryBean<ItemMapper> factoryBean=new MapperFactoryBean<ItemMapper>(ItemMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		
 		return factoryBean;

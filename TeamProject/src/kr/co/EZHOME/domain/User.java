@@ -19,10 +19,8 @@ import kr.co.EZHOME.dto.UserDTO;
 @Service
 public class User {
 	
-
-	private UserDAO userDAO;
+	private final UserDAO userDAO;
 	
-	@Autowired
 	public User(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
