@@ -1,2 +1,2 @@
-# mealkit_webSite_springMVC
-(팀 프로젝트) Spring MVC 를 이용한 밀키트 웹사이트 만들기
+# mealKit_webSite
+밀키트 웹페이지 만들기 팀프로젝트
