@@ -22,11 +22,14 @@
 <%
 	String name = (String)session.getAttribute("name");
 	int admin;
+	int cartCnt = (Integer)session.getAttribute("cartCnt");
 	//세션이 없는 경우
 	if (name == null)
 		admin = -1;
 	else
+	{
 		admin = (Integer)session.getAttribute("admin");
+	}
 %>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -47,10 +50,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">밀키트</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">전체 밀키트</a></li>
+                                <li><a class="dropdown-item" href="itemList.do?view=card&pageSize=12&check=all&category=&priceSort=default&keyword=">전체 밀키트</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">인기 밀키트</a></li>
-                                <li><a class="dropdown-item" href="#!">신상 밀키트</a></li>
+                                <li><a class="dropdown-item" href="itemList.do?view=card&pageSize=12&check=best&category=&priceSort=default&keyword=">인기 밀키트</a></li>
+                                <li><a class="dropdown-item" href="itemList.do?view=card&pageSize=12&check=new&category=&priceSort=default&keyword=">신상 밀키트</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -67,7 +70,7 @@
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             	장바구니
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0 <!-- 장바구니에 담긴 수 --></span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.cartCnt } <!-- 장바구니에 담긴 수 --></span>
                         </button>
                     </form>
 	                <br>

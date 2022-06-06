@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.EZHOME.database.UserMapper;
+import kr.co.EZHOME.domain.Cart;
 import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.domain.LoginStatus;
 import kr.co.EZHOME.domain.PhoneAuthentication;
@@ -26,9 +27,11 @@ import kr.co.EZHOME.dto.UserDTO;
 public class LoginController {
 	
 	private final User user;
+	private final Cart cart;
 	
-	public LoginController(User user) {
+	public LoginController(User user, Cart cart) {
 		this.user = user;
+		this.cart = cart;
 	}
 	
 	//로그인
@@ -37,11 +40,12 @@ public class LoginController {
 		String url = "login/login";
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-		LoginStatus result;
+		String message;
+		UserDTO userDTO;
 		
 		try {
 			validate(userid, pwd);
-			result = user.login(userid, pwd, request);
+			 userDTO= user.login(userid);
 		}catch (Exception e) { //로그인 도중 발생하는 에러 처리
 			request.setAttribute("message", e.getMessage());
 			e.printStackTrace();
@@ -50,11 +54,12 @@ public class LoginController {
 		}
 		
 		//로그인 결과 처리
-		if (result == LoginStatus.LOGIN_SUCCESS) {
+		if (userDTO.getPwd().equals(pwd)) {
 			request.setAttribute("message", "로그인 되었습니다.");
+			makeSession(request, userDTO);
 			//로그인 성공시 가게되는 url
-			url = "index";
-		} else if (result == LoginStatus.PASSWORD_WRONG) {
+			url = "redirect:/index";
+		} else {
 			request.setAttribute("message", "비밀번호가 맞지 않습니다.");
 		}
 		return url;
@@ -82,4 +87,21 @@ public class LoginController {
 		}
 	}
 
+	private void makeSession(HttpServletRequest request, UserDTO userDTO) {
+		HttpSession session = request.getSession();
+		session.setAttribute("name", userDTO.getName());
+		session.setAttribute("userid", userDTO.getUserid());
+		session.setAttribute("password",userDTO.getPwd());
+		session.setAttribute("birth", userDTO.getBirth());
+		session.setAttribute("email",userDTO.getEmail());
+		session.setAttribute("phone",userDTO.getPhone());
+		if (userDTO.getRegistDate() != null) {
+			session.setAttribute("registDate", userDTO.getRegistDate().toString());
+		}
+		session.setAttribute("addr", userDTO.getAddr());
+		session.setAttribute("deli", userDTO.getDeli());
+		session.setAttribute("point", userDTO.getPoint());
+		session.setAttribute("admin", userDTO.getAdmin());
+		session.setAttribute("cartCnt", cart.cartCnt(userDTO.getUserid()));
+	}
 }

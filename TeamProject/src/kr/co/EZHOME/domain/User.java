@@ -47,20 +47,11 @@ public class User {
 		return result;
 	}
 	
-	public LoginStatus login(String userid, String inputPassword, HttpServletRequest request)throws Exception {
+	public UserDTO login(String userid) throws Exception{
 		//userid 로 찾기
-		UserDTO udto = userDAO.findUser(userid);
-		//DB pwd
-		String pwd = udto.getPwd();
+		UserDTO userDTO = userDAO.findUser(userid);
 		
-		//DB의 pwd와 input pwd가 같은지 확인 
-		if(pwd.equals(inputPassword)) {
-			//로그인한 유저의 정보 session 에 넣기
-			makeSession(request, udto);
-			return LoginStatus.LOGIN_SUCCESS;
-		}else {
-			return LoginStatus.PASSWORD_WRONG;
-		}
+		return userDTO;
 	}
 	
 	public String updatePassword(String userid, String password) {
@@ -105,24 +96,5 @@ public class User {
 		
 		return message;
 	}
-
-	private void makeSession(HttpServletRequest request, UserDTO udto) {
-		HttpSession session = request.getSession();
-		session.setAttribute("name", udto.getName());
-		session.setAttribute("userid", udto.getUserid());
-		session.setAttribute("password",udto.getPwd());
-		session.setAttribute("birth", udto.getBirth());
-		session.setAttribute("email",udto.getEmail());
-		session.setAttribute("phone",udto.getPhone());
-		if (udto.getRegistDate() != null) {
-			session.setAttribute("registDate", udto.getRegistDate().toString());
-		}
-		session.setAttribute("addr", udto.getAddr());
-		session.setAttribute("deli", udto.getDeli());
-		session.setAttribute("point", udto.getPoint());
-		session.setAttribute("admin", udto.getAdmin());
-	}
-	
-	
 }
 

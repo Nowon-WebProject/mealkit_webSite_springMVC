@@ -9,7 +9,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		return "forward:/itemMain.do";
+		return "forward:/index";
 	}
 }
 
