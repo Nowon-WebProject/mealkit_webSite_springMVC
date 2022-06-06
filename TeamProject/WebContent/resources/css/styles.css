@@ -7141,8 +7141,8 @@ textarea.form-control-lg {
   justify-content: flex-end !important;
 }
 
-.justify-content-center {
-  justify-content: center !important;
+.justify-content-left {
+  justify-content: left !important;
 }
 
 .justify-content-between {
