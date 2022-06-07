@@ -17,6 +17,76 @@ public class Order {
 	public Order(OrderDAO orderDAO) {
 		this.orderDAO = orderDAO;
 	}
+	
+	
+	public void updateReject(String reject, String order_num, int item_num) {
+		orderDAO.updateReject(reject, order_num, item_num);
+		
+	}
+	
+	public ArrayList<OrderDTO> getRefundRequestList(String category, String keyword, int startRow, int endRow){
+		ArrayList<OrderDTO> refundRequestList = orderDAO.getRefundRequestList(category, keyword, startRow, endRow);
+		
+		return refundRequestList;
+	}
+	
+	
+	
+	public int getRefundRequestCnt(String category, String keyword) {
+		int refundRequestCnt = orderDAO.getRefundRequestCnt(category, keyword);
+		
+		return refundRequestCnt;
+	}
+
+	public void modifyRefundRequest(String order_num, String refund_request, int item_num) {
+		orderDAO.modifyRefundRequest(order_num, refund_request, item_num);
+		
+	}
+	
+	public void modifyRefundStatus(String order_num, String refund_status, int item_num) {
+		orderDAO.modifyRefundStatus(order_num, refund_status, item_num);
+	
+	}
+
+	public void updateDeli_Status(String deli_status, String order_num) {
+		orderDAO.updateDeli_Status(deli_status, order_num);
+
+	}
+
+	public ArrayList<OrderDTO> getAllOrderList(String category, String keyword, int startRow, int endRow) {
+		ArrayList<OrderDTO> orderList = orderDAO.getAllOrderList(category, keyword, startRow, endRow);
+
+		return orderList;
+	}
+
+	public int getOrderManageCnt(String category, String keyword) {
+		int result = orderDAO.getOrderManageCnt(category, keyword);
+
+		return result;
+	}
+
+	public ArrayList<OrderDTO> getOrderInfo(String order_num) {
+		ArrayList<OrderDTO> orderInfoList = orderDAO.getOrderInfo(order_num);
+
+		return orderInfoList;
+	}
+
+	public ArrayList<OrderDTO> getOrderList(String userid, int startRow, int endRow) {
+		ArrayList<OrderDTO> orderList = orderDAO.getOrderList(userid, startRow, endRow);
+
+		return orderList;
+	}
+
+	public int getOrderCnt(String userid) {
+		int result = orderDAO.getOrderCnt(userid);
+
+		return result;
+	}
+
+	
+	
+	
+	/////////////////////////
 
 	// 해당 addr_seq 삭제
 	public void deleteRecentAddr(int deli_addr_seq) {
@@ -116,4 +186,33 @@ public class Order {
 
 		return recentAddrList;
 	}
+	
+	
+	
+	
+	
+	public int[] pageCount(int count, int pageSize, int currentPage) {
+		
+		// 전체 페이지 개수 구하기
+		// count: 전체 글 개수, pageSize: 화면에 보여질 총 게시글 개수
+		int pageCount = count / pageSize + (count % pageSize == 0? 0:1);
+		int startPage = 1;
+		int pageBlock = 10;
+		
+		// 시작 페이지 구하기
+		// currentPage: 현재 페이지
+		if (currentPage % 10 != 0) {
+			startPage = (currentPage / 10) * 10 + 1;
+		} else {		
+			startPage = (currentPage / 10 - 1) * 10 + 1;
+		}
+
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount)
+				endPage = pageCount;
+		int result[] = {startPage, endPage, pageCount};
+		
+		return result;
+	}
+	
 }

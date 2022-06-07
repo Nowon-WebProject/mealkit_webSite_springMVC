@@ -18,7 +18,75 @@ public class OrderDAO {
 	public OrderDAO(OrderMapper orderMapper) {
 		this.orderMapper = orderMapper;
 	}
-
+	public void updateReject(String reject, String order_num, int item_num) {
+		orderMapper.updateReject(reject, order_num, item_num);
+		
+	}
+	
+	public ArrayList<OrderDTO> getRefundRequestList(String category, String keyword, int startRow, int endRow){
+		keyword = "%"+keyword+"%";
+		ArrayList<OrderDTO> refundRequestList = orderMapper.getRefundRequestList(category, keyword, startRow, endRow); 
+		return refundRequestList;
+	}
+	
+	public int getRefundRequestCnt(String category, String keyword) {
+		keyword = "%"+keyword+"%";
+		int refundRequestCnt = orderMapper.getRefundRequestCnt(category, keyword);
+		
+		return refundRequestCnt;
+	}
+	
+	public void modifyRefundRequest(String order_num, String refund_request,  int item_num) {
+		
+		orderMapper.modifyRefundRequest(order_num, refund_request, item_num);
+		
+	}
+	
+	public void modifyRefundStatus(String order_num, String refund_status, int item_num) {
+		orderMapper.modifyRefundStatus(order_num, refund_status, item_num);
+		
+	}
+	
+	public void updateDeli_Status(String deli_status, String order_num) {
+		orderMapper.updateDeli_status(deli_status, order_num);
+		
+	}
+	
+	public ArrayList<OrderDTO> getAllOrderList(String category, String keyword, int startRow, int endRow){
+		keyword = "%"+keyword+"%";
+		ArrayList<OrderDTO> orderList = orderMapper.getAllOrderList(category, keyword, startRow, endRow);
+		return orderList;
+	}
+	
+	
+	public int getOrderManageCnt(String category, String keyword) {
+		keyword = "%"+keyword+"%";
+		int result = orderMapper.getOrderManageCnt(category, keyword);
+		return result;
+	}
+	
+	public ArrayList<OrderDTO> getOrderInfo(String order_num){
+		ArrayList<OrderDTO> orderInfoList = orderMapper.getOrderInfo(order_num);
+		
+		return orderInfoList;
+	}
+	
+	public ArrayList<OrderDTO> getOrderList(String userid, int startRow, int endRow){
+		ArrayList<OrderDTO> orderList = orderMapper.getOrderList(userid, startRow, endRow);
+		
+		return orderList;
+	}
+	
+	public int getOrderCnt(String userid) {
+		int result = orderMapper.getOrderCnt(userid);
+		return result;
+	}
+	
+	
+	
+	
+	//////////////////////////////
+	
 	// 해당 addr_seq 삭제
 	public void deleteRecentAddr(int deli_addr_seq) {
 		orderMapper.deleteMyAddr(deli_addr_seq);
