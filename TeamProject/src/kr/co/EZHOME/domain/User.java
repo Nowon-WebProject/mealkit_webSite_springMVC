@@ -25,6 +25,11 @@ public class User {
 		this.userDAO = userDAO;
 	}
 	
+	//포인트 적용
+	public void applyPoint(int usePoint, int addPoint, String userid) {
+		userDAO.applyPoint(usePoint, addPoint, userid);
+	}
+	
 	public DataStatus comfirmId(String userid) {
 		DataStatus result;
 		UserDTO userDTO;
@@ -47,7 +52,7 @@ public class User {
 		return result;
 	}
 	
-	public UserDTO login(String userid) throws Exception{
+	public UserDTO findUser(String userid) throws Exception{
 		//userid 로 찾기
 		UserDTO userDTO = userDAO.findUser(userid);
 		

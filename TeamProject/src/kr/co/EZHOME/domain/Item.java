@@ -17,6 +17,11 @@ public class Item {
 		this.itemDAO = itemDAO;
 	}
 	
+	//아이템 판매량, 재고 업데이트
+	public void updateSalesAndQuantity(int itemCnt, int itemNum) {
+		itemDAO.updateSalesAndQuantity(itemCnt, itemNum);
+	}
+	
 	//카테고리 종류 가져오기
 	public Vector<ItemDTO> getCategoryList() {
 		Vector<ItemDTO> vec = itemDAO.getCategoryList();
