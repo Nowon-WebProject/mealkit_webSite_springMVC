@@ -34,4 +34,7 @@ public interface UserMapper {
 	
 	@Insert("insert into usertbl values(#{name}, #{userid}, #{pwd}, #{birth, jdbcType=DATE}, #{email, jdbcType=VARCHAR}, #{phone}, default, #{addr}, #{deli, jdbcType=VARCHAR}, #{point}, #{admin})")
 	int insertMember(UserDTO userDTO);
+	
+	@Update("update usertbl set point = point - #{usePoint} + #{addPoint} where userid=#{userid}")
+	void applyPoint(@Param("usePoint")int usePoint, @Param("addPoint")int addPoint, @Param("userid")String userid);
 }

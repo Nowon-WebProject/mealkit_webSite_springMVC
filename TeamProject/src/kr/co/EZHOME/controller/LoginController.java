@@ -45,7 +45,7 @@ public class LoginController {
 		
 		try {
 			validate(userid, pwd);
-			 userDTO= user.login(userid);
+			 userDTO= user.findUser(userid);
 		}catch (Exception e) { //로그인 도중 발생하는 에러 처리
 			request.setAttribute("message", e.getMessage());
 			e.printStackTrace();

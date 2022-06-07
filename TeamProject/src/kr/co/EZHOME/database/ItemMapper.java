@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import kr.co.EZHOME.dto.ItemDTO;
 
@@ -28,4 +29,7 @@ public interface ItemMapper {
 	
 	@Select("select item_category from item group by item_category order by item_category")
 	Vector<ItemDTO> getCategoryList();
+	
+	@Update("update item set item_sales = item_sales + #{itemCnt}, item_quantity = item_quantity - #{itemCnt} where item_num = #{itemNum}")
+	public void updateSalesAndQuantity(@Param("itemCnt")int itemCnt, @Param("itemNum")int itemNum);
 }
