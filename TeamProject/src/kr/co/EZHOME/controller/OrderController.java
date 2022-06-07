@@ -55,11 +55,14 @@ public class OrderController {
 		String deli_status = request.getParameter("deli_status");
 		int usePoint = Integer.parseInt(request.getParameter("usePoint"));
 		int addPoint = Integer.parseInt(request.getParameter("point"));
-		//string join
-		String item_num = request.getParameter("item_num");
-		String item_cnt = request.getParameter("item_cnt");
+		
+		String item_num_encode = request.getParameter("item_num");
+		String item_cnt_encode = request.getParameter("item_cnt");
 		String deli_postcode = request.getParameter("deli_postcode");
 
+		String item_num[] = item_num_encode.split(" ");
+		String item_cnt[] = item_cnt_encode.split(" ");
+		
 		// 4자리 숫자+대문자영문 조합 생성 (주문번호)
 		Random rnd = new Random();
 		StringBuffer buf = new StringBuffer();
@@ -86,10 +89,8 @@ public class OrderController {
 		// 주문한 품목에 대한 정보도 함께 db에 넣음.
 		for (int i = 0; i < cnt; i++) {
 			//해당 아이템 넘버의 이름
-//			int itemNum = Integer.parseInt(item_num[i]);
-//			int itemCnt = Integer.parseInt(item_cnt[i]);
-			int itemNum = Integer.parseInt(item_num);
-			int itemCnt = Integer.parseInt(item_cnt);
+			int itemNum = Integer.parseInt(item_num[i]);
+			int itemCnt = Integer.parseInt(item_cnt[i]);
 			String item_name = item.selectItem(itemNum).get(0).getItem_name();
 			System.out.println(item_num);
 			int item_price = item.selectItem(itemNum).get(0).getItem_price();
@@ -153,7 +154,7 @@ public class OrderController {
 			e.printStackTrace();
 		}
 
-		return "redirect:order/orderOk";
+		return "order/orderOk";
 	}
 
 	@PostMapping("/payment.do")
@@ -206,9 +207,10 @@ public class OrderController {
 		request.setAttribute("deli_phone", deli_phone);
 
 		//문자열 배열을 문자열로 (get 방식 하기 위함)
-		String itemNum = item_num.join(" ");
-		request.setAttribute("item_num", item_num);
-		request.setAttribute("item_cnt", item_cnt);
+		String itemNum = String.join(" ",item_num);
+		String itemCnt = String.join(" ",item_cnt);
+		request.setAttribute("item_num", itemNum);
+		request.setAttribute("item_cnt", itemCnt);
 		
 		
 		// 구매할 시점에 재고보다 구매량이 많을경우 구매실패

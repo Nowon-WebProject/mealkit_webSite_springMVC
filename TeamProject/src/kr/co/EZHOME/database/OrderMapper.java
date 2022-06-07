@@ -38,7 +38,7 @@ public interface OrderMapper {
 	@Update("update myaddrtbl set my_deli_nick=#{my_deli_nick}, my_deli_name=#{my_deli_name}, my_deli_addr=#{my_deli_addr}, my_deli_phone=#{my_deli_phone}, my_deli_msg=#{my_deli_msg}, my_deli_pwd=#{my_deli_pwd} where my_deli_addr_seq=#{my_deli_addr_seq}")
 	public void updateMyAddr(MyAddrDTO myAddrDTO);
 	
-	@Insert("insert into ordertbl values(#{order_num}, #{userid}, sysdate, #{order_name}, #{amount}, #{usePoint}, #{deli_name}, #{deli_addr}, #{deli_phone}, #{deli_msg}, #{deli_pwd},  #{deli_status}, #{item_pictureUrl1}, #{item_num}, #{item_name}, #{item_price}, #{item_cnt}, #{refund_status}, #{refund_request}, #{refund_reject})")
+	@Insert("insert into ordertbl values(#{order_num}, #{userid}, sysdate, #{order_name}, #{amount}, #{usePoint}, #{deli_name}, #{deli_addr}, #{deli_phone}, #{deli_msg}, #{deli_pwd}, #{deli_status}, #{item_pictureUrl1}, #{item_num}, #{item_name}, #{item_price}, #{item_cnt}, #{refund_status}, #{refund_request}, #{refund_reject})")
 	public void insertOrder(OrderDTO orderDTO);
 	
 	@Select("select count(*) from recentaddrtbl where (deli_addr like #{deli_postcode} and deli_name like #{deli_name}) and userid=#{userid}")
