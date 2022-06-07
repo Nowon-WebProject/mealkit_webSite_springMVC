@@ -18,88 +18,105 @@ import kr.co.EZHOME.dto.UserDTO;
 
 @Service
 public class User {
-	
+
 	private final UserDAO userDAO;
-	
+
 	public User(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
-	
-	//포인트 적용
+
+	// 포인트 적용
 	public void applyPoint(int usePoint, int addPoint, String userid) {
 		userDAO.applyPoint(usePoint, addPoint, userid);
 	}
-	
+
 	public DataStatus comfirmId(String userid) {
 		DataStatus result;
 		UserDTO userDTO;
-		
-		if (userid.length() <4) {
+
+		if (userid.length() < 4) {
 			result = DataStatus.Invalid_InputValue;
 			return result;
-		}
-		else {
+		} else {
 			try {
 				userDTO = userDAO.findUser(userid);
-				result = DataStatus.Exist;	
+				result = DataStatus.Exist;
 			}
-			//존재하지 않는 회원일 경우 (exception 발생)
-			catch (Exception e){
+			// 존재하지 않는 회원일 경우 (exception 발생)
+			catch (Exception e) {
 				result = DataStatus.Not_Exist;
-			}	
+			}
 		}
-		
+
 		return result;
 	}
-	
-	public UserDTO findUser(String userid) throws Exception{
-		//userid 로 찾기
+
+	public UserDTO findUser(String userid) throws Exception {
+		// userid 로 찾기
 		UserDTO userDTO = userDAO.findUser(userid);
-		
+
 		return userDTO;
 	}
-	
+
 	public String updatePassword(String userid, String password) {
 		String message;
 		UserDTO userDTO;
-		
-		//1. 새 비밀번호가 이전 비밀번호와 일치하는지 확인하기
+
+		// 1. 새 비밀번호가 이전 비밀번호와 일치하는지 확인하기
 		try {
 			userDTO = userDAO.findUser(userid);
 			if (userDTO.getPwd().equals(password)) {
 				message = "비밀번호가 이전 비밀번호와 같습니다. 새로운 비밀번호를 입력해주세요";
 				return message;
 			}
-			//DB에 존재하지 않는 id가 들어왔을경우 에러발생
-		}catch (Exception e) {
+			// DB에 존재하지 않는 id가 들어왔을경우 에러발생
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		//2. 새 비밀번호가 이전 비밀번호와 일치하지 않다면
+
+		// 2. 새 비밀번호가 이전 비밀번호와 일치하지 않다면
 		DAOResult result = userDAO.updatePassword(userid, password);
 		if (result == DAOResult.Success) {
 			message = "비밀번호 변경에 성공했습니다";
-		}
-		else {
+		} else {
 			message = "비밀번호 변경에 실패했습니다";
 		}
-		
+
 		return message;
 	}
-	
+
 	public String insertMember(UserDTO userDTO) {
 		DAOResult result;
 		String message;
-		
+
 		result = userDAO.insertMember(userDTO);
 		if (result == DAOResult.Success) {
 			message = "회원 가입에 성공했습니다.";
-		}
-		else {
+		} else {
 			message = "회원 가입에 실패했습니다.";
 		}
-		
+
 		return message;
 	}
-}
 
+	///////////////////////////////////
+	public UserDTO getMember(String userid) {
+		UserDTO udto = userDAO.getMember(userid);
+
+		return udto;
+	}
+
+	public int userCheck(String userid, String pwd) {
+		int result = -1;
+		String checkPwd = Integer.toString(userDAO.userCheck(userid));
+				
+		if (checkPwd.equals(pwd)) {
+			result = 1;
+		} else {
+			result = 0;
+		}
+
+		return result;
+	}
+
+}

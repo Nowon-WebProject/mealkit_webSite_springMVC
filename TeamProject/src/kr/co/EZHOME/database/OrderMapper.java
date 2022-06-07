@@ -44,10 +44,6 @@ public interface OrderMapper {
 	@Select("select count(*) from (select * from (select ROW_NUMBER() OVER(PARTITION BY order_num ORDER BY order_num ) AS RNUM, ordertbl.* FROM ordertbl where userid = 'swc0516') where rnum=1)")
 	int getOrderCnt(@Param("userid")String userid);
 	
-
-	
-	
-	
 	//취소/환불 요청이 들어온 건 출력
 	@Select("select * from (select A.*, Rownum Rnum from(select * from ordertbl where ${category} like #{keyword} and refund_status = '취소 요청 중..' order by order_num asc)A) where Rnum >= #{startRow} and Rnum <= #{endRow}")
 	ArrayList<OrderDTO> getRefundRequestList(@Param("category")String category, @Param("keyword")String keyword, @Param("startRow")int startRow, @Param("endRow")int endRow);

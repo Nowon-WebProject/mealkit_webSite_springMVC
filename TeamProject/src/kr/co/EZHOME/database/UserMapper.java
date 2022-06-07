@@ -37,4 +37,13 @@ public interface UserMapper {
 	
 	@Update("update usertbl set point = point - #{usePoint} + #{addPoint} where userid=#{userid}")
 	void applyPoint(@Param("usePoint")int usePoint, @Param("addPoint")int addPoint, @Param("userid")String userid);
+	
+	///////////////////////////////////////
+	
+	@Select("select * from usertbl where userid=#{userid}")
+	UserDTO getMember(@Param("userid")String userid);
+	
+	@Select("select pwd from usertbl where userid=#{userid}")
+	int userCheck(@Param("userid")String userid);
+	
 }
