@@ -10,14 +10,6 @@
     <title>회원가입 화면</title>
     
     <style>
-        #wrap{
-            width:1000px;
-
-            margin-left:auto; 
-            margin-right:auto;
-
-            /*text-align:center;*/
-        }
         
         table{
            /* border:3px solid #fd7e14 */
@@ -47,14 +39,15 @@
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section style="width: 60%; margin-left: auto; margin-right: auto;">
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">
         <br><br>
         <b><font size="6" color="gray">회원가입</font></b>
         <br>
     </div>
-<div id="wrap">
 	<form action="join.do" method="post" name="frm">
 		<table>
 			<tr>
@@ -182,8 +175,8 @@
 			</tr>
 		</table>
 	</form>
-</div>
-
+</section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

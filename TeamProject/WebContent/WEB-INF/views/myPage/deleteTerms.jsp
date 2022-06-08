@@ -7,28 +7,48 @@
 <title>Insert title here</title>
 <link href="css/styles.css" rel="stylesheet" />
 <style>
+.form-btn {
+	display: block;
+	width: 40%;
+	font-size: 16px;
+	height: 40px;
+	background-color: #fd7e14;
+	color: #fff;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+	border: 0;
+}
 
+.form-btn:hover {
+	background-color: #FF9900;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
 </style>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="/TeamProject/js/member.js?version=6"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+<div id="wrap">
+		<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+		<section align="center"
+			style="width: 60%; margin-left: auto; margin-right: auto;">
 <form action="delete.do" method="post" name="frm">
 <%String userid=request.getParameter("userid");%>
-	<div style="width: 40%; margin-left: auto; margin-right: auto;">
-	<div align="center"><h1>회원탈퇴</h1></div>
+<input type="hidden" name="userid" value="${loginUser.userid}">
+	<div align="center"><h1>회원탈퇴</h1>
 	<br>
-	<br>
-	<div style="color:red">※ 회원 탈퇴 시 이미 결제된 주문은 취소/환불 되지 않으며, 탈퇴 후 관련 정보가 파기되므로,<br>신중한 탈퇴를 부탁드립니다.
-	<br>※ 관련하여 문의 사항이 있으시다면 1대1 문의를 해주세요.</div>
+	<div style="color:red; text-align:left">※ 회원 탈퇴 시 이미 결제된 주문은 취소/환불 되지 않으며, 탈퇴 후 관련 정보가 파기되므로, 신중한 탈퇴를 부탁드립니다.
+	<br>※ 관련하여 문의 사항이 있으시다면 1대1 문의를 해주세요.</div></div>
 	<br>
 	<div id="table" align="center">
 	<strong>회원탈퇴 안내</strong>
 	<div align="center">
 
-<textarea rows="10" cols="100" readonly>[회원탈퇴 약관]
+<textarea rows="6" cols="90" readonly>[회원탈퇴 약관]
 
 회원탈퇴 신청 전 안내 사항을 확인 해 주세요.
 회원탈퇴를 신청하시면 현재 로그인 된 아이디는 사용하실 수 없습니다.
@@ -43,13 +63,11 @@
 ※ 상세한 내용은 사이트 내 개인정보 취급방침을 참고 해 주세요.</textarea></div>
 <input type="checkbox" id="check1" required><i class="bi bi-exclamation-lg" style="color:red"></i>회원 탈퇴 안내에 동의합니다.
 	</div>
-	
 	<br>
 	<br>
-	
 	<div align="center"><strong>개인정보처리방침 </strong>
 	<div align="center">
-<textarea rows="10" cols="100" readonly>
+<textarea rows="6" cols="90" readonly>
 쇼핑몰 「이젠, 집에서」는 「개인정보보호법」 등 관련법령에 따라 정보주체의 개인정보 및 권익을 보호하고, 개인정보와 관련한 정보주체의 고충을 원활하게 처리할 수 있도록 다음과 같은 개인정보 처리방침을 두고 있습니다.
 제 1 조 개인정보 처리 항목
 회사는 서비스를 위한 목적에 필요한 범위에서 최소한의 개인정보를 다음과 같이 처리합니다.
@@ -145,20 +163,15 @@ SMS/MMS 등 문자메시지 발송 대행
 	</textarea> 
 	</div>
 	<input type="checkbox" id="check2" required>  <i class="bi bi-exclamation-lg" style="color:red"></i> 개인정보처리방침에 동의합니다.
-	</div>
 	<br>
-
-	<input type="submit" value="탈퇴하기 " id="next">
+	<br>
+	<input type="submit" class="form-btn" value="탈퇴하기">
+	</div>
 	<!-- <input type="submit" value="탈퇴하기 " id="next" onclick="location.href='delete'"> -->
 	<!-- <input type="hidden" onclick="deleteCheck()"> -->
-	</div>
-	<script>
-	<%	
-		
-	%>
-	
-	</script>
-<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </form>
+</section>
+		<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

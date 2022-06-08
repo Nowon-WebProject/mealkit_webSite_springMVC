@@ -41,7 +41,9 @@
 </style>
 </head>
 <body>
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section>
 	<div class="info">
 	<div style="width: 60%; margin-left: auto; margin-right: auto;">
 		<%
@@ -195,14 +197,8 @@
 		%>
 		</h4>
 		</div>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

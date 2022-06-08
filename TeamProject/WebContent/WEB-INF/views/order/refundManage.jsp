@@ -117,7 +117,9 @@ function fnCopyToClipboard(str) {
 </script>
 </head>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
 	<%
 	int checkboxCount = 0;
 	String keyword = request.getParameter("keyword");
@@ -263,15 +265,8 @@ function fnCopyToClipboard(str) {
 			%>
 		</h4>
 	</div>
-	
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

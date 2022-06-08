@@ -10,6 +10,29 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
+ 
+#wrap {
+	min-height: 100vh;
+	position: relative;
+	width: 100%;
+}
+
+footer {
+	width: 100%;
+	height: 110px; /* 내용물에 따라 알맞는 값 설정 */
+	bottom: 0px;
+	position: absolute;
+}
+
+section {
+	padding-bottom: 110px;
+}
+ 
+ 
+ 
+ 
+/*             */ 
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

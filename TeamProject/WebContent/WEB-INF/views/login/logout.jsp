@@ -8,7 +8,6 @@
 <title>로그아웃</title>
 </head>
 <body>
-
 	<%
 		//session.removeAttribute("id");
 		//session.removeAttribute("name");

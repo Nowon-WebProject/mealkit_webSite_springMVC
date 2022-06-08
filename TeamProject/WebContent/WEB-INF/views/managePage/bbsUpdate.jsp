@@ -42,6 +42,8 @@
 	BbsDTO bdto = new BbsDTO();
 	bdto=vec.get(0);
 %>
+<div id="wrap">
+<section>
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<div align="center">
         <br><br>
@@ -77,11 +79,8 @@
     <input type="submit" value="수정">
     </div>
     </form>
-	<br>
-	<br>
-	<br>
-	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>

@@ -11,7 +11,6 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
 
@@ -23,6 +22,7 @@
 	color:white;
 }
 .menu {
+	position:absolute;
 	float:left;
     display: block;
     width: 200px;
@@ -46,6 +46,7 @@
     color: #fff;
     text-decoration: none;
 }
+
 li a {
   display: block;
   color: #000;

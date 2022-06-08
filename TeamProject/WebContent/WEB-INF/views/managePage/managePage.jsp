@@ -8,6 +8,8 @@
 <script type="text/javascript" src="js/sunwoo.js"></script>
 </head>
 <body>
+	<div id="wrap">
+	<section>
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<br>
 	<br>
@@ -18,8 +20,7 @@
 		
 	%>
 
-	<div id="wrap" align="center">
-
+	<div align="center">
 		<h2>관리자 페이지</h2>
 		<br>
 		<br>
@@ -34,9 +35,8 @@
 		<br> <br>
 		<button onclick="location.href='orderManage.do?pageSize=10&pageNum=1&category=userid&keyword='">배송상태 관리</button>
 	</div>
-	<br>
-	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+	</div>
 </body>
 </html>

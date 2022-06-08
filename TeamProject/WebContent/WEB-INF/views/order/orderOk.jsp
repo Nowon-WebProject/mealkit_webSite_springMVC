@@ -10,8 +10,9 @@
 </style>
 </head>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-	<br>
+	<section>
 	<div align="center">
 		<div style="width: 60%; margin-left: auto; margin-right: auto;">
 			<div align="right">
@@ -27,7 +28,8 @@
 			</div>
 		</div>
 	</div>
-	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

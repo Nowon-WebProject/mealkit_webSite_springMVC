@@ -34,7 +34,9 @@
 </style>
 </head>
 <body>
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section>
 	<div align="center">
         <br><br>
         <b><font size="6" color="gray">공지 사항 </font></b>
@@ -67,10 +69,8 @@
 	</form>
 	</div>
 	<br>
-	<br>
-	<br>
-	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>

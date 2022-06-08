@@ -45,12 +45,13 @@
 		Vector<UserDTO> vec = (Vector<UserDTO>) request.getAttribute("vec");
 		String[] arr=(String[])request.getAttribute("arr");
 	%>
-	
 	<script type="text/javascript">	
 		if("${message}" === "수정되었습니다"){alert("${message}");}
 		if("${message}" === "삭제되었습니다"){alert("${message}");}
 		if("${message}" === "오류 확인"){alert("${message}");}
 	</script>
+	<div id="wrap">
+	<section>
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<br>
 	<br>
@@ -115,9 +116,8 @@
 	</div>
 	<br>
 	<br>
-	<br>
-	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+	</div>
 </body>
 </html>

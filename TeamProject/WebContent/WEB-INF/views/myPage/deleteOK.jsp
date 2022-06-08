@@ -14,10 +14,7 @@
 	margin: 0;
 
 }
-#wrap{
-	float:left;
-	margin-left:500px;
-} 
+
 
 a {
 	text-decoration: none;
@@ -99,34 +96,36 @@ li {
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include> 
-	
 	<div id="wrap">
-	<div class="table" align="center">
-		<div class="table-cell">
-			<form action="deleteOK.do" method="post" name="frm">
-				<div class="login-container">
-					<h3 class="login--title"><i class="bi bi-exclamation-triangle-fill"></i> 회원탈퇴 <i class="bi bi-exclamation-triangle-fill"></i></h3>
-					<br>
-					<br>
-					<h4 align="left">비밀번호 재확인</h4>
-					<span style="color:red">※  회원님의 정보 보호를 위해 비밀번호를 다시 확인해주세요! ※</span>
-					<br>
-					<br>
-					
-					<div align="left"><label class=form-input--title for="userid">아이디</label></div>
-					<input type="text" id="pwd" name="userid" class="form-input" value="<%=session.getAttribute("userid") %>" readonly>
-					<div align="left"><label class=form-input--title for="pwd">비밀번호</label></div>
-					<input type="password" id="userid" name="pwd" class="form-input">
-					<div style="color:red"><Strong>${message}</Strong></div>
-					<input type="submit" class="form-btn" value="로그인" id="login" onclick="location.href='deleteTerms.jsp'">
-					<br>
-				</div>
-			</form>
+	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+		<section align="center"
+			style="width: 60%; margin-left: auto; margin-right: auto;">
+		<div class="table" align="center">
+			<div class="table-cell">
+				<form action="deleteOK.do" method="post" name="frm">
+					<div class="login-container">
+						<h3 class="login--title"><i class="bi bi-exclamation-triangle-fill"></i> 회원탈퇴 <i class="bi bi-exclamation-triangle-fill"></i></h3>
+						<br>
+						<br>
+						<h4 align="left">비밀번호 재확인</h4>
+						<span style="color:red">※  회원님의 정보 보호를 위해 비밀번호를 다시 확인해주세요! ※</span>
+						<br>
+						<br>
+						
+						<div align="left"><label class=form-input--title for="userid">아이디</label></div>
+						<input type="text" id="pwd" name="userid" class="form-input" value="<%=session.getAttribute("userid") %>" readonly>
+						<div align="left"><label class=form-input--title for="pwd">비밀번호</label></div>
+						<input type="password" id="userid" name="pwd" class="form-input">
+						<div style="color:red"><Strong>${message}</Strong></div>
+						<input type="submit" class="form-btn" value="로그인" id="login" onclick="location.href='deleteTerms.jsp'">
+						<br>
+					</div>
+				</form>
+			</div>
 		</div>
+		</section>
+				<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>
-	</div>
-	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -122,14 +122,13 @@ function count(type,item_quantity,item_num){
 			 $('input[id='+item_num+']').attr('value',result);
 		 }
 	 }
-	 
 }
 
 </script>        
         
 </head>
 <body>
-
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<%
 		
@@ -152,6 +151,7 @@ function count(type,item_quantity,item_num){
 				
 
         <!-- Section-->
+        <section>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
       			  <c:choose>
@@ -536,17 +536,10 @@ function count(type,item_quantity,item_num){
 		<div align="center">
 			<i style="font-size:200px;color:orange" class="bi-search"></i>
 			<div style="font-size:30px;color:gray">검색 결과가 없습니다.</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+		</div>
 	<%
 		}
 	%>
-	</div>
         <hr>
         <div align="center">
         <form action="itemList.do">
@@ -598,18 +591,8 @@ function count(type,item_quantity,item_num){
 		%>
 		</h4>
 		</div>
-<Br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+		</section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

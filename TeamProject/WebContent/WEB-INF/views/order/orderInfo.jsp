@@ -120,7 +120,9 @@ function refundSubmitCheck(count) {
 	int checkboxCount = 0;
 %>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
 	<%
 		int infoCheck = Integer.parseInt(request.getParameter("infoCheck"));
 
@@ -250,8 +252,8 @@ function refundSubmitCheck(count) {
 		$('#form' + $(this).find('option:selected').attr('id')).show();
 	});
 </script>
-</body>
-	
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

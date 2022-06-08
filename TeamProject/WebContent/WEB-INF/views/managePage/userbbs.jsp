@@ -40,7 +40,7 @@
 
 </head>
 <body>
-
+<div id="wrap">
 	<%
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
 	int start = (int)request.getAttribute("start");
@@ -49,6 +49,7 @@
 	String pageNum = (String)request.getAttribute("page");
 	String[] arr=(String[])request.getAttribute("arr");
 %>
+<section>
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<div align="center">
 		<br>
@@ -105,12 +106,8 @@
 				type="submit" value="페이지씩 보기">
 		</form>
 	</div>
-	
-	<br>
-	<br>
-	<br>
-	<br>
+	</section>	
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>
