@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,9 +65,10 @@ public class ManagePageController {
 		String fileName = file.getOriginalFilename();
 		String bbstitle = request.getParameter("bbstitle");
 		String bbscontent = request.getParameter("bbscontent");
+		HttpSession session = request.getSession();
+		String userid= (String)session.getAttribute("userid");
 		bbscontent = bbscontent.replace("\n", "<br>");
 
-		String userid = "테스트";
 		BbsDTO bdto = new BbsDTO();
 
 		bdto.setUserid(userid);

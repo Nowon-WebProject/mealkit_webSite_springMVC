@@ -43,6 +43,7 @@
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
 	BbsDTO bdto = new BbsDTO();
 	bdto=vec.get(0);
+	String file = (String) request.getAttribute("file");
 %>
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<div align="center">
@@ -66,8 +67,9 @@
 			</tr>
 			<tr>
 			<td>
-
+			<%if(file != ""){%>
 			<img src="images/board/${file }" style = "width:20%; heigth:auto;"></img><br>
+			<%} %>
 			<%=bdto.getBbscontent() %>
 			</td>
 			</tr>
