@@ -1,5 +1,6 @@
 package kr.co.EZHOME.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.EZHOME.database.UserMapper;
 import kr.co.EZHOME.domain.Cart;
@@ -28,6 +31,7 @@ public class LoginController {
 	
 	private final User user;
 	private final Cart cart;
+	private final String uploadDir = "C:\\study\\mealKit_webSite\\TeamProject\\WebContent\\images\\product";
 	
 	public LoginController(User user, Cart cart) {
 		this.user = user;

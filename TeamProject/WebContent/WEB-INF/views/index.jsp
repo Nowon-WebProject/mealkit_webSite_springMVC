@@ -95,6 +95,7 @@ input[type='number'] {
 
 </head>
 <body>
+<!-- 	<a href="test">test</a> -->
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<!-- Header-->
 	<header class="py-5" style="background-color: #fd7e14">

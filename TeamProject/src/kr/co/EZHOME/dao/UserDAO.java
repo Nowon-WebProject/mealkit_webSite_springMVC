@@ -1,5 +1,7 @@
 package kr.co.EZHOME.dao;
 
+import java.util.Vector;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +20,54 @@ public class UserDAO {
 		this.userMapper = userMapper;
 	}
 
+
 	// 포인트 적용
 	public void applyPoint(int usePoint, int addPoint, String userid) {
 		userMapper.applyPoint(usePoint, addPoint, userid);
+	}
+
+	// 검색 type과 검색어에 맞는 유저 정보들 가져오기
+	public Vector<UserDTO> likeFind(String type, String key) {
+		key = "%" + key + "%";
+		Vector<UserDTO> userInfos = userMapper.likeFind(type, key);
+
+		return userInfos;
+	}
+
+	public DAOResult deleteMember(String userid) {
+		DAOResult result;
+		int checkResult = userMapper.deleteMember(userid);
+
+		if (checkResult > 0) {
+			result = DAOResult.Success;
+		} else {
+			result = DAOResult.Failed;
+		}
+
+		return result;
+	}
+
+	// 회원 정보 수정
+	public DAOResult updateMember(UserDTO userDTO) {
+
+		int checkDAO = userMapper.updateMember(userDTO);
+		DAOResult result;
+
+		if (checkDAO > 0) {
+			result = DAOResult.Success;
+		} else {
+			result = DAOResult.Failed;
+		}
+
+		return result;
+	}
+
+	// 전체 회원정보 가져오기
+	public Vector<UserDTO> allSelect() {
+		Vector<UserDTO> memberInfo = userMapper.allSelect();
+
+		return memberInfo;
+
 	}
 
 	// 회원가입) 회원정보 DB에 등록하기
@@ -122,15 +169,15 @@ public class UserDAO {
 		return userPwd;
 	}
 
-	public void deleteMember(String userid) {
-		userMapper.deleteMember(userid);
-
-	}
-
-	public int updateMember(UserDTO udto) {
-		int updateMember = userMapper.updateMember(udto);
-
-		return updateMember;
-	}
+//	public void deleteMember(String userid) {
+//		userMapper.deleteMember(userid);
+//
+//	}
+//
+//	public int updateMember(UserDTO udto) {
+//		int updateMember = userMapper.updateMember(udto);
+//
+//		return updateMember;
+//	}
 
 }

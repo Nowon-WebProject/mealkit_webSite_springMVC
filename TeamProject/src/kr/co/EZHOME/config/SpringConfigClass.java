@@ -2,9 +2,11 @@ package kr.co.EZHOME.config;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -44,51 +46,45 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 //	}
 //}
 
-public class SpringConfigClass extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class SpringConfigClass extends AbstractAnnotationConfigDispatcherServletInitializer {
+	
+	private static int MAX_FILE_ZIZE = 10 * 1024 * 1024;
+	
 	// DispatcherServlet에 매핑할 요청 주소를 셋팅한다.
 	@Override
 	protected String[] getServletMappings() {
 		// TODO Auto-generated method stub
-		return new String[] {"/"};
+		return new String[] { "/" };
 	}
-	
+
 	// Spring MVC 프로젝트 설정을 위한 클래스를 지정한다.
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] {ServletAppContext.class};
+		return new Class[] { ServletAppContext.class };
 	}
-	
+
 	// 프로젝트에서 사용할 Bean들을 정의기 위한 클래스를 지정한다.
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] {RootAppContext.class};
+		return new Class[] { RootAppContext.class };
 	}
-	
+
 	// 파라미터 인코딩 필터 설정
 	@Override
 	protected Filter[] getServletFilters() {
 		// TODO Auto-generated method stub
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
-		return new Filter[] {encodingFilter};
+		return new Filter[] { encodingFilter };
+	}
+
+	//multipart-config 설정을 MultipartConfigElement 객체로 등록
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		MultipartConfigElement multipartConfig = new MultipartConfigElement("/tmp/upload", MAX_FILE_ZIZE, MAX_FILE_ZIZE,
+				0);
+		registration.setMultipartConfig(multipartConfig);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
