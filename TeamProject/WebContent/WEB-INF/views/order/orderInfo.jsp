@@ -96,8 +96,29 @@ $(document).ready(function() {
 		else $("#cbx_chkAll").prop("checked", true); 
 	});
 });
+
+function refundSubmitCheck(count) {
+	var check = false;
+	var className;
+	var checkbox;
+	for (var i=0; i < count; i++) {
+		className = ".checkbox" + i;
+		checkbox = $(className);
+		if($(checkbox).is(":checked")){
+			check = true;
+		}
+
+	}
+	if (check == false) {
+		alert("선택된 항목이 없습니다.");
+	}
+	return check;
+}
 </script>
 </head>
+<%
+	int checkboxCount = 0;
+%>
 <body>
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<%
@@ -152,7 +173,7 @@ $(document).ready(function() {
 			배송중 : 관리자의 승인이 필요합니다. <br>
 			배송완료 : 관리자의 승인이 필요합니다. <br>
 			<br>
-			<form action="refundRequest.do" method="post">
+			<form action="refundRequest.do" method="post" name="frm">
 				<table>
 					<tr>
 						<th><input type="checkbox" id="cbx_chkAll"></th>
@@ -168,7 +189,10 @@ $(document).ready(function() {
 						<tr>
 							<c:choose>
 								<c:when test="${list.refund_status eq '미신청'}">
-									<td><input type="checkbox" value="${list.item_num}/${list.item_name}/${list.item_price}/${list.item_cnt}/${list.deli_status}" name="orderInfo" ></td>
+									<td><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_name}/${list.item_price}/${list.item_cnt}/${list.deli_status}" name="orderInfo" ></td>
+									<%
+										checkboxCount++;
+									%>
 								</c:when>
 								<c:otherwise>
 									<td><input disabled type="checkbox" value="" name="test[]"></td>
@@ -206,7 +230,7 @@ $(document).ready(function() {
 					<input type="text" name="refund_request2" placeholder="직접 입력일 시 입력해주세요" size="40">
 				</div>
 				<input type="hidden" name="infoCheck" value="1">
-				<input type="submit" class="form-btn" value="신청">
+				<input type="submit" class="form-btn" value="신청" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
 					</c:when>
 					<c:otherwise>
 					취소/환불을 신청 할 수 있는 건이 없습니다.

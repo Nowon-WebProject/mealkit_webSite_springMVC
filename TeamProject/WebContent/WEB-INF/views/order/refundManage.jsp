@@ -86,6 +86,23 @@ $(document).ready(function() {
 	});
 });
 
+function refundSubmitCheck(count) {
+	var check = false;
+	var className;
+	var checkbox;
+	for (var i=0; i < count; i++) {
+		className = ".checkbox" + i;
+		checkbox = $(className);
+		if($(checkbox).is(":checked")){
+			check = true;
+		}
+
+	}
+	if (check == false) {
+		alert("선택된 항목이 없습니다.");
+	}
+	return check;
+}
 
 function fnCopyToClipboard(str) {
 	  // str이 복사하고자 하는 문자열
@@ -102,7 +119,7 @@ function fnCopyToClipboard(str) {
 <body>
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<%
-	
+	int checkboxCount = 0;
 	String keyword = request.getParameter("keyword");
 	String category = request.getParameter("category");
 	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
@@ -155,8 +172,11 @@ function fnCopyToClipboard(str) {
 						<th>거절사유</th>
 					</tr>
 					<c:forEach var="list" items="${olist}">
-						<tr>
-							<td><input type="checkbox" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
+						<tr>							
+							<td><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
+							<%
+								checkboxCount++;
+							%>
 							<td>
 							<i style="cursor:pointer" class="bi-clipboard-check" onclick="fnCopyToClipboard('${list.order_num}')"></i>
 							<a href="orderInfo.do?order_num=${list.order_num}&infoCheck=0">${list.order_num}</a>
@@ -180,8 +200,8 @@ function fnCopyToClipboard(str) {
 				<input type="hidden" name="pageNum" value="1">
 				<input type="hidden" name="category" value="<%=category%>">
 				<input type="hidden" name="keyword" value="<%=keyword%>">
-				<input type="submit" class="form-btn" name="check" value="승인">
-				<input type="submit" class="form-btn" name="check" value="거절">
+				<input type="submit" class="form-btn" name="check" value="승인" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				<input type="submit" class="form-btn" name="check" value="거절" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
 				거절 사유 :
 				<select name="reject" id="select">
 					<option value="empty" id="1">직접입력</option>

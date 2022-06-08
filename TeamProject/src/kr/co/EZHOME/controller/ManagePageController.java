@@ -3,6 +3,7 @@ package kr.co.EZHOME.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
@@ -21,8 +22,11 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.EZHOME.domain.Board;
+import kr.co.EZHOME.domain.Item;
+import kr.co.EZHOME.domain.Order;
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.BbsDTO;
+import kr.co.EZHOME.dto.OrderDTO;
 import kr.co.EZHOME.dto.UserDTO;
 
 @Controller
@@ -30,33 +34,314 @@ public class ManagePageController {
 
 	private final User user;
 	private final Board board;
+	private final Item item;
+	private final Order order;
 
-	public ManagePageController(User user, Board board) {
+	public ManagePageController(User user, Board board, Item item, Order order) {
 		this.user = user;
 		this.board = board;
+		this.item = item;
+		this.order = order;
+	}
+
+	@GetMapping("/refundManageOk.do")
+	public String refundManageOkDo(HttpServletRequest request) {
+
+		// 취소/환불 요청 관리 서블릿
+		// refundManage.jsp에서 승인을 눌러 넘어온 값들을 이용하여
+		// 결제를 취소하는 작업을 함.
+		// 재고 + , 판매량 -
+
+		String[] orderInfo = request.getParameterValues("orderInfo");
+
+		String check = request.getParameter("check");
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+
+		String refund_status = "";
+
+		if (check.equals("승인")) {
+			for (int i = 0; i < orderInfo.length; i++) {
+				String orderInfo2 = orderInfo[i];
+				String[] orderInfo3 = orderInfo2.split("/");
+
+				int num = Integer.parseInt(orderInfo3[0]); // item_num
+				int cnt = Integer.parseInt(orderInfo3[1]); // item_cnt
+				String order_num = orderInfo3[2];
+
+				item.updateSalesAndQuantity(cnt, num);
+
+				refund_status = "취소 완료";
+				order.modifyRefundStatus(order_num, refund_status, num);
+
+			}
+		} else {
+			for (int i = 0; i < orderInfo.length; i++) {
+				String orderInfo2 = orderInfo[i];
+				String[] orderInfo3 = orderInfo2.split("/");
+
+				int num = Integer.parseInt(orderInfo3[0]); // item_num
+				String order_num = orderInfo3[2];
+
+				refund_status = "거절";
+				order.modifyRefundStatus(order_num, refund_status, num);
+
+				String reject = request.getParameter("reject");
+				if (reject.equals("empty")) {
+					reject = request.getParameter("reject2");
+				}
+				order.updateReject(reject, order_num, num);
+			}
+		}
+
+		return "redirect:/refundManage.do?pageNum=1&pageSize=10&category=" + category + "&keyword=" + keyword + "";
+	}
+
+	@GetMapping("/refundManage.do")
+	public String refundManageDo(HttpServletRequest request) {
+
+		// 모든 유저의 결제정보를 출력하기 위한 서블릿
+
+		// 모든 유저의 결제정보를 출력하기 위한 서블릿
+
+		// 화면에 보여질 총 게시글 개수
+		int pageSize = 10;
+		String ps = request.getParameter("pageSize");
+		if (ps == null)
+			pageSize = 10;
+		else
+			pageSize = Integer.parseInt(ps);
+
+		// 누른 페이지
+		String pageNum = request.getParameter("pageNum");
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+
+		// 처음엔 1페이지
+		if (pageNum == null)
+			pageNum = "1";
+
+		// 현재 페이지 (누른 페이지 또는 1페이지)
+		int currentPage = Integer.parseInt(pageNum);
+
+		// 전체 글 개수
+		int count = 0;
+		count = order.getRefundRequestCnt(category, keyword);
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = (currentPage * pageSize);
+
+		int countResult[] = item.pageCount(count, pageSize, currentPage);
+		int startPage = countResult[0];
+		int endPage = countResult[1];
+		int pageCount = countResult[2];
+
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("count", count);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("currentPage", currentPage);
+		ArrayList<OrderDTO> olist = order.getRefundRequestList(category, keyword, startRow, endRow);
+		request.setAttribute("olist", olist);
+
+		return "order/refundManage";
+	}
+
+	@PostMapping("/refundRequest.do")
+	public String refundRequestDo(HttpServletRequest request) {
+
+		// 유저의 취소/환불 요청 서블릿
+		// 원하는 품목을 체크하고 신청을 누르면
+		// 해당 값을 이용하여 작업이 이루어짐
+		// 배송상태가 '결제완료'일 시 즉시 취소가 되며
+		// 배송준비, 배송완료 상태일 시 취소 요청 상태로 넘어감.
+
+		String[] a = request.getParameterValues("orderInfo");
+		String order_num = request.getParameter("order_num");
+		request.getParameter("infoCheck");
+
+		String refund_request = request.getParameter("refund_request");
+
+		String refund_status = "";
+
+		for (int i = 0; i < a.length; i++) {
+			String a1 = a[i];
+			String[] a2 = a1.split("/");
+
+			int num = Integer.parseInt(a2[0]); // item_num
+			int cnt = Integer.parseInt(a2[3]); // item_cnt
+			String deli_status = a2[4]; // item_name
+			if (deli_status.equals("결제완료")) {
+				item.updateSalesAndQuantity(cnt, num);
+				refund_status = "취소 완료";
+				order.modifyRefundStatus(order_num, refund_status, num);
+
+			} else {
+				if (refund_request.equals("empty")) {
+					refund_request = request.getParameter("refund_request2");
+				}
+				refund_status = "취소 요청 중..";
+				order.modifyRefundRequest(order_num, refund_request, num);
+				order.modifyRefundStatus(order_num, refund_status, num);
+			}
+
+		}
+
+		return "redirect:/orderInfo.do?order_num=" + order_num + "&infoCheck=1";
+	}
+
+	@GetMapping("/orderManageOk.do")
+	public String orderManageOkDo(HttpServletRequest request) {
+
+		// 관리자가 변경할 배송상태와 변경할 주문정보를 체크하여 값이 넘어옴.
+		// 해당하는 주문정보들의 배송상태를 넘어온 값으로 변경함.
+
+		String num = request.getParameter("order_num");
+		String deli_status = request.getParameter("deli_status");
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+
+		order.updateDeli_Status(deli_status, num);
+
+		return "redirect:/orderManage.do?pageNum=1&pageSize=10&category=" + category + "&keyword=" + keyword + "";
+	}
+
+	@GetMapping("/orderManage.do")
+	public String orderManageDo(HttpServletRequest request) {
+		// 모든 유저의 결제정보를 출력하기 위한 서블릿
+
+		// 화면에 보여질 총 게시글 개수
+		int pageSize = 10;
+		String ps = request.getParameter("pageSize");
+		if (ps == null)
+			pageSize = 10;
+		else
+			pageSize = Integer.parseInt(ps);
+
+		// 누른 페이지
+		String pageNum = request.getParameter("pageNum");
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+
+		// 처음엔 1페이지
+		if (pageNum == null)
+			pageNum = "1";
+
+		// 현재 페이지 (누른 페이지 또는 1페이지)
+		int currentPage = Integer.parseInt(pageNum);
+
+		// 전체 글 개수
+		int count = 0;
+		count = order.getOrderManageCnt(category, keyword);
+
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = (currentPage * pageSize);
+
+		int countResult[] = item.pageCount(count, pageSize, currentPage);
+		int startPage = countResult[0];
+		int endPage = countResult[1];
+		int pageCount = countResult[2];
+
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("count", count);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("currentPage", currentPage);
+
+		ArrayList<OrderDTO> olist = order.getAllOrderList(category, keyword, startRow, endRow);
+		request.setAttribute("olist", olist);
+		return "order/orderManage";
+	}
+
+	@GetMapping("/orderInfo.do")
+	public String orderInfoDo(HttpServletRequest request) {
+
+		String order_num = request.getParameter("order_num");
+		int infoCheck = Integer.parseInt(request.getParameter("infoCheck"));
+		System.out.println(order_num);
+		ArrayList<OrderDTO> orderInfoList = order.getOrderInfo(order_num);
+
+		request.setAttribute("olist", orderInfoList);
+		request.setAttribute("infoCheck", infoCheck);
+
+		return "order/orderInfo";
+	}
+
+	@GetMapping("/orderOkList.do")
+	public String orderOkListDo(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String userid = (String) session.getAttribute("userid");
+
+		// 화면에 보여질 총 게시글 개수
+		int pageSize = 10;
+		String ps = request.getParameter("pageSize");
+		if (ps == null)
+			pageSize = 10;
+		else
+			pageSize = Integer.parseInt(ps);
+
+		// 누른 페이지
+		String pageNum = request.getParameter("pageNum");
+		String category = request.getParameter("category");
+		String keyword = request.getParameter("keyword");
+
+		// 처음엔 1페이지
+		if (pageNum == null)
+			pageNum = "1";
+
+		// 현재 페이지 (누른 페이지 또는 1페이지)
+		int currentPage = Integer.parseInt(pageNum);
+
+		// 전체 글 개수
+		int count = 0;
+		count = order.getOrderCnt(userid);
+
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = (currentPage * pageSize);
+
+		int countResult[] = item.pageCount(count, pageSize, currentPage);
+		int startPage = countResult[0];
+		int endPage = countResult[1];
+		int pageCount = countResult[2];
+
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("count", count);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("category", category);
+		request.setAttribute("keyword", keyword);
+
+		ArrayList<OrderDTO> olist = order.getOrderList(userid, startRow, endRow);
+		request.setAttribute("olist", olist);
+
+		return "order/orderOkList";
 	}
 
 	@PostMapping("bbsUpdate.do")
 	public String bbsUpdateDo(@RequestParam("mediaFile") MultipartFile file, Model model, HttpServletRequest request) {
 
-		BbsDTO bdto=new BbsDTO();
+		BbsDTO bdto = new BbsDTO();
 		String path = request.getServletContext().getRealPath("resources/images/board");
-		String bbsid=request.getParameter("bbsid");
-		String bbstitle=request.getParameter("bbstitle");
-		String bbscontent=request.getParameter("bbscontent");
+		String bbsid = request.getParameter("bbsid");
+		String bbstitle = request.getParameter("bbstitle");
+		String bbscontent = request.getParameter("bbscontent");
 		String fileName = file.getOriginalFilename();
-		
+
 		bbscontent = bbscontent.replace("\n", "<br>");
 		bdto.setBbsid(Integer.parseInt(bbsid));
 		bdto.setBbstitle(bbstitle);
 		bdto.setBbscontent(bbscontent);
 		bdto.setBbsimg(fileName);
-		
+
 		board.updateMember(bdto);
-		
+
 		return "forward:/bbsList.do";
-		
+
 	}
+
 	@PostMapping("/bbsWrite.do")
 	public String bbsWriteDo(@RequestParam("mediaFile") MultipartFile file, Model model, HttpServletRequest request)
 			throws IOException {
@@ -66,7 +351,7 @@ public class ManagePageController {
 		String bbstitle = request.getParameter("bbstitle");
 		String bbscontent = request.getParameter("bbscontent");
 		HttpSession session = request.getSession();
-		String userid= (String)session.getAttribute("userid");
+		String userid = (String) session.getAttribute("userid");
 		bbscontent = bbscontent.replace("\n", "<br>");
 
 		BbsDTO bdto = new BbsDTO();
@@ -85,7 +370,7 @@ public class ManagePageController {
 		}
 
 		bdto.setBbsimg(fileName);
-		
+
 		board.bbsWrite(bdto);
 
 		return "forward:/bbsList.do";
@@ -110,8 +395,7 @@ public class ManagePageController {
 		board.updateBBSCount(bdto);
 
 		if (bdto.getBbsimg() == "" || bdto.getBbsimg() == null) {
-		} 
-		else {
+		} else {
 			file = bdto.getBbsimg();
 		}
 
@@ -232,8 +516,7 @@ public class ManagePageController {
 		}
 
 		if (bdto.getBbsimg() == "" || bdto.getBbsimg() == null) {
-		} 
-		else {
+		} else {
 			file = bdto.getBbsimg();
 		}
 
