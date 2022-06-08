@@ -85,4 +85,6 @@ public class NavigatorController {
 		
 		return "login/login";
 	}
+	
+	
 }

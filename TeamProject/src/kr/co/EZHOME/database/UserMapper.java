@@ -2,13 +2,16 @@ package kr.co.EZHOME.database;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Vector;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import kr.co.EZHOME.domain.DAOResult;
 import kr.co.EZHOME.dto.CoolSMSKey;
 import kr.co.EZHOME.dto.UserDTO;
 
@@ -34,4 +37,16 @@ public interface UserMapper {
 	
 	@Insert("insert into usertbl values(#{name}, #{userid}, #{pwd}, #{birth, jdbcType=DATE}, #{email, jdbcType=VARCHAR}, #{phone}, default, #{addr}, #{deli, jdbcType=VARCHAR}, #{point}, #{admin})")
 	int insertMember(UserDTO userDTO);
+	
+	@Select("select * from usertbl")
+	Vector<UserDTO> allSelect();
+	
+	@Update("update usertbl set name = #{name}, pwd = #{pwd}, email = #{email, jdbcType=VARCHAR}, phone = #{phone, jdbcType=VARCHAR}, birth = #{birth, jdbcType=DATE}, addr = #{addr} where userid = #{userid}")
+	int updateMember(UserDTO userDTO);
+	
+	@Delete("delete from usertbl where userid = #{userid}")
+	int deleteMember(@Param("userid")String userid);
+	
+	@Select("select * from usertbl where ${type} like #{key}")
+	Vector<UserDTO> likeFind(@Param("type")String type, @Param("key")String key);
 }
