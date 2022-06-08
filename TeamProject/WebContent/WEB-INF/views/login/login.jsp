@@ -108,9 +108,10 @@ li {
 </script>
 </head>
 <body>
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section>
 	<br><br><br><br><br>
-	<div id="wrap">
 	<div class="table" align="center">
 		<div class="table-cell">
 			<form action="login.do" method="post" name="frm">
@@ -130,7 +131,8 @@ li {
 			</form>
 		</div>
 	</div>
-	</div>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

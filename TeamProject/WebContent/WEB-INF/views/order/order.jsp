@@ -340,23 +340,6 @@ button{
 border: 0;
 }
 
-.cart table {
-    width: 100%;
-    border-top: 1px solid orange;
-    border-collapse: collapse;
-}
-
-.cart th {
-	background-color: orange;
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.cart td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
 #deli_addr table{
 border:1px solid orange;
 text-align:left;
@@ -385,17 +368,6 @@ li {
 	height: 100%;
 }
 
-.table {
-	height: 100%;
-	display: table;
-	margin: 0 auto;
-}
-
-.table-cell {
-	height: 100%;
-	display: table-cell;
-	vertical-align: middle;
-}
 
 .login-container {
 	width: 1000px;
@@ -456,23 +428,27 @@ li {
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	transform: translateX(-50%) translateY(-50%);
 }
+
 </style>
 </head>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
 		<div style="width:60%;margin-left: auto; margin-right: auto;">
 		<form action="payment.do" method="post" name="frm" id="frm">
 	
-		<div class="cart">
 		<hr>
 		<!-- 장바구니 리스트 출력  -->
 		<h2><i class="bi-journal-check"></i> 결제정보</h2>
+		<div align="center">
 		<div align="right">
 		<span style="color:gray">01 장바구니 <i class="bi-caret-right-fill"></i></span>
 		<span style="color:black"><strong> 02 주문서작성/결제 <i class="bi-caret-right-fill"></i></strong></span>
 		<span style="color:gray"> 03 주문완료 </span>
 		</div>
-			<table>
+			<table class="ezen">
+			<thead>
 				<tr>
 					<th style="width:75px"><!-- 이미지 --></th>
 					<th>상품정보</th>
@@ -480,8 +456,10 @@ li {
 					<th>수량</th>
 					<th>합 금액</th>
 				</tr>
+			</thead>
 				<c:set var="result" value="0" />
 				<c:forEach var="cart" items="${clist}">
+				<tbody>
 					<tr>
 						<td>
 							<c:choose>
@@ -503,6 +481,7 @@ li {
 					<input type="hidden" name="item_num[]" value="${cart.item_num}">
 					<input type="hidden" name="item_pictureUrl1[]" value="${cart.item_pictureUrl1}">
 				</c:forEach>
+					</tbody>
 			</table>
 <!-- 주문자 정보  -->
 		</div>
@@ -699,16 +678,10 @@ li {
 
 		</form>
 	</div>	
-	<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 
-
+</div>
 </body>
 </html>
 

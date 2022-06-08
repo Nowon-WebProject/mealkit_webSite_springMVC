@@ -8,36 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.cart {
-	margin-left: auto;
-	margin-right: auto;
-	border: 1px solid orange;
-}
 
-.cart table {
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
-}
-
-.cart th {
-	background-color: orange;
-	border: 1px solid orange;
-	white-space: nowrap;
-}
-
-.cart td {
-	border: 1px solid orange;
-	white-space: nowrap;
-}
-
-.cart tbody tr:nth-child(2n+1) {
-	background-color: #F8AD7B;
-}
 </style>
 <script type="text/javascript" src="js/sunwoo.js"></script>
-
-
 </head>
 <body>
 
@@ -49,15 +22,16 @@
 	String pageNum = (String)request.getAttribute("page");
 	String[] arr=(String[])request.getAttribute("arr");
 %>
+	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-	<div align="center">
-		<br>
-		<br> <b><font size="6" color="gray">공지 사항</font></b> <br>
-		<br>
-		<br>
-	</div>
-	<div class="cart">
-		<table>
+	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
+	<section style="width: 60%; margin-left: auto; margin-right: auto;">
+			<h2>공지사항 관리</h2>
+			<br>
+			<hr>
+			<br>
+	
+		<table class="ezen">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -82,7 +56,6 @@
 
 			</tbody>
 		</table>
-	</div>
 	<br>
 	<div align="center">
 		<form action="bbsList.do" method="post">
@@ -105,6 +78,7 @@
 				type="submit" value="페이지씩 보기">
 		</form>
 	</div>
+	
 	<div align="right">
 		<h2>
 			<a href="bbsWrite">글쓰기</a>
@@ -114,7 +88,8 @@
 	<br>
 	<br>
 	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>

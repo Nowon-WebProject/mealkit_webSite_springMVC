@@ -14,7 +14,9 @@
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<div id="wrap">
+	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
     <script>
          	   var item_name_encode = encodeURIComponent('${item_name}');
          	   var item_num_encode = encodeURIComponent('${item_num}');
@@ -66,7 +68,8 @@
         
     });  */
     </script>
-  
+  	</section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

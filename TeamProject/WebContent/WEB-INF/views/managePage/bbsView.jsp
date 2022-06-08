@@ -39,6 +39,8 @@
 </style>
 </head>
 <body>
+<div id="wrap">
+<section>
 <%
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
 	BbsDTO bdto = new BbsDTO();
@@ -52,8 +54,8 @@
         <br><br><br>
     </div>
     <p style="align:left; margin-left: 20px;"> 조회수 : <%=bdto.getBbscount() %></p>
-	<div class="cart">
 	<form action="bbsView.do" method="post">
+	<div class="cart">
 	<table>
     <thead>
         <tr>
@@ -83,11 +85,8 @@
     <button type="submit" formaction="bbsDelete.do" name="delete" value=<%=bdto.getBbsid() %>>삭제</button>
     </div>
     </form>
-	<br>
-	<br>
-	<br>
-	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>

@@ -9,22 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.info table {
-    width: 100%;
-    border-top: 1px solid orange;
-    border-collapse: collapse;
-}
-
-.info th {
-	background-color: orange;
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.info td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
 
 .btn{
     position: relative;
@@ -41,7 +25,10 @@
 </style>
 </head>
 <body>
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
+<section>
 	<div class="info">
 	<div style="width: 60%; margin-left: auto; margin-right: auto;">
 		<%
@@ -61,10 +48,28 @@
 	if(!check.equals("[]")){
 		
 	%>
-<br>
-	<h2>배송 정보 변경 관리자페이지</h2>
-	<hr>
-		<table>
+			<h2>배송상태 관리</h2>
+			<br>
+			<hr>
+			<br>
+					<div align="center">
+        <form action="orderManage.do">
+        <input type="hidden" name="pageNum" value="1">
+        <input type="hidden" name="pageSize" value="<%=pageSize%>">
+		<select name="category">
+			<option value="order_num">주문번호</option>
+			<option value="userid">아이디</option>
+		</select>      
+		&nbsp;
+        <i class="bi-search" style="font-size:20px"></i>
+		&nbsp;
+        <input type="text" name="keyword" placeholder="" size="40">
+        <input type="submit" value="검색">
+        </form>
+        </div>
+        <br>
+		<table class="ezen">
+			<thead>
 			<tr>
 				<th>주문번호</th>
 				<th></th>
@@ -73,6 +78,7 @@
 				<th width="10%">배송 상태</th>
 				<th width="40%">배송 상태 변경</th>
 			</tr>
+			</thead>
 			<c:forEach var="order" items="${olist}">
 				<tr>
 					<td><a href="orderInfo.do?order_num=${order.order_num}&infoCheck=0">${order.order_num}</a></td>
@@ -148,21 +154,7 @@
 	<br>
 	<hr>
 	<br>
-		<div align="center">
-        <form action="orderManage.do">
-        <input type="hidden" name="pageNum" value="1">
-        <input type="hidden" name="pageSize" value="<%=pageSize%>">
-		<select name="category">
-			<option value="order_num">주문번호</option>
-			<option value="userid">아이디</option>
-		</select>      
-		&nbsp;
-        <i class="bi-search" style="font-size:20px"></i>
-		&nbsp;
-        <input type="text" name="keyword" placeholder="" size="40">
-        <input type="submit" value="검색">
-        </form>
-        </div>
+
 		<br>
 	<hr>
 	<br>
@@ -195,14 +187,8 @@
 		%>
 		</h4>
 		</div>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

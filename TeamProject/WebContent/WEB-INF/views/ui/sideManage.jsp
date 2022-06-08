@@ -70,16 +70,34 @@ li a:hover:not(.active) {
   color: white;
 } */
 </style>
+<script type="text/javascript">
+function goPost1(){
+	    let f = document.createElement('form');
+	    f.setAttribute('method', 'post');
+	    f.setAttribute('action', 'memberSearch.do');
+	    document.body.appendChild(f);
+	    f.submit();
+	}
+	
+function goPost2(){
+	    let f = document.createElement('form');
+	    f.setAttribute('method', 'post');
+	    f.setAttribute('action', 'bbsList.do');
+	    document.body.appendChild(f);
+	    f.submit();
+	}
+</script>
 </head>
 <body>
 <br><br>
 	<div class="menu">
-    <label for="expand-menu">마이 페이지</label>
+    <label for="expand-menu">관리자 페이지</label>
     <ul>
-        <li><div class="a"><a href="orderOkList.do?pageSize=10&pageNum=1" class="item"><i class="bi bi-bag-fill"></i> 주문내역확인</a></div></li>
-        <li><div class="a"><a href="orderOkList.do?pageSize=10&pageNum=1" class="item"><i class="bi bi-folder-x"></i> 주문취소</a></div></li>
-        <li><div class="a"><a href="modifyOK" class="item"><i class="bi bi-pencil-square"></i> 회원정보수정</a></div></li>
-        <li><div class="a"><a href="deleteOK" class="item"><i class="bi bi-eraser-fill"></i> 회원탈퇴</a></div></li>
+        <li><div class="a"><a href="#" onClick="javascript:goPost1()" class="item"><i class="bi bi-eraser-fill"></i> 회원관리</a></div></li>        
+        <li><div class="a"><a href="#" onClick="javascript:goPost2()" class="item"><i class="bi bi-eraser-fill"></i> 공지사항</a></div></li>        
+        <li><div class="a"><a href="itemWriteGo.do" class="item"><i class="bi bi-pencil-square"></i> 제품 등록</a></div></li>
+        <li><div class="a"><a href="refundManage.do?pageSize=10&pageNum=1&category=userid&keyword=" class="item"><i class="bi bi-eraser-fill"></i> 취소/환불</a></div></li>
+        <li><div class="a"><a href="orderManage.do?pageSize=10&pageNum=1&category=userid&keyword=" class="item"><i class="bi bi-eraser-fill"></i> 배송</a></div></li>
     </ul>
 </div>
 </body>

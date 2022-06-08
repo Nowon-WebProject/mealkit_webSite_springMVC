@@ -175,7 +175,6 @@ input[type='number']{
 }
 
 </style>
-
 <script>
 	$(document).ready(function() {
 		var Offset = $('.Menu').offset();
@@ -201,7 +200,9 @@ input[type='number']{
 
 </head>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
 	<br>
 	<br>
 	<br>
@@ -309,8 +310,7 @@ input[type='number']{
 				<hr>
 				<c:choose>
 					<c:when test="${ilist[0].item_discount == 0.00 }">
-					<del><p><fmt:formatNumber value="${ilist[0].item_price}"/>원</p></del>
-		                                    &nbsp;
+					<p><h3><fmt:formatNumber value="${ilist[0].item_price}"/>원</h3></p>
                                     	</c:when>
 					<c:otherwise>
 						<del>
@@ -318,7 +318,7 @@ input[type='number']{
 							원
 						</del>
 						<br>
-				<p><h3><fmt:formatNumber value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}"/>원</h3></p>
+				<p><h3><fmt:formatNumber value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}"/>원</h3>
                                     	</c:otherwise>
 				</c:choose>
 				<p style="color:green">
@@ -371,8 +371,7 @@ input[type='number']{
 			<!-- 가격 자동 계산용 -->
 			<input type="hidden" value="${ilist[0].item_price}" id="price">
 		</div>
-	</div>
-	
+	</div>	
 	<div class="Menu">
 		<a href="#info">상세정보</a> <a href="#review">후기</a> <a href="#qna">문의</a>
 	</div>
@@ -425,6 +424,9 @@ input[type='number']{
 		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
 		a<br> a<br> a<br> a<br> a<br> a<br>
 	</div>
+	
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

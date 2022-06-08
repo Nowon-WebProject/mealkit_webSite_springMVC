@@ -13,61 +13,8 @@
 <script src="js/scripts.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.refund table {
-    width: 100%;
-    border-top: 1px solid orange;
-    border-collapse: collapse;
-}
-
-.refund th {
-	background-color: orange;
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.refund td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.form-input {
-	width: 100%;
-	padding: 10px 20px;
-	font-size: 20px;
-	outline: none;
-	margin: 10px 0;
-	border: 1px solid #efefef;
-	box-sizing: border-box;
-}
-
-.form-input:focus {
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-	border: none;
-}
-
-.form-input--title {
-	width: 100%;
-	display: block;
-	margin: 5px 0;
-	box-sizing: border-box;
-}
-
-.form-btn {
-	border: 0;
-	display: block;
-	width: 120px;
-	font-size: 16px;
-	height: 40px;
-	background-color: #fd7e14;
-	color: #fff;
-	box-sizing: border-box;
-	margin: 5px 0;
-	cursor: pointer;
-}
-
-.form-btn:hover {
-	background-color: #FF9900;
-	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+.table-btn{
+    display: inline-block;
 }
 </style>
 <script type="text/javascript">
@@ -112,12 +59,15 @@ function fnCopyToClipboard(str) {
 	  tempElement.select();
 	  document.execCommand('copy');
 	  document.body.removeChild(tempElement);
-	  alert("주문번호 ["+str+"] 클립보드에 복사되었습니다.");
+	  alert(" ["+str+"] 클립보드에 복사되었습니다.");
 	}
 </script>
 </head>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
+	<section>
 	<%
 	int checkboxCount = 0;
 	String keyword = request.getParameter("keyword");
@@ -133,9 +83,7 @@ function fnCopyToClipboard(str) {
 		String check = (request.getAttribute("olist").toString());
 		if (!check.equals("[]")) {
 	%>
-
 		<div style="width: 60%; margin-left: auto; margin-right: auto;">
-			<br>
 			<h2>취소/환불 요청 목록</h2>
 			<br>
 			<hr>
@@ -157,9 +105,8 @@ function fnCopyToClipboard(str) {
 			</div>
 			<form action="refundManageOk.do">
 				<br>
-				<br>
-				<div class="refund">
-				<table>
+				<table class="ezen">
+				<thead>
 					<tr>
 						<th><input type="checkbox" id="cbx_chkAll"></th>
 						<th width="25%">주문번호</th>
@@ -171,6 +118,7 @@ function fnCopyToClipboard(str) {
 						<th>취소/환불사유</th>
 						<th>거절사유</th>
 					</tr>
+					</thead>
 					<c:forEach var="list" items="${olist}">
 						<tr>							
 							<td><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
@@ -193,15 +141,15 @@ function fnCopyToClipboard(str) {
 						</tr>
 					</c:forEach>
 				</table>
-				</div>
 				<br>
-				<div align="right">
+				<div align="center">
 				<input type="hidden" name="pageSize" value="<%=pageSize%>">
 				<input type="hidden" name="pageNum" value="1">
 				<input type="hidden" name="category" value="<%=category%>">
 				<input type="hidden" name="keyword" value="<%=keyword%>">
-				<input type="submit" class="form-btn" name="check" value="승인" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
-				<input type="submit" class="form-btn" name="check" value="거절" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				<input type="submit" class="table-btn" name="check" value="승인" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				<input type="submit" class="table-btn" name="check" value="거절" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				<br>
 				거절 사유 :
 				<select name="reject" id="select">
 					<option value="empty" id="1">직접입력</option>
@@ -209,6 +157,7 @@ function fnCopyToClipboard(str) {
 					<option value="현재 배송이 완료된 건으로 도움을 드릴 수 없습니다. 택배사로 연락 바랍니다.">현재 배송이 완료된 건으로 도움을 드릴 수 없습니다. 택배사로 연락 바랍니다.</option>
 					<option value="해당 부분 확인 결과, 문제가 없는 것으로 파악되었습니다.">해당 부분 확인 결과, 문제가 없는 것으로 파악되었습니다.</option>
 				</select>
+				<br>
 				<div id="form1">
 					<input type="text" name="reject2" size="50" value="">
 				</div>
@@ -263,15 +212,8 @@ function fnCopyToClipboard(str) {
 			%>
 		</h4>
 	</div>
-	
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

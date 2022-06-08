@@ -10,17 +10,7 @@
 <title>이젠, 집에서 | 회원수정</title>
 <link href="css/styles.css?test1=7" rel="stylesheet" />
     <title>회원수정 화면</title>
-    
     <style>
-        #wrap{
-            width:1000px;
-
-            margin-left:auto; 
-            margin-right:auto;
-
-            /*text-align:center;*/
-        }
-        
         table{
         	margin-left:auto; 
             margin-right:auto;
@@ -49,6 +39,8 @@
 	UserDTO bean=(UserDTO)request.getAttribute("bean");
 	String[] arr=(String[])request.getAttribute("arr");
 %>
+<div id="wrap">
+<section>
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">
@@ -56,7 +48,6 @@
         <b><font size="6" color="gray">회원수정</font></b>
         
     </div>
-<div id="wrap">
 	<form action="memberUpdate.do" method="post" name="frm">
 		<table>
 			<tr>
@@ -163,8 +154,9 @@
 		</table>
 		
 	</form>
+	</section>
+<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </div>
 
-<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </body>
 </html>

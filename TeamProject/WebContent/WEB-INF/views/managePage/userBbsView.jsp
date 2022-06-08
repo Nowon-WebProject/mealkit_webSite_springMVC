@@ -39,6 +39,7 @@
 </style>
 </head>
 <body>
+<div id="wrap">
 <%
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
 	BbsDTO bdto = new BbsDTO();
@@ -46,6 +47,7 @@
 	String file = (String) request.getAttribute("file");
 %>
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section>
 	<div align="center">
         <br><br>
        	<a href="javascript:method4()"><b><font size="6" color="gray">공지 사항 </font></b></a>
@@ -75,11 +77,8 @@
     </tbody>
     </table>
     </div>
-	<br>
-	<br>
-	<br>
-	<br>
+    </section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>

@@ -9,10 +9,14 @@
 <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
+<div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section>
 <br><br>
 <div align="center"><img alt="사이트 소개 이미지" src="images/about/about.jpg"></div>
 <br><br>
+</section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

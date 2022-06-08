@@ -11,23 +11,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-.refund table {
-    width: 100%;
-    border-top: 1px solid orange;
-    border-collapse: collapse;
-}
-
-.refund th {
-	background-color: orange;
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.refund td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
 .form-input {
 	width: 100%;
 	padding: 10px 20px;
@@ -120,14 +103,15 @@ function refundSubmitCheck(count) {
 	int checkboxCount = 0;
 %>
 <body>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
 	<%
 		int infoCheck = Integer.parseInt(request.getParameter("infoCheck"));
 
 		if (infoCheck == 0) {
 	%>
 
-	<div class="refund">
 		<div style="width: 60%; margin-left: auto; margin-right: auto;">
 			<br> 주문번호 :
 			<h2>${olist[0].order_num}</h2>
@@ -141,13 +125,15 @@ function refundSubmitCheck(count) {
 			<br> 공동현관 비밀번호 : ${olist[0].deli_pwd}
 			<br>
 			<br>
-			<table>
+			<table class="ezen">
+			<thead>
 				<tr>
 					<th style="width: 75px"></th>
 					<th>상품명</th>
 					<th>상품가격</th>
 					<th>상품갯수</th>
 				</tr>
+			</thead>
 				<c:forEach var="list" items="${olist}">
 					<tr>
 						<td><img src="images/item/${list.item_pictureUrl1}" width="75px"	height="75px"></td>
@@ -158,7 +144,6 @@ function refundSubmitCheck(count) {
 				</c:forEach>
 			</table>
 		</div>
-	</div>
 	<%
 		} else {
 	%>
@@ -174,7 +159,8 @@ function refundSubmitCheck(count) {
 			배송완료 : 관리자의 승인이 필요합니다. <br>
 			<br>
 			<form action="refundRequest.do" method="post" name="frm">
-				<table>
+				<table class="ezen">
+				<thead>
 					<tr>
 						<th><input type="checkbox" id="cbx_chkAll"></th>
 						<th style="width: 75px"></th>
@@ -184,6 +170,7 @@ function refundSubmitCheck(count) {
 						<th>환불/취소여부</th>
 						<th>거절 사유</th>
 					</tr>
+				</thead>
 					<c:set var="check" value="0"/>
 					<c:forEach var="list" items="${olist}">
 						<tr>
@@ -250,8 +237,8 @@ function refundSubmitCheck(count) {
 		$('#form' + $(this).find('option:selected').attr('id')).show();
 	});
 </script>
-</body>
-	
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>
