@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style style="text/css">
+html{
+	position: relative;
+	min-height:100%;
+}
+</style>
 </head>
 <body>
  <footer class="py-5" style="background-color:#fd7e14">

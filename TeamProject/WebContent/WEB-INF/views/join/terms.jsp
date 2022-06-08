@@ -44,8 +44,10 @@
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 <div id="wrap">
+<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+<section style="width: 60%; margin-left: auto; margin-right: auto;">
 <div id="table" align="center">
 <div class="table-cell">
 <div align ="center">
@@ -294,7 +296,8 @@
 </div>
 </div>		
 </div>
-</div>
+</section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

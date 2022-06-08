@@ -79,12 +79,11 @@ input[type='number']{
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 </style>
-
 </head>
 <body>
+	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-	<div class="cart">
-		<div style="width: 60%; margin-left: auto; margin-right: auto;">
+		<section style="width: 60%; margin-left: auto; margin-right: auto;">
 	<%
 		if ((int) session.getAttribute("cartCnt") != 0) {
 	%>
@@ -95,6 +94,7 @@ input[type='number']{
 				<span style="color: gray">02 주문서작성/결제 <i class="bi-caret-right"></i></span> 
 				<span style="color: gray"> 03 주문완료 </span>
 			</div>
+			<div class="cart">
 			<table>
 				<tr align="center">
 					<th style="width: 75px">
@@ -161,26 +161,21 @@ input[type='number']{
 				<hr>
 				${message}
 			</div>
-		</div>
-	</div>
+			</div>
 	<%
 	
 		} else {
 	%>
-		<div align="center">
+			<div align="center">
 			<i style="font-size:200px;color:orange" class="bi-cart-x-fill"></i>
 			<div style="font-size:30px;color:gray">장바구니가 비어있습니다.</div>
+			</div>
 	<%
 		}
 	%>
-	</div>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+
+		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

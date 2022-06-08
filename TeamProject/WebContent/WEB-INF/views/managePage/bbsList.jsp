@@ -49,13 +49,15 @@
 	String pageNum = (String)request.getAttribute("page");
 	String[] arr=(String[])request.getAttribute("arr");
 %>
+	<div id="wrap" align="center">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-	<div align="center">
+	<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+	<section align="center" style="width:60%; margin-left: auto; margin-right:auto;">
 		<br>
 		<br> <b><font size="6" color="gray">공지 사항</font></b> <br>
 		<br>
 		<br>
-	</div>
+	
 	<div class="cart">
 		<table>
 			<thead>
@@ -114,7 +116,8 @@
 	<br>
 	<br>
 	<br>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-
+</div>
 </body>
 </html>
