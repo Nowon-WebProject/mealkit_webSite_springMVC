@@ -310,8 +310,7 @@ input[type='number']{
 				<hr>
 				<c:choose>
 					<c:when test="${ilist[0].item_discount == 0.00 }">
-					<del><p><fmt:formatNumber value="${ilist[0].item_price}"/>원</p></del>
-		                                    &nbsp;
+					<p><h3><fmt:formatNumber value="${ilist[0].item_price}"/>원</h3></p>
                                     	</c:when>
 					<c:otherwise>
 						<del>
@@ -319,7 +318,7 @@ input[type='number']{
 							원
 						</del>
 						<br>
-				<p><h3><fmt:formatNumber value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}"/>원</h3></p>
+				<p><h3><fmt:formatNumber value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}"/>원</h3>
                                     	</c:otherwise>
 				</c:choose>
 				<p style="color:green">

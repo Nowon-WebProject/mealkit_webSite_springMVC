@@ -118,6 +118,23 @@ input[type='number'] {
 					<form action="cartInsert.do" method="post">
 						<div class="col mb-5">
 							<div class="card h-100">
+								<a href="itemAbout.do?item_num=${item.item_num}">
+								<c:choose>
+									<c:when test="${item.item_pictureUrl1 == null}">
+										<!-- Product image-->
+										<img class="card-img-top" src="images/item/no_image1.jpg" alt="..." />
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${item.item_quantity != 0}">
+												<img class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
+											</c:when>
+											<c:otherwise>
+												<img style="background: #000; opacity: 0.2" class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
 								<c:choose>
 									<c:when test="${item.item_discount > 0.00}">
 										<div style="font-weight: bold;border-radius: 15px; border:2px solid white; margin: 0 auto; width: 50px; height: 50px; top: 0.1rem; right: 0.1rem; position: absolute; background-color: crimson; color: white; text-align: center">SALE<br>
@@ -125,29 +142,7 @@ input[type='number'] {
 										</div>
 									</c:when>
 								</c:choose>
-								<c:choose>
-									<c:when test="${item.item_pictureUrl1 == null}">
-										<!-- Product image-->
-										<a href="itemAbout.do?item_num=${item.item_num}">
-										<img class="card-img-top" src="images/item/no_image1.jpg" alt="..." />
-										</a>
-									</c:when>
-									<c:otherwise>
-										<c:choose>
-											<c:when test="${item.item_quantity != 0}">
-												<a href="itemAbout.do?item_num=${item.item_num}">
-												<img class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
-												</a>
-											</c:when>
-											<c:otherwise>
-												<a href="itemAbout.do?item_num=${item.item_num}">
-												<img style="background: #000; opacity: 0.2" class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
-												</a>
-
-											</c:otherwise>
-										</c:choose>
-									</c:otherwise>
-								</c:choose>
+								</a>
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">

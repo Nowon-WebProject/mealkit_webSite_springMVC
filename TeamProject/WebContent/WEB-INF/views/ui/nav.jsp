@@ -61,7 +61,9 @@
 
                     &nbsp;&nbsp;&nbsp;
                     <%if(name != null){ %>
-	                <form action ="myPage" class="d-flex">
+	                <form action ="orderOkList.do?pageSize=10&pageNum=1" class="d-flex">
+	                	<input type="hidden" name="pageSize" value="10">
+	                	<input type="hidden" name="pageNum" value="1">
 	                    <button class="btn btn-outline-dark" type="submit">
 	                            	마이페이지
 	                    </button>
@@ -82,7 +84,7 @@
                     </form>    
 
 	                    <%if(admin == 1){ %>
-	                    <form action ="managePage" method="get" class="d-flex">
+	                    <form action ="memberSearch.do" method="post" class="d-flex">
 	                        <button class="btn btn-outline-dark" type="submit">
 	                            	관리자페이지
 	                        </button>

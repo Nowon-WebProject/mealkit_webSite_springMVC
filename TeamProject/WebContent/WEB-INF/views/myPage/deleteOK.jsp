@@ -96,6 +96,11 @@ li {
 </style>
 </head>
 <body>
+<script type="text/javascript">
+if
+
+</script>
+
 	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
@@ -105,6 +110,7 @@ li {
 			<div class="table-cell">
 				<form action="deleteOK.do" method="post" name="frm">
 					<div class="login-container">
+					<br>
 						<h3 class="login--title"><i class="bi bi-exclamation-triangle-fill"></i> 회원탈퇴 <i class="bi bi-exclamation-triangle-fill"></i></h3>
 						<br>
 						<br>

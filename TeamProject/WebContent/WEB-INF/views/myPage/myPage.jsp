@@ -50,6 +50,17 @@ section {
 		<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
 		<section align="center"
 			style="width: 60%; margin-left: auto; margin-right: auto;">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>

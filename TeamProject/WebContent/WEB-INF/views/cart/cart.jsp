@@ -34,56 +34,19 @@ function count(type,item_quantity,item_num){
 	 }
 	 
 }
-
-		
 		
 </script>
 <style type="text/css">
 input[type='number']{
     width: 42px;
 } 
-
-
-.cart table {
-    width: 100%;
-    border-top: 1px solid orange;
-    border-collapse: collapse;
-}
-
-.cart th {
-	background-color: orange;
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.cart td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.form-btn {
-	display: block;
-	width: 30%;
-	font-size: 16px;
-	height: 40px;
-	background-color: #fd7e14;
-	color: #fff;
-	box-sizing: border-box;
-	margin: 5px 0;
-	cursor: pointer;
-	border: 0;
-}
-
-.form-btn:hover {
-	background-color: #FF9900;
-	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
-}
 </style>
 </head>
 <body>
 	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-		<section style="width: 60%; margin-left: auto; margin-right: auto;">
+	<section>
+		<div style="width: 1200px; margin-left: auto; margin-right: auto;">
 	<%
 		if ((int) session.getAttribute("cartCnt") != 0) {
 	%>
@@ -94,8 +57,9 @@ input[type='number']{
 				<span style="color: gray">02 주문서작성/결제 <i class="bi-caret-right"></i></span> 
 				<span style="color: gray"> 03 주문완료 </span>
 			</div>
-			<div class="cart">
-			<table>
+			<div align="center">
+			<table class="ezen">
+			<thead>
 				<tr align="center">
 					<th style="width: 75px">
 						<!-- 이미지  -->
@@ -106,6 +70,7 @@ input[type='number']{
 					<th>합 금액</th>
 					<th></th>
 				</tr>
+				</thead>
 				<c:set var="result" value="0" />
 				<c:forEach var="cart" items="${clist}">
 					<tr align="center">
@@ -128,9 +93,9 @@ input[type='number']{
 						<td>
 							<form action="cartCntModify.do" method="post">
 								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
-                			    <i class="bi-dash-circle" onclick="count('minus',${cart.item_quantity},${cart.cart_seq})"></i>
+                			    <i style="cursor:pointer; user-select: none;" class="bi-dash-circle" onclick="count('minus',${cart.item_quantity},${cart.cart_seq})"></i>
 								<input type="number" id="${cart.cart_seq}" name="item_cnt" value="${cart.item_cnt}" readonly>
-								<i class="bi-plus-circle" onclick="count('plus',${cart.item_quantity},${cart.cart_seq})"></i>
+								<i style="cursor:pointer; user-select: none;" class="bi-plus-circle" onclick="count('plus',${cart.item_quantity},${cart.cart_seq})"></i>
 								<input type="submit" value="변경">
 							</form>
 						</td>
@@ -146,6 +111,7 @@ input[type='number']{
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 			<br>
 			<div align="center">
 				<form action="cartDelete.do" method="post" align="right">
@@ -161,20 +127,19 @@ input[type='number']{
 				<hr>
 				${message}
 			</div>
-			</div>
+		</div>
 	<%
 	
 		} else {
 	%>
-			<div align="center">
+		<div align="center">
 			<i style="font-size:200px;color:orange" class="bi-cart-x-fill"></i>
 			<div style="font-size:30px;color:gray">장바구니가 비어있습니다.</div>
 			</div>
 	<%
 		}
 	%>
-
-		</section>
+	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>
 </body>

@@ -9,22 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.info table {
-    width: 100%;
-    border-top: 1px solid orange;
-    border-collapse: collapse;
-}
-
-.info th {
-	background-color: orange;
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
-
-.info td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-}
 </style>
 </head>
 <body>
@@ -32,7 +16,6 @@
 		<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
 		<section>
-	<div class="info">
 	<div style="width: 60%; margin-left: auto; margin-right: auto;">
 	<%
 	String keyword = request.getParameter("keyword");
@@ -55,7 +38,8 @@
 <br>
 	<hr>
 	<h2>나의 주문 내역</h2>
-		<table>
+		<table class="ezen">
+		<thead>
 			<tr>
 				<th width="10%">주문번호/주문일자</th>
 				<th width="10%"></th>
@@ -64,6 +48,7 @@
 				<th width="10%">배송 상태</th> <!--  기본 결제완료 -->
 				<th width="5%">취소/환불</th>
 			</tr>
+		</thead>
 			<c:forEach var="order" items="${olist}">
 				<tr>
 					<td height="100px">${order.order_date}<br><a href="orderInfo.do?order_num=${order.order_num}&infoCheck=0">${order.order_num}</a></td>
@@ -84,7 +69,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</div>
 	</div>
 	<%}else{ %>
 	<div align="center">
