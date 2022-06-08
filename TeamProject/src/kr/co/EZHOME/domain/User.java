@@ -108,15 +108,28 @@ public class User {
 
 	public int userCheck(String userid, String pwd) {
 		int result = -1;
-		String checkPwd = Integer.toString(userDAO.userCheck(userid));
-				
+		String checkPwd = userDAO.userCheck(userid);
 		if (checkPwd.equals(pwd)) {
 			result = 1;
 		} else {
 			result = 0;
 		}
-
 		return result;
 	}
+	
+	
+	public void deleteMember(String userid) {
+		userDAO.deleteMember(userid);
+		
+	}
+	
+	public int updateMember(UserDTO udto) {
+		
+		int updateCheck = userDAO.updateMember(udto);
+		
+		
+		return updateCheck;
+	}
+	
 
 }

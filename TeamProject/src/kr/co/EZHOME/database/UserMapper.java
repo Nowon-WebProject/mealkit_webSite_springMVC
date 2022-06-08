@@ -3,6 +3,7 @@ package kr.co.EZHOME.database;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -44,6 +45,13 @@ public interface UserMapper {
 	UserDTO getMember(@Param("userid")String userid);
 	
 	@Select("select pwd from usertbl where userid=#{userid}")
-	int userCheck(@Param("userid")String userid);
+	String userCheck(@Param("userid")String userid);
+	
+	@Delete("delete from usertbl where userid=#{userid}")
+	void deleteMember(@Param("userid")String userid);
+	
+	@Update("update usertbl set name=#{name},pwd=#{pwd},email=#{email},phone=#{phone},Addr=#{addr} where userid=#{userid}")
+	int updateMember(UserDTO userDTO);
+	
 	
 }

@@ -19,11 +19,6 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- ajax -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<%
-UserDTO udto = (UserDTO)session.getAttribute("loginUser");
-
-
-%>
 <form action="modify.do" method="post" name="frm">	
 		<div id="wrap" align="center">	
 		<h3><b><i class="bi bi-brush"></i> 개인 정보 수정</b></h3><br>

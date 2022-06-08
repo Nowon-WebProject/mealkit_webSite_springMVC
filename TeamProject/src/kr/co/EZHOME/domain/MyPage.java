@@ -14,20 +14,18 @@ public class MyPage {
 		this.myPageDAO = myPageDAO;
 	}
 	
-	
-	public void deleteMember(String userid) {
-		myPageDAO.deleteMember(userid);
-		
-	}
-	
-	public int updateMember(UserDTO udto) {
-		
-		int updateCheck = myPageDAO.updateMember(udto);
-		
-		
-		return updateCheck;
-	}
-	
+	/* myPage에서 user로 이전
+	 * public void deleteMember(String userid) { myPageDAO.deleteMember(userid);
+	 * 
+	 * }
+	 * 
+	 * public int updateMember(UserDTO udto) {
+	 * 
+	 * int updateCheck = myPageDAO.updateMember(udto);
+	 * 
+	 * 
+	 * return updateCheck; }
+	 */
 	
 	
 	

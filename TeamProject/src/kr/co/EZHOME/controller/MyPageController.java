@@ -30,14 +30,10 @@ public class MyPageController {
 	public String deleteDo(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		
 		String userid=request.getParameter("userid");
 		
-		UserDTO udto=user.getMember(userid);
-		
-		myPage.deleteMember(userid);
+		user.deleteMember(userid);
 		session.invalidate();
-		
 		
 		return "myPage/delete";
 	}
@@ -49,27 +45,13 @@ public class MyPageController {
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
 
+		//탈퇴를 위한 비밀번호 재 입력시, 
+		//해당 아이디의 실제 비밀번호와 입력한 비밀번호가 
+		//일치하는지 체크.
+		
 		int result=user.userCheck(userid, pwd);
-		System.out.println(result+"테스트");
+		
 		if (result == 1) {
-			UserDTO udto = user.getMember(userid);
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", udto);
-			
-			
-			session.setAttribute("name", udto.getName());
-			session.setAttribute("id", udto.getUserid());
-			session.setAttribute("pwd",udto.getPwd());
-			session.setAttribute("birth", udto.getBirth());
-			session.setAttribute("email",udto.getEmail());
-			session.setAttribute("phone",udto.getPhone());
-			session.setAttribute("rdate", udto.getRegistDate());
-			session.setAttribute("addr", udto.getAddr());
-			/* session.setAttribute("deli", udto.getDeliAddr()); */
-			session.setAttribute("admin", udto.getAdmin());
-			
-			session.setAttribute("result", result);
-			
 			request.setAttribute("message", "로그인 되었습니다.");
 			url="myPage/deleteTerms";
 		} else if (result == 0) {
@@ -93,38 +75,22 @@ public class MyPageController {
 	
 		UserDTO udto=new UserDTO();
 		udto.setUserid(userid);
-		 udto.setName(name);
-		 udto.setPwd(pwd); 
-		 udto.setEmail(email);
-		 udto.setPhone(phone); 
-		 udto.setAddr(addr);
+		udto.setName(name);
+		udto.setPwd(pwd); 
+		udto.setEmail(email);
+		udto.setPhone(phone); 
+		udto.setAddr(addr);
 		 
-		 	myPage.updateMember(udto);
+		user.updateMember(udto);
 
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", udto);
-			session.setAttribute("name", udto.getName());
-			session.setAttribute("id", udto.getUserid());
-			session.setAttribute("pwd",udto.getPwd());
-			session.setAttribute("birth", udto.getBirth());
-			session.setAttribute("email",udto.getEmail());	
-			session.setAttribute("phone",udto.getPhone());
-			session.setAttribute("rdate", udto.getRegistDate());
-			session.setAttribute("addr", udto.getAddr());
-		/* session.setAttribute("deli", udto.getDeliAddr()); */
-			session.setAttribute("admin", udto.getAdmin());
-		/* session.setAttribute("result", result); */
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", udto);
+		session.setAttribute("name", udto.getName());
+		session.setAttribute("pwd",udto.getPwd());
+		session.setAttribute("email",udto.getEmail());	
+		session.setAttribute("phone",udto.getPhone());
+		session.setAttribute("addr", udto.getAddr());
 			
-			
-			
-		/*
-		 * if (result == 1) { System.out.println("회원정보수정 성공");
-		 * response.sendRedirect("index.jsp"); // 성공하면 메인화면으로 } else {
-		 * System.out.println("회원정보수정 실패"); response.sendRedirect("modify.jsp"); // 실패하면
-		 * modify 머물러 있음. }
-		 * 
-		 */
-		 
 		
 		return "index";
 	}
@@ -141,28 +107,10 @@ public class MyPageController {
 		
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-
-		UserDTO udto = user.getMember(userid);
-		
 		int result = user.userCheck(userid, pwd);
 		
 		
 		if (result == 1) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", udto);
-			session.setAttribute("name", udto.getName());
-			session.setAttribute("id", udto.getUserid());
-			session.setAttribute("pwd",udto.getPwd());
-			session.setAttribute("birth", udto.getBirth());
-			session.setAttribute("email",udto.getEmail());
-			session.setAttribute("phone",udto.getPhone());
-			session.setAttribute("rdate", udto.getRegistDate());
-			session.setAttribute("addr", udto.getAddr());
-			/* session.setAttribute("deli", udto.getDeliAddr()); */
-			session.setAttribute("admin", udto.getAdmin());
-			session.setAttribute("result", result);
-			
-			
 			request.setAttribute("message", "로그인 되었습니다.");
 			url="myPage/modify";
 		} else if (result == 0) {

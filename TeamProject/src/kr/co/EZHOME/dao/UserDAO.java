@@ -109,22 +109,28 @@ public class UserDAO {
 
 		return coolSMSKey;
 	}
-	
-	
+
 	//////////////////////////////
 	public UserDTO getMember(String userid) {
 		UserDTO udto = userMapper.getMember(userid);
-		
+
 		return udto;
 	}
-	
-	
-	public int userCheck(String userid) {
-		int userCheck = userMapper.userCheck(userid);
-		return userCheck;
+
+	public String userCheck(String userid) {
+		String userPwd = userMapper.userCheck(userid);
+		return userPwd;
 	}
 
-	
-	
-	
+	public void deleteMember(String userid) {
+		userMapper.deleteMember(userid);
+
+	}
+
+	public int updateMember(UserDTO udto) {
+		int updateMember = userMapper.updateMember(udto);
+
+		return updateMember;
+	}
+
 }
