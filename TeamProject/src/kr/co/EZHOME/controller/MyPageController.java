@@ -91,8 +91,7 @@ public class MyPageController {
 		session.setAttribute("phone",udto.getPhone());
 		session.setAttribute("addr", udto.getAddr());
 			
-		
-		return "index";
+		return "myPage/myPage";
 	}
 	
 	
