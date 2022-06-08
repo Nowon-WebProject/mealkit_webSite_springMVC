@@ -429,7 +429,7 @@ public class OrderController {
 		}
 
 		HttpSession session = request.getSession();
-		session.setAttribute("cartcnt", cart.cartCnt(userid));
+		session.setAttribute("cartCnt", cart.cartCnt(userid));
 		try {
 			session.setAttribute("point", user.findUser(userid).getPoint());
 			//해당 userid가 DB상에 존재하지 않을때 에러가 발생된다
