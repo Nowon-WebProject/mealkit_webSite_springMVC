@@ -417,7 +417,6 @@ public class OrderController {
 		recentAddrDTO.setDeli_pwd(deli_pwd);
 
 		DataStatus recentAddrCheckResult = order.recentAddrCheck(deli_postcode, deli_name, userid);
-		int oldAddrSeq = order.oldRecntAddrFind(userid);
 		//최근배송지가 중복되지 않을 경우에만 넣기
 		if (recentAddrCheckResult == DataStatus.Not_Exist) {
 			order.insertRecentAddr(recentAddrDTO);
@@ -425,6 +424,7 @@ public class OrderController {
 
 		int addrCnt = order.getRecentAddr(userid).size();
 		if (addrCnt > 5) {
+			int oldAddrSeq = order.oldRecntAddrFind(userid);
 			order.deleteRecentAddr(oldAddrSeq);
 		}
 

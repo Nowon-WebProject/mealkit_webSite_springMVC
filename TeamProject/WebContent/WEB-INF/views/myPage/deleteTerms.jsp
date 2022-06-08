@@ -17,7 +17,6 @@
 <jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
 <form action="delete.do" method="post" name="frm">
 <%String userid=request.getParameter("userid");%>
-<input type="hidden" name="userid" value="${loginUser.userid}">
 	<div style="width: 40%; margin-left: auto; margin-right: auto;">
 	<div align="center"><h1>회원탈퇴</h1></div>
 	<br>

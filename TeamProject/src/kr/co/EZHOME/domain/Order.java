@@ -90,7 +90,7 @@ public class Order {
 
 	// 해당 addr_seq 삭제
 	public void deleteRecentAddr(int deli_addr_seq) {
-		orderDAO.deleteMyAddr(deli_addr_seq);
+		orderDAO.deleteRecentAddr(deli_addr_seq);
 	}
 
 	// 최근 배송지 DB에 추가하기
@@ -186,10 +186,6 @@ public class Order {
 
 		return recentAddrList;
 	}
-	
-	
-	
-	
 	
 	public int[] pageCount(int count, int pageSize, int currentPage) {
 		

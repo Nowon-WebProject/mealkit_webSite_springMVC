@@ -30,7 +30,7 @@ public class MyPageController {
 	public String deleteDo(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		String userid=request.getParameter("userid");
+		String userid= (String) session.getAttribute("userid");
 		
 		user.deleteMember(userid);
 		session.invalidate();

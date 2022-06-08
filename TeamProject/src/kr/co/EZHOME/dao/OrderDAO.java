@@ -89,7 +89,7 @@ public class OrderDAO {
 	
 	// 해당 addr_seq 삭제
 	public void deleteRecentAddr(int deli_addr_seq) {
-		orderMapper.deleteMyAddr(deli_addr_seq);
+		orderMapper.deleteRecentAddr(deli_addr_seq);
 	}
 
 	// 최근 배송지 DB에 추가하기
