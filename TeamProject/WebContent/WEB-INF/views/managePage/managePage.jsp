@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <script type="text/javascript" src="js/sunwoo.js"></script>
 </head>
 <body>

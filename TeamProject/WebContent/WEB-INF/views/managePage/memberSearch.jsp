@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <script type="text/javascript">
 	if ("${message}" === "수정되었습니다") {
 		alert("${message}");
@@ -48,8 +48,7 @@
 	<table class="ezen">
 	<thead>
 	<tr>
-		<th width="10%">아이디<br>
-		비밀번호</th>
+		<th width="10%">아이디</th>
 		<th width="10%">이름</th>
 		<th width="10%">생년월일</th>
 		<th>이메일<br>전화번호</th>
@@ -67,18 +66,17 @@
 			%>
 			
 			<tr>
-				<td><%=udto.getUserid()%><br>
-				<%=udto.getPwd()%></td>
-				<td><%=udto.getName()%></td>
-				<td><%=udto.getBirth()%></td>
-				<td><%=udto.getEmail()%><br>
+				<td style="text-align:center"><%=udto.getUserid()%></td>
+				<td style="text-align:center"><%=udto.getName()%></td>
+				<td style="text-align:center"><%=udto.getBirth()%></td>
+				<td style="text-align:center"><%=udto.getEmail()%><br>
 				<%=udto.getPhone()%></td>
-				<td><%=udto.getRegistDate()%></td>
+				<td style="text-align:center"><%=udto.getRegistDate()%></td>
 				<td><%=udto.getAddr()%></td>
-				<td><%=udto.getPoint()%></td>
-				<td><%=udto.getAdmin()%></td>
-				<td><button type="submit" name="update" value="<%=udto.getUserid()%>" class="table-btn">수정</button>
-				<button type="submit" name="delete" value="<%=udto.getUserid()%>" formaction="memberDelete.do" method="post" class="table-btn">삭제</button></td>
+				<td style="text-align:center"><%=udto.getPoint()%></td>
+				<td style="text-align:center"><%=udto.getAdmin()%></td>
+				<td width="10%"><button type="submit" name="update" value="<%=udto.getUserid()%>" class="confirm-btn">수정</button>
+				<button type="submit" name="delete" value="<%=udto.getUserid()%>" formaction="memberDelete.do" class="table-btn">삭제</button></td>
 			</tr>
 			<%} %>
 	</tbody>

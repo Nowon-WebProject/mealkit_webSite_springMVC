@@ -6,36 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 공지사항</title>
 <script type="text/javascript" src="js/sunwoo.js"></script>
 <style>
-.cart {
-	margin-left: auto; margin-right: auto;
-	border: 1px solid orange;
-	overflow : auto;
-}
-
-.cart table {
-	
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
-}
-.cart th {
-	background-color: orange;
-	border: 1px solid orange;
-
-	
-}
-
-
-.cart td {
-	border: 1px solid orange;
-	
-}
-.cart tbody tr:nth-child(2n+1){
-    background-color: 	#F8AD7B;
-}
 </style>
 </head>
 <body>
@@ -47,15 +20,18 @@
 	String file = (String) request.getAttribute("file");
 %>
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-<section>
+<section style="width: 60%; margin-left: auto; margin-right: auto;">
 	<div align="center">
-        <br><br>
-       	<a href="javascript:method4()"><b><font size="6" color="gray">공지 사항 </font></b></a>
-        <br><br><br>
+			<br>
+			<br>
+			<h2>공지사항</h2>
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+			<br>
+			<hr>
     </div>
     <p style="align:left; margin-left: 20px;"> 조회수 : <%=bdto.getBbscount() %></p>
 	<div class="cart">
-	<table>
+	<table class="ezen">
     <thead>
         <tr>
             <th colspan="2"></th>
@@ -67,7 +43,7 @@
 			<td><%=bdto.getBbstitle() %></td>
 			</tr>
 			<tr>
-			<td>
+			<td style="vertical-align:top"height="400px">
 			<%if(file != ""){%>
 			<img src="images/board/${file }" style = "width:20%; heigth:auto;"></img><br>
 			<%} %>

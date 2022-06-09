@@ -23,44 +23,18 @@ input[type='number'] {
 	width: 42px;
 }
 
-.form-input {
-	width: 100%;
-	padding: 10px 20px;
-	font-size: 20px;
-	outline: none;
-	margin: 10px 0;
-	border: 1px solid #efefef;
-	box-sizing: border-box;
+a:link {
+  color : black;
+  text-decoration:none;
 }
-
-.form-input:focus {
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-	border: none;
+a:visited {
+  color : black;
 }
-
-.form-input--title {
-	width: 100%;
-	display: block;
-	margin: 5px 0;
-	box-sizing: border-box;
+a:hover {
+  color : black;
 }
-
-.form-btn {
-	border: 0;
-	display: block;
-	width: 100%;
-	font-size: 16px;
-	height: 40px;
-	background-color: #fd7e14;
-	color: #fff;
-	box-sizing: border-box;
-	margin: 5px 0;
-	cursor: pointer;
-}
-
-.form-btn:hover {
-	background-color: #FF9900;
-	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+a:active {
+  color : black;
 }
 </style>
 <script type="text/javascript">
@@ -149,6 +123,7 @@ input[type='number'] {
 										<div
 											style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 											<!-- Product name-->
+											<a href="itemAbout.do?item_num=${item.item_num}">
 											<c:choose>
 												<c:when test="${fn:length(item.item_name)>11}">
 													<marquee width="100%" scrollamount="5">
@@ -159,6 +134,7 @@ input[type='number'] {
 													<h5 class="fw-bolder">${item.item_name}</h5>
 												</c:otherwise>
 											</c:choose>
+											</a>
 										</div>
 										<div
 											style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">

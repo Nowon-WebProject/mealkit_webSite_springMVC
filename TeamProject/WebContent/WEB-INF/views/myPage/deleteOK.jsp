@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원정보수정</title>
+<title>이젠, 집에서 | 회원탈퇴</title>
 <link href="css/styles.css" rel="stylesheet" />
 <style>
 /* CSS RESET */

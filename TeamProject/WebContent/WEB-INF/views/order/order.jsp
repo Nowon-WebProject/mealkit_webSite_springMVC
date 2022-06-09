@@ -14,7 +14,7 @@ String addr2 = addr.substring(addr.lastIndexOf(",")+2);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 주문페이지</title>
+<title>이젠, 집에서 | 주문</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="js/member.js"></script>
@@ -429,6 +429,29 @@ li {
 	transform: translateX(-50%) translateY(-50%);
 }
 
+.table-btn {
+	width: 30% !important;
+}
+
+.table-btn2 {
+    display: inline-block;
+	width: 100px;
+	font-size: 16px;
+	height: 40px;
+	background-color: #f3f3ef;
+	color: #000000;
+	border-radius:25px;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+	border: 0;
+}
+
+.table-btn:hover {
+	background-color: #f3f3ef;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
 </style>
 </head>
 <body>
@@ -440,6 +463,7 @@ li {
 	
 		<hr>
 		<!-- 장바구니 리스트 출력  -->
+		<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
 		<h2><i class="bi-journal-check"></i> 결제정보</h2>
 		<div align="center">
 		<div align="right">
@@ -508,22 +532,20 @@ li {
 						<br>
 						<!-- 배송정보 작성  -->
 						<h3><i class="bi-list-check"></i> 배송정보</h3>
-						<table>
+						<table width="500">
 							<tr>
 								<th>배송지 확인</th>
-								<td>주문자정보와 동일<input type="radio" id="addrCheck1" name="addrCheck" value="0" checked>
+								<td>
+								주문자정보와 동일<input type="radio" id="addrCheck1" name="addrCheck" value="0" checked>
 									직접입력<input type="radio" id="addrCheck2" name="addrCheck"	value="1">
-
-									
-									<button type="button" class="btn-open-popup">배송지 변경</button>
+									<button type="button" class="btn-open-popup table-btn">배송지 관리</button>
 									<div class="modal">
 											<div class="modal_body">
-									<input type="button" name="modal" id="modal1" onclick="modalDisplay1()" value="나의 배송지">
-									<input type="button" name="modal" id="modal2" onclick="modalDisplay2()" value="최근 배송지">
+									<input type="button" name="modal" id="modal1" onclick="modalDisplay1()" value="나의 배송지" class="table-btn">
+									<input type="button" name="modal" id="modal2" onclick="modalDisplay2()" value="최근 배송지" class="table-btn">
 											<div id="manage">
-											<br>
 												<iframe id="frame" name="manage" src="myAddrManage.do" frameborder="0" scrolling="no"
-													width="500" height="700"></iframe>
+													width="500" height="690"></iframe>
 											</div>
 											<div id="recent" style="display:none">
 											<br>
@@ -544,7 +566,7 @@ li {
 															<td align="left" width="85%">${addr.deli_addr}</td>
 															<td width="15%">
 																<button type="button"
-																	onclick="selectAddr('${i.index}')">선택</button>
+																	onclick="selectAddr('${i.index}')" class="confirm-btn">선택</button>
 															</td>
 														</tr>
 														<tr>
@@ -614,7 +636,7 @@ li {
 							</tr>
 							<tr>
 								<th>휴대폰 번호</th>
-								<td><input type="text" name="deli_phone" readonly value="<%=session.getAttribute("phone")%>" required></td>
+								<td><input type='text' class="phone" name='deli_phone' readonly value="<%=session.getAttribute("phone")%>" required maxlength="13"/></td>
 							</tr>
 							<tr>
 								<th>배달 참고메세지</th>
@@ -628,7 +650,7 @@ li {
 								<input id="usePoint" type="number" min="0" max="<%=session.getAttribute("point")%>" name="usePoint" value="0" required>
 								사용가능한 포인트 : <%=session.getAttribute("point")%>p<br>
 								<div style="color:red"><span id="message"></span></div>
-								<input type="button" onclick="allPoint()" value="전부 사용">
+								<input type="button" onclick="allPoint()" value="전부 사용" class="table-btn">
 							</tr>
 						</table>
 						<br>

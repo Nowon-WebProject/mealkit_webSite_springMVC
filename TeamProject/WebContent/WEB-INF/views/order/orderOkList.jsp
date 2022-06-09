@@ -7,9 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
-</style>
+<title>이젠, 집에서 | 나의주문내역</title>
+<style type="text/css"></style>
 </head>
 <body>
 	<div id="wrap">
@@ -36,6 +35,10 @@
 		
 	%>
 <br>
+<div align="center">
+안녕하세요 <%=session.getAttribute("userid")%>님!<br>
+<%=session.getAttribute("userid")%>님의 잔여 포인트는 <%=session.getAttribute("point")%>p 입니다.
+</div>
 	<hr>
 	<h2>나의 주문 내역</h2>
 		<table class="ezen">
@@ -43,25 +46,25 @@
 			<tr>
 				<th width="10%">주문번호/주문일자</th>
 				<th width="10%"></th>
-				<th width="30%">상품명</th> <!-- ~외 ~건 -->
+				<th width="25%">상품명</th> <!-- ~외 ~건 -->
 				<th width="10%">결제 금액</th> <!-- 배송비포함 -->
 				<th width="10%">배송 상태</th> <!--  기본 결제완료 -->
-				<th width="5%">취소/환불</th>
+				<th width="10%">취소/환불</th>
 			</tr>
 		</thead>
 			<c:forEach var="order" items="${olist}">
 				<tr>
-					<td height="100px">${order.order_date}<br><a href="orderInfo.do?order_num=${order.order_num}&infoCheck=0">${order.order_num}</a></td>
-					<td><img src="images/item/${order.item_pictureUrl1}" width="75px" height="75px">
+					<td height="100px" style="text-align:center">${order.order_date}<br><a href="orderInfo.do?order_num=${order.order_num}&infoCheck=0">${order.order_num}</a></td>
+					<td style="text-align:center"><img src="images/item/${order.item_pictureUrl1}" width="75px" height="75px">
 					<td>${order.order_name}</td>
-					<td>&#92;<fmt:formatNumber value="${order.amount}" pattern="#,##0" /><br>
-					사용포인트${order.usePoint}p</td>
-					<td>${order.deli_status}</td>
-					<td>
+					<td style="text-align:center"><fmt:formatNumber value="${order.amount}" pattern="#,##0" />원<br>
+					포인트${order.usePoint}p</td>
+					<td style="text-align:center">${order.deli_status}</td>
+					<td style="text-align:center">
 					<form action="orderInfo.do">
 					<input type="hidden" name="order_num" value="${order.order_num}">
 					<input type="hidden" name="infoCheck" value="1">
-					<input type="submit" value="취소/환불">
+					<input type="submit" class="table-btn" value="취소/환불"><br>
 					</form>
 					</td>
 				</tr>
@@ -69,17 +72,14 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</div>
 	<%}else{ %>
 	<div align="center">
 	<i style="font-size:200px;color:orange" class="bi-file-earmark-x-fill"></i>
 	<div style="font-size:30px;color:gray">결제 내역이 없습니다.</div>
+	</div>
 	<%
 		}
 	%>
-	</div>
-	<br>
-	<hr>
 	<br>
 	        <div align="center">
         <h4>
@@ -110,6 +110,8 @@
 		%>
 		</h4>
 		</div>
+	<hr>
+	</div>
 		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>

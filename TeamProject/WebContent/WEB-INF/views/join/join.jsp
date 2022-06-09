@@ -7,47 +7,27 @@
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
 <link href="css/styles.css?test1=5" rel="stylesheet" />
-    <title>회원가입 화면</title>
-    
-    <style>
-        
-        table{
-           /* border:3px solid #fd7e14 */
-           overflow: visible;
-           margin-left:auto; 
-           margin-right:auto;
-           border-collapse: separate;
-           border-spacing: 0 10px;
-        }
-        
-        td{
-            border:1px solid #fd7e14
-        }
-        
-        #title{
-            background-color:#fd7e14
-        }
-        
-        .bi bi-check-lg {
-        	color: red;
-        }
-    </style>
-    <script type="text/javascript" src="js/libs/jquery-3.6.0.min.js"></script>
+<title>회원가입 화면</title>
+<style>
+
+.bi bi-check-lg {
+	color: red;
+}
+</style>
+<script type="text/javascript" src="js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="js/member.js?test=12"></script>
-    <!-- 도로명 주소 검색시 사용하는 daum api -->
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="js/member.js?test=12"></script>
+<!-- 도로명 주소 검색시 사용하는 daum api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 <div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<br><br><br><br><br>
 <section style="width: 60%; margin-left: auto; margin-right: auto;">
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">
-        <br><br>
-        <b><font size="6" color="gray">회원가입</font></b>
-        <br>
-    </div>
+			<h2>회원가입</h2>
 	<form action="join.do" method="post" name="frm">
 		<table>
 			<tr>
@@ -166,8 +146,8 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="hidden" name="admin" value="0">
-					<input type="submit" value="확인" onclick="return joinCheck()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="reset" value="취소">
+					<input type="submit" value="확인" class="back-btn"onclick="return joinCheck()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="reset" value="다시작성" class="back-btn">
 				</td>
 			</tr>
 			<tr>
@@ -175,6 +155,7 @@
 			</tr>
 		</table>
 	</form>
+    </div>
 </section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </div>

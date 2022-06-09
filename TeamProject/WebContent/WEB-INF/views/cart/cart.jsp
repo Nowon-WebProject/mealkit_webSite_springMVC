@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 장바구니</title>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(
@@ -52,6 +52,9 @@ input[type='number']{
 	%>
 			<hr>
 			<h2><i class="bi-cart-check-fill"></i> 장바구니</h2>
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+			<br>
+			<br>
 			<div align="right">
 				<span style="color: black"><strong>01 장바구니 <i class="bi-caret-right-fill"></i></strong></span> 
 				<span style="color: gray">02 주문서작성/결제 <i class="bi-caret-right"></i></span> 

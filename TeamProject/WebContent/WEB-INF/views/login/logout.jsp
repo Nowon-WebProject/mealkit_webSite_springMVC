@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그아웃</title>
+<title>이젠, 집에서 | 로그아웃</title>
 </head>
 <body>
 	<%
