@@ -101,8 +101,9 @@ String email2 = email.substring(find+1);
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-				<input type="submit" value="확인" onclick="return check()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="reset" value="취소"><br>
+					<br>
+					<input type="submit" value="확인" class="back-btn"onclick="return check()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="reset" value="다시작성" class="back-btn">
 					<br>
 				</td>
 			</tr>

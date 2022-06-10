@@ -41,7 +41,8 @@
 <input type="hidden" name="userid" value="${loginUser.userid}">
 	<div align="center"><h1>회원탈퇴</h1>
 	<br>
-	<div style="color:red; text-align:left">※ 회원 탈퇴 시 이미 결제된 주문은 취소/환불 되지 않으며, 탈퇴 후 관련 정보가 파기되므로, 신중한 탈퇴를 부탁드립니다.
+	
+	<div style="color:red; text-align:left; width:60%">※ 회원 탈퇴 시 이미 결제된 주문은 취소/환불 되지 않으며, 탈퇴 후 관련 정보가 파기되므로,<br>&nbsp;&nbsp;&nbsp;&nbsp;신중한 탈퇴를 부탁드립니다.
 	<br>※ 관련하여 문의 사항이 있으시다면 1대1 문의를 해주세요.</div></div>
 	<br>
 	<div id="table" align="center">

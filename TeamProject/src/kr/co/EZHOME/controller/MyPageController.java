@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.EZHOME.dao.UserDAO;
+import kr.co.EZHOME.domain.Cart;
 import kr.co.EZHOME.domain.MyPage;
+import kr.co.EZHOME.domain.Order;
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.UserDTO;
 
@@ -20,6 +22,7 @@ public class MyPageController {
 	
 	private final MyPage myPage;
 	private final User user;
+	
 	
 	public MyPageController(MyPage myPage, User user) {
 		this.myPage = myPage;
@@ -35,7 +38,8 @@ public class MyPageController {
 		user.deleteMember(userid);
 		session.invalidate();
 		
-		return "myPage/delete";
+		request.setAttribute("message", "회원탈퇴가 정상적으로 완료되었습니다.");
+		return "forward:/index";
 	}
 	
 	@PostMapping("deleteOK.do")
