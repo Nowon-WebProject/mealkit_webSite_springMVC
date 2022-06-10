@@ -10,6 +10,13 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .page{
+	color:white;
+	background-color:#FF8868;
+	border-radius:5px;
+	border:0;
+ }
+ 
  .form-input {
 	width: 100%;
 	padding: 10px 20px;
@@ -30,17 +37,6 @@
 	display: block;
 	margin: 5px 0;
 	box-sizing: border-box;
-}
-.pageSize{
-	border: 0;
-	width: 100px;
-	font-size: 16px;
-	height: 30px;
-	background-color: #fd7e14;
-	color: #fff;
-	box-sizing: border-box;
-	margin: 5px 0;
-	cursor: pointer;
 }
 
 

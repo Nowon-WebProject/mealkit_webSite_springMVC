@@ -4,9 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-</style>
+<title>이젠, 집에서 | 관리자페이지</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+</script>
 </head>
 <body>
 <div id="wrap">

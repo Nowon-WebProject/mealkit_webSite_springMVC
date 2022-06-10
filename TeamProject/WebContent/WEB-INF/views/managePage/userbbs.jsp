@@ -53,7 +53,7 @@ a:active {
 				<option value="15" <%=arr[1] %>>15</option>
 				<option value="20" <%=arr[2] %>>20</option>
 			</select> <input type="hidden" value="<%=pageNum%>" name="page"> <input
-				type="submit" value="페이지씩 보기">
+				type="submit" value="개씩 보기" class="page">
 				</form>
 				</div>
 			<br>

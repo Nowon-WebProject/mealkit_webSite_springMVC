@@ -71,6 +71,7 @@ li a:hover:not(.active) {
 } */
 </style>
 <script type="text/javascript">
+
 function goPost1(){
 	    let f = document.createElement('form');
 	    f.setAttribute('method', 'post');

@@ -7,6 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 관리자페이지</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+</script>
 <style>
 a:link {
   color : black;
@@ -49,7 +60,7 @@ a:active {
 				<option value="15" <%=arr[1] %>>15</option>
 				<option value="20" <%=arr[2] %>>20</option>
 			</select> <input type="hidden" value="<%=pageNum%>" name="page"> <input
-				type="submit" value="페이지씩 보기">
+				type="submit" value="개씩 보기" class="page">
 				</form>
 				</div>
 				<br>

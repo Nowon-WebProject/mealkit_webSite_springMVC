@@ -18,6 +18,15 @@
 }
 </style>
 <script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+		
 $(document).ready(function() {
 	$("#cbx_chkAll").click(function() {
 		if($("#cbx_chkAll").is(":checked")) $("input[name=orderInfo]").prop("checked", true);

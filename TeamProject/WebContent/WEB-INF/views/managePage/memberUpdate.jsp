@@ -16,6 +16,16 @@
 <script type="text/javascript" src="js/sunwoo.js?test=73"></script>
 <!-- 도로명 주소 검색시 사용하는 daum api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+</script>
 </head>
 <body>
 <%

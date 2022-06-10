@@ -14,13 +14,23 @@
 <title>이젠, 집에서 | 관리자페이지</title>
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 .back-btn {
+	color:white !important;
 	background-color : tomato !important;
 	width:170px !important;
 }
 </style>
 <script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
 function deleteAll(){
 	var result = confirm("정말 모든 상품을 삭제하시겠습니까?")
 	
@@ -68,7 +78,7 @@ function deleteAll(){
 						<option value="15">15</option>
 						<option value="20">20</option>
 					</select>
-					<button type="submit" class="pageSize" >개씩 보기</button>
+					<button type="submit" class="page" >개씩 보기</button>
 				</form>
 			</c:when>
 			<c:when test="${pageSize == 10}">
@@ -79,7 +89,7 @@ function deleteAll(){
 						<option value="15">15</option>
 						<option value="20">20</option>
 					</select>
-					<button type="submit" class="pageSize" >개씩 보기</button>
+					<button type="submit" class="page" >개씩 보기</button>
 				</form>
 			</c:when>
 			<c:when test="${pageSize == 15}">
@@ -90,7 +100,7 @@ function deleteAll(){
 						<option value="15" selected>15</option>
 						<option value="20">20</option>
 					</select>
-					<button type="submit" class="pageSize" >개씩 보기</button>
+					<button type="submit" class="page" >개씩 보기</button>
 				</form>
 			</c:when>
 			
@@ -102,12 +112,12 @@ function deleteAll(){
 						<option value="15">15</option>
 						<option value="20" selected>20</option>
 					</select>
-					<button type="submit" class="pageSize" >개씩 보기</button>
+					<button type="submit" class="page" >개씩 보기</button>
 				</form>
 			</c:when>
 		</c:choose>
 		</div><br><br>
-			<button class="back-btn" onclick="location.href='itemWriteDo'" style="float:right">상품등록</button>
+			<button class="confirm-btn" onclick="location.href='itemWriteDo'" style="float:right">상품등록</button>
 			</div>
 			
 		<%

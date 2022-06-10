@@ -12,6 +12,14 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/item.js"></script>
 <script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
    $("#select").change(function () {
 	$("#form1").hide();
 	$('#form' + $(this).find('option:selected').attr('id')).show();

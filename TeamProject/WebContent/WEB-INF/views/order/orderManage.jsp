@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 관리자페이지</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 
 .btn{
@@ -24,6 +25,14 @@
 
 </style>
 <script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
 function fnCopyToClipboard(str) {
 	  // str이 복사하고자 하는 문자열
 	  var tempElement = document.createElement("textarea");
@@ -111,7 +120,7 @@ function fnCopyToClipboard(str) {
 					<input type="hidden" name="category" value="<%=category%>">
 					<input type="hidden" name="keyword" value="<%=keyword%>">
 					<input type="submit" name="deli_status" value="결제완료" class="btn" disabled>
-					<input type="submit" name="deli_status" value="배송준비">
+					<input type="submit" name="deli_status" value="배송준비" class="page">
 					<input type="submit" name="deli_status" value="배송중" class="btn" disabled>
 					<input type="submit" name="deli_status" value="배송완료" class="btn" disabled>
 						</c:when>
@@ -123,7 +132,7 @@ function fnCopyToClipboard(str) {
 					<input type="hidden" name="keyword" value="<%=keyword%>">					
 					<input type="submit" name="deli_status" value="결제완료" class="btn" disabled>
 					<input type="submit" name="deli_status" value="배송준비" class="btn" disabled>
-					<input type="submit" name="deli_status" value="배송중">
+					<input type="submit" name="deli_status" value="배송중" class="page">
 					<input type="submit" name="deli_status" value="배송완료" class="btn" disabled>
 						</c:when>
 						<c:when test="${order.deli_status eq '배송중'}">
@@ -135,7 +144,7 @@ function fnCopyToClipboard(str) {
 					<input type="submit" name="deli_status" value="결제완료" class="btn" disabled>
 					<input type="submit" name="deli_status" value="배송준비" class="btn" disabled>
 					<input type="submit" name="deli_status" value="배송중" class="btn" disabled>
-					<input type="submit" name="deli_status" value="배송완료">
+					<input type="submit" name="deli_status" value="배송완료" class="page">
 						</c:when>
 						<c:when test="${order.deli_status eq '배송완료'}">
 					<input type="hidden" name="order_num" value="${order.order_num}">

@@ -160,7 +160,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 12}">
@@ -176,7 +176,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 16}">
@@ -192,7 +192,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 20}">
@@ -208,7 +208,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 				</c:choose>
