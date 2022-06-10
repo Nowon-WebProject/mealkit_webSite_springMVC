@@ -1,6 +1,9 @@
 package kr.co.EZHOME.controller;
 
 import org.springframework.stereotype.Controller;
+
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +38,8 @@ public class MyPageController {
 		user.deleteMember(userid);
 		session.invalidate();
 		
-		return "myPage/delete";
+		request.setAttribute("message", "회원탈퇴가 정상적으로 완료되었습니다.");
+		return "forward:/index";
 	}
 	
 	@PostMapping("deleteOK.do")
@@ -70,6 +74,7 @@ public class MyPageController {
  		String email=request.getParameter("email1")+"@"+request.getParameter("eMailSite");
  		String addr= "("+request.getParameter("addr")+") "+ request.getParameter("addr1") +", "+ request.getParameter("addr2");
 		String name=request.getParameter("name");
+		String birth=request.getParameter("birth");
 		String phone=request.getParameter("phone");
 		
 	
@@ -77,6 +82,7 @@ public class MyPageController {
 		udto.setUserid(userid);
 		udto.setName(name);
 		udto.setPwd(pwd); 
+		udto.setBirth(birth); 
 		udto.setEmail(email);
 		udto.setPhone(phone); 
 		udto.setAddr(addr);
@@ -90,8 +96,9 @@ public class MyPageController {
 		session.setAttribute("email",udto.getEmail());	
 		session.setAttribute("phone",udto.getPhone());
 		session.setAttribute("addr", udto.getAddr());
-			
-		return "myPage/myPage";
+		session.setAttribute("birth", udto.getBirth());
+		request.setAttribute("message", "회원정보가 정상적으로 수정되었습니다.");
+		return "myPage/modifyOK";
 	}
 	
 	
@@ -100,7 +107,7 @@ public class MyPageController {
 	
 	
 	@PostMapping("/modifyOK.do")
-	public String modifyOKDo(HttpServletRequest request) {
+	public String modifyOKDo(HttpServletRequest request) throws Exception {
 		
 		String url = "myPage/modifyOK";
 		
@@ -110,13 +117,22 @@ public class MyPageController {
 		
 		
 		if (result == 1) {
-			request.setAttribute("message", "로그인 되었습니다.");
 			url="myPage/modify";
 		} else if (result == 0) {
 			request.setAttribute("message", "비밀번호가 맞지 않습니다.");
 		} 
 		
 		
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO = user.findUser(userid);
+		String[] arr = { "", "", "", "", "", "" };
+		String addr = userDTO.getAddr();
+		Date birth = userDTO.getBirth();
+		String email = userDTO.getEmail();
+		
+		arr = user.seperateData(addr, birth, email);
+		request.setAttribute("arr", arr);
 		
 		return url;
 	}

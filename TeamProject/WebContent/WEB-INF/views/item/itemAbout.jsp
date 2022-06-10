@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원가입</title>
+<title>이젠, 집에서 | 상품 상세 페이지</title>
 <link href="css/styles.css" rel="stylesheet" />
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -205,9 +205,12 @@ input[type='number']{
 	<section>
 	<br>
 	<br>
+	<div style="width:60%; margin-left: auto; margin-right: auto;"	align="center">
+	<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+	</div>
 	<br>
-	<div style="width: 60%; margin-left: auto; margin-right: auto;"
-		align="center">
+	<br>
+	<div style="width: 60%; margin-left: auto; margin-right: auto;"	align="center">
 		<div style="width: 60%; float: left;">
 		                        <c:choose>
 						<c:when test="${ilist[0].item_pictureUrl1 == null}">
@@ -342,9 +345,9 @@ input[type='number']{
 					<c:when test="${ilist[0].item_quantity != 0}">
 						<p>
 							수량 : 
-							<i class="bi-dash-circle" onclick="count('minus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
+							<i style="cursor:pointer; user-select: none;" class="bi-dash-circle" onclick="count('minus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
 							<input type="number" class="cnt" id="${ilist[0].item_num}" name="item_cnt" value="1" readonly>
-							<i class="bi-plus-circle" onclick="count('plus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
+							<i style="cursor:pointer; user-select: none;" class="bi-plus-circle" onclick="count('plus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
 							<span style="color:gray;font-size:8pt">남은 수량(${ilist[0].item_quantity})</span>
 						</p>
 						<p>누적 판매량 ${ilist[0].item_sales} (취소, 환불건 제외)</p>

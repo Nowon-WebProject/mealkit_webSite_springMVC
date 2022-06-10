@@ -93,11 +93,11 @@ function goPost2(){
 	<div class="menu">
     <label for="expand-menu">관리자 페이지</label>
     <ul>
-        <li><div class="a"><a href="#" onClick="javascript:goPost1()" class="item"><i class="bi bi-eraser-fill"></i> 회원관리</a></div></li>        
-        <li><div class="a"><a href="#" onClick="javascript:goPost2()" class="item"><i class="bi bi-eraser-fill"></i> 공지사항</a></div></li>        
-        <li><div class="a"><a href="itemListManagePage" class="item"><i class="bi bi-pencil-square"></i> 제품 등록</a></div></li>
-        <li><div class="a"><a href="refundManage.do?pageSize=10&pageNum=1&category=userid&keyword=" class="item"><i class="bi bi-eraser-fill"></i> 취소/환불</a></div></li>
-        <li><div class="a"><a href="orderManage.do?pageSize=10&pageNum=1&category=userid&keyword=" class="item"><i class="bi bi-eraser-fill"></i> 배송</a></div></li>
+        <li><div class="a"><a href="#" onClick="javascript:goPost1()" class="item"><i class="bi bi-people-fill"></i> 회원</a></div></li>        
+        <li><div class="a"><a href="#" onClick="javascript:goPost2()" class="item"><i class="bi bi-megaphone-fill"></i> 공지사항</a></div></li>        
+        <li><div class="a"><a href="itemListManagePage" class="item"><i class="bi bi-pencil-square"></i> 상품 관리</a></div></li>
+        <li><div class="a"><a href="refundManage.do?pageSize=10&pageNum=1&category=userid&keyword=" class="item"><i class="bi bi-clipboard-x"></i> 취소/환불</a></div></li>
+        <li><div class="a"><a href="orderManage.do?pageSize=10&pageNum=1&category=userid&keyword=" class="item"><i class="bi bi-truck"></i> 배송</a></div></li>
     </ul>
 </div>
 </body>

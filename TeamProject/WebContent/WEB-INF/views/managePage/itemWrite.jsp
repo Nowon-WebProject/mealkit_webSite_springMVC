@@ -1,29 +1,47 @@
 <%@page import="kr.co.EZHOME.dto.ItemDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
 <script type="text/javascript" src="js/item.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-	<div id="wrap" style="width: 400px" align="center">
-		<h1>상품 등록-관리자 페이지</h1>
+	<div id="wrap">
+	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
+	<section>
+		<div style="width: 60%; margin-left: auto; margin-right: auto;">
+			<h2>상품 등록 - 관리자 페이지</h2>
+			<br>
+			<hr>
+			<br>
 		<form action="itemWriteDo" method="post" enctype="multipart/form-data" name="frm">
-			<table>
+			<table class="ezen">
+			<thead>
 				<tr>
 					<th>카테고리</th>
 					<td>
-						<select name="item_category">
-						<option value="한식">한식</option>
-						<option value="양식">양식</option>
-						<option value="중식">중식</option>
-						<option value="일식">일식</option>
-						<option value="샐러드">샐러드</option>
-						</select>
+						<select name="item_category" id="select">
+						<option value="new" id="1">새로입력</option>
+						<c:forEach var="category" items="${categoryList}" >
+       					<option value="${category.item_category}">${category.item_category}</option>
+         				</c:forEach>
+					</select>   
+				<div id="form1">
+					<input type="text" name="newCategory" size="10" placeholder="카테고리">
+				</div>
+<script type="text/javascript">
+   $("#select").change(function () {
+	$("#form1").hide();
+	$('#form' + $(this).find('option:selected').attr('id')).show();
+});
+</script>
 					</td>
 				</tr>
 				<tr>
@@ -55,16 +73,8 @@
 					<td><input type="text" size="20" name="item_main"></td>
 				</tr>
 				<tr>
-					<th>판매량</th>
-					<td><input type="text" size="3" name="item_sales">개</td>
-				</tr>
-				<tr>
 					<th>할인율</th>
 					<td><input type="text" size="3" name="item_discount">%</td>
-				</tr>
-				<tr>
-					<th>평점의 평균</th>
-					<td><input type="text" size="3" name="item_starsAvg"></td>
 				</tr>
 				<tr>
 					<th>대표 사진</th>
@@ -78,11 +88,18 @@
 						(주의 사항: 이미지를 넣으려고 할 때만 선택하세요.)
 					</td>
 				</tr>
+				</thead>
 			</table><br>
-			<input type="submit" value="등록" onclick="return itemCheck()">
-			<input type="reset" value="다시 작성">
-			<input type="button" value="목록" onclick="location.href='itemListManagePage'">
+			<div align="center">
+			<input type="submit" value="등록" onclick="return itemCheck()" class="back-btn">
+			<input type="reset" value="다시 작성" class="back-btn">
+			<input type="button" value="목록" onclick="location.href='itemListManagePage'" class="back-btn">
+			</div>
 		</form>
+		<br>
+		</div>
+	</section>
+	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

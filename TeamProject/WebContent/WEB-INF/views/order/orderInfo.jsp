@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>이젠, 집에서 | 주문상세정보</title>
 <style type="text/css">
 .form-input {
 	width: 100%;
@@ -114,6 +114,7 @@ function refundSubmitCheck(count) {
 
 		<div style="width: 60%; margin-left: auto; margin-right: auto;">
 			<br> 주문번호 :
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
 			<h2>${olist[0].order_num}</h2>
 			<br> 배송 상태 :
 			<h3>${olist[0].deli_status}</h3>
@@ -138,18 +139,20 @@ function refundSubmitCheck(count) {
 					<tr>
 						<td><img src="images/item/${list.item_pictureUrl1}" width="75px"	height="75px"></td>
 						<td>${list.item_name}</td>
-						<td>${list.item_price}</td>
-						<td>${list.item_cnt}</td>
+						<td style="text-align:center">${list.item_price}</td>
+						<td style="text-align:center">${list.item_cnt}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
+		<br><br>
 	<%
 		} else {
 	%>
 	<div class="refund">
 		<div style="width: 60%; margin-left: auto; margin-right: auto;">
 			<br> 주문번호 :
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
 			<h2>${olist[0].order_num}</h2>
 			<br> 배송 상태 :
 			<h3>${olist[0].deli_status}</h3>
@@ -176,19 +179,19 @@ function refundSubmitCheck(count) {
 						<tr>
 							<c:choose>
 								<c:when test="${list.refund_status eq '미신청'}">
-									<td><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_name}/${list.item_price}/${list.item_cnt}/${list.deli_status}" name="orderInfo" ></td>
+									<td style="text-align:center"><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_name}/${list.item_price}/${list.item_cnt}/${list.deli_status}" name="orderInfo" ></td>
 									<%
 										checkboxCount++;
 									%>
 								</c:when>
 								<c:otherwise>
-									<td><input disabled type="checkbox" value="" name="test[]"></td>
+									<td style="text-align:center"><input disabled type="checkbox" value="" name="test[]"></td>
 								</c:otherwise>
 							</c:choose>
 							<td><img src="images/item/${list.item_pictureUrl1}" width="75px" height="75px"></td>
 							<td>${list.item_name}</td>
-							<td>${list.item_price}</td>
-							<td>${list.item_cnt}</td>
+							<td style="text-align:center">${list.item_price}</td>
+							<td style="text-align:center">${list.item_cnt}</td>
 							<td>${list.refund_status}</td>
 							<td>${list.refund_reject}</td>
 						</tr>
@@ -224,8 +227,8 @@ function refundSubmitCheck(count) {
 					</c:otherwise>
 				</c:choose>
 			</form>
-
 		</div>
+		<br><br>
 	</div>
 	<%
 		}

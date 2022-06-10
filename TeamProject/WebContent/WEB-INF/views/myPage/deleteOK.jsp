@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원정보수정</title>
+<title>이젠, 집에서 | 회원탈퇴</title>
 <link href="css/styles.css" rel="stylesheet" />
 <style>
 /* CSS RESET */
@@ -100,10 +100,12 @@ li {
 if
 
 </script>
-
 	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+	<br>
+	<br>
+	<br>
 		<section align="center"
 			style="width: 60%; margin-left: auto; margin-right: auto;">
 		<div class="table" align="center">
@@ -119,8 +121,7 @@ if
 						<br>
 						<br>
 						
-						<div align="left"><label class=form-input--title for="userid">아이디</label></div>
-						<input type="text" id="pwd" name="userid" class="form-input" value="<%=session.getAttribute("userid") %>" readonly>
+						<input type="hidden" id="pwd" name="userid" class="form-input" value="<%=session.getAttribute("userid")%>" readonly>
 						<div align="left"><label class=form-input--title for="pwd">비밀번호</label></div>
 						<input type="password" id="userid" name="pwd" class="form-input">
 						<div style="color:red"><Strong>${message}</Strong></div>

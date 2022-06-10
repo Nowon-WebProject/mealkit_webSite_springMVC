@@ -22,6 +22,7 @@ border: 0;
 	
 </head>
 <div align="center" id="manage">
+<br>
 	나의 배송지
 	<hr>
 	<%
@@ -41,13 +42,13 @@ border: 0;
 				<input type="hidden" name="my_deli_phone" value="${addr.my_deli_phone}">
 				<input type="hidden" name="my_deli_msg" value="${addr.my_deli_msg}">
 				<input type="hidden" name="my_deli_pwd" value="${addr.my_deli_pwd}">
-				<input type="submit" value="수정">
+				<input class="table-btn" type="submit" value="수정">
 				</form>
 				</td>
 				<td width="10%">
 				<form action="myAddrDelete.do" method="post">
 				<input type="hidden" name="my_deli_addr_seq" value="${addr.my_deli_addr_seq}">
-				<input type="submit" value="삭제">
+				<input class="table-btn" type="submit" value="삭제">
 				</form>
 				</td>
 			</tr>
@@ -56,7 +57,7 @@ border: 0;
 				${addr.my_deli_name}<br>
 				${addr.my_deli_addr}
 				<td width="15%">
-				<button type="button" onclick="selectMyAddr(${i.index})">선택</button>
+				<button class="confirm-btn" type="button" onclick="selectMyAddr(${i.index})">선택</button>
 				</td>
 			</tr>
 			<script type="text/javascript">
@@ -81,7 +82,7 @@ function selectMyAddr(i){
 	<%
 	}
 	%>
-	<button type="button" onclick="location.href='/TeamProject/myAddrInsert'">+ 배송지 추가하기</button>
+	<button type="button" onclick="location.href='/TeamProject/myAddrInsert'" class="table-btn">+ 배송지 추가하기</button>
 </div>
 <input type="hidden" id="name_0" value="${malist[0].my_deli_name}"><br>
 <input type="hidden" id="addr_0" value="${malist[0].my_deli_addr}">

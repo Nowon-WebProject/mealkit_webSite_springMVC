@@ -289,9 +289,14 @@
 				<div align="left"><input type="checkbox" id="check_1"  name="" /> <strong>(필수)</strong><em>만 14세 이상입니다</em>.<br/></div>
              	<div align="left"><input type="checkbox" id="check_2"  name="" /> <strong>(필수)</strong> <em>이용약관</em><br /></div>
                 <div align="left"><input type="checkbox" id="check_3"  name="" /> <strong>(필수)</strong> <em>개인정보 수집 및 이용</em><br /></div>
-				<input type="button" class="form-btn" value="이전" onclick="location.href='/TeamProject/login'">
-				<input type="button" class="form-btn" value="다음" id="nextBtn">
 			</form>		
+			<br>
+			<div align="center" style="width:30%">
+                <button class="back-btn" onclick="history.back()" style="float:left">이전</button>
+                <button class="back-btn" id="nextBtn" style="float:right">다음</button>
+            </div>
+            <br>
+            <br>
 </div>
 </div>		
 </div>

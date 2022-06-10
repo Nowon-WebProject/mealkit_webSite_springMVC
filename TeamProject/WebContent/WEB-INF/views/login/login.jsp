@@ -95,7 +95,7 @@ li {
 
  .findUserInfo{
 	float: right;
-	font-size: 8px;
+	font-size: 12px;
 	margin-bottom: 10px;
 }
 

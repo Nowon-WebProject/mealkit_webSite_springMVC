@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <style type="text/css">
 
 .btn{
@@ -23,13 +23,24 @@
 
 
 </style>
+<script type="text/javascript">
+function fnCopyToClipboard(str) {
+	  // str이 복사하고자 하는 문자열
+	  var tempElement = document.createElement("textarea");
+	  document.body.appendChild(tempElement);
+	  tempElement.value = str;
+	  tempElement.select();
+	  document.execCommand('copy');
+	  document.body.removeChild(tempElement);
+	  alert(" ["+str+"] 클립보드에 복사되었습니다.");
+	}
+</script>
 </head>
 <body>
 <div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
 <section>
-	<div class="info">
 	<div style="width: 60%; margin-left: auto; margin-right: auto;">
 		<%
 		
@@ -71,20 +82,24 @@
 		<table class="ezen">
 			<thead>
 			<tr>
-				<th>주문번호</th>
+				<th width="25%">주문번호<br>아이디</th>
 				<th></th>
-				<th width="30%">상품명</th> <!-- ~외 ~건 -->
-				<th>아이디</th>
+				<th width="25%">상품명</th> <!-- ~외 ~건 -->
 				<th width="10%">배송 상태</th>
 				<th width="40%">배송 상태 변경</th>
 			</tr>
 			</thead>
 			<c:forEach var="order" items="${olist}">
 				<tr>
-					<td><a href="orderInfo.do?order_num=${order.order_num}&infoCheck=0">${order.order_num}</a></td>
+					<td>
+					<i style="cursor:pointer" class="bi-clipboard-check" onclick="fnCopyToClipboard('${order.order_num}')"></i>
+					<a href="orderInfo.do?order_num=${order.order_num}&infoCheck=0">${order.order_num}</a>
+					<br>
+					<i style="cursor:pointer" class="bi-clipboard-check" onclick="fnCopyToClipboard('${order.userid}')"></i>
+					${order.userid}
+					</td>
 					<td><img src="images/item/${order.item_pictureUrl1}" width="75px" height="75px">					
 					<td>${order.order_name}</td>
-					<td>${order.userid}</td>
 					<td>${order.deli_status}</td>
 					<td>
 					<form action="orderManageOk.do">
@@ -141,8 +156,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</div>
-	</div>
 	<%}else{ %>
 	<div align="center">
 	<i style="font-size:200px;color:orange" class="bi-file-earmark-x-fill"></i>
@@ -150,13 +163,6 @@
 	<%
 		}
 	%>
-	</div>
-	<br>
-	<hr>
-	<br>
-
-		<br>
-	<hr>
 	<br>
 	<div align="center">
         <h4>
@@ -185,8 +191,11 @@
 		<%
 			}
 		%>
+	<br>
 		</h4>
 		</div>
+	</div>
+	</div>
 		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>

@@ -6,22 +6,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/item.js"></script>
+<script type="text/javascript">
+   $("#select").change(function () {
+	$("#form1").hide();
+	$('#form' + $(this).find('option:selected').attr('id')).show();
+});
+</script>
+<style type="text/css">
+table{
+text-align:center !important;
+}
+th{
+background-color:orange;
+padding:20px;
+}
+</style>
 </head>
 <body>
 <%
 	ItemDTO itemDTO = (ItemDTO) request.getAttribute("item");
 	int discount = (int)(itemDTO.getItem_discount() * 100);
 %>
-	<div id="wrap" style="width: 400px" align="center">
-		<h1>상품 수정-관리자 페이지</h1>
+<div id="wrap">
+	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
+	<section>
+	<div style="width: 60%; margin-left: auto; margin-right: auto;">
+	<div align="left">
+			<h2>상품 수정 - 관리자페이지</h2>
+			<br>
+			<hr>
+			</div>
 		<form action="itemUpdateDo" method="post" enctype="multipart/form-data" name="frm">
 			<input type="hidden" name="item_num" value="${item.item_num}">
 			<input type="hidden" name="nonmakeImg1" value="${item.item_pictureUrl1}">
 			<input type="hidden" name="nonmakeImg2" value="${item.item_pictureUrl2}">
-			<table>
+			
+			<div align="center">
+			<table class="ezen">
+			<thead>
 				<tr>
 					<th>대표 사진</th>
 					<td>
@@ -51,53 +79,21 @@
 				<tr>
 					<th>카테고리</th>
 					<td>
-						<c:choose>
-							<c:when test="${item.item_category == '한식'}">
-							<select name="item_category">
-								<option value="한식" selected>한식</option>
-								<option value="양식">양식</option>
-								<option value="중식">중식</option>
-								<option value="일식">일식</option>
-								<option value="샐러드">샐러드</option>
-							</select>
-							</c:when>
-							<c:when test="${item.item_category == '양식'}">
-							<select name="item_category">
-								<option value="한식">한식</option>
-								<option value="양식" selected>양식</option>
-								<option value="중식">중식</option>
-								<option value="일식">일식</option>
-								<option value="샐러드">샐러드</option>
-							</select>
-							</c:when>
-							<c:when test="${item.item_category == '중식'}">
-							<select name="item_category">
-								<option value="한식">한식</option>
-								<option value="양식">양식</option>
-								<option value="중식" selected>중식</option>
-								<option value="일식">일식</option>
-								<option value="샐러드">샐러드</option>
-							</select>
-							</c:when>
-							<c:when test="${item.item_category == '일식'}">
-							<select name="item_category">
-								<option value="한식">한식</option>
-								<option value="양식">양식</option>
-								<option value="중식">중식</option>
-								<option value="일식" selected>일식</option>
-								<option value="샐러드">샐러드</option>
-							</select>
-							</c:when>
-							<c:when test="${item.item_category == '샐러드'}">
-							<select name="item_category">
-								<option value="한식">한식</option>
-								<option value="양식">양식</option>
-								<option value="중식">중식</option>
-								<option value="일식">일식</option>
-								<option value="샐러드" selected>샐러드</option>
-							</select>
-							</c:when>
-						</c:choose>
+					<select name="item_category" id="select">
+						<option value="new" id="1">새로입력</option>
+						<c:forEach var="category" items="${categoryList}" >
+       					<option value="${category.item_category}">${category.item_category}</option>
+         				</c:forEach>
+					</select>   
+				<div id="form1">
+					<input type="text" name="newCategory" size="10" placeholder="카테고리">
+				</div>
+<script type="text/javascript">
+   $("#select").change(function () {
+	$("#form1").hide();
+	$('#form' + $(this).find('option:selected').attr('id')).show();
+});
+</script>
 					</td>
 				</tr>
 				<tr>
@@ -130,17 +126,8 @@
 					<td><input type="text" size="20" name="item_main" value="${item.item_main}"></td>
 				</tr>
 				<tr>
-					<th>판매량</th>
-					<td><input type="text" size="3" name="item_sales" value="${item.item_sales}">개</td>
-				</tr>
-				<tr>
 					<th>할인율</th>
 					<td><input type="text" size="3" name="item_discount" value="<%=discount %>">%</td>
-				</tr>
-				<tr>
-					<th>평점의 평균</th>
-					<td><input type="text" size="3" name="item_starsAvg" value="${item.item_starsAvg}"></td>
-					<td><input type="hidden" name="item_date" value="${item.item_date }"></td>
 				</tr>
 				<tr>
 					<th>대표 사진</th>
@@ -156,10 +143,20 @@
 						(주의 사항: 이미지를 바꾸려고 할 때만 선택하세요.)									
 					</td>
 				</tr>
+				</thead>
 			</table><br>
-			<input type="submit" value="수정" onclick="return itemCheck()">
-			<input type="button" value="목록" onclick="location.href='itemListManagePage.do'">
+			</div>
+			
+			
+			<div align="center">
+			<input type="submit" value="수정" onclick="return itemCheck()" class="back-btn">
+			<input type="button" value="목록" onclick="location.href='itemListManagePage.do'" class="back-btn">
+			</div>
 		</form>
+	</div>
+	<br>
+	</section>
+	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>
