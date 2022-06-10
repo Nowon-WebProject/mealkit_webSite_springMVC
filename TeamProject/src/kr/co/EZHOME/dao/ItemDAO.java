@@ -1,6 +1,7 @@
 package kr.co.EZHOME.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,40 @@ public class ItemDAO {
 
 	public ItemDAO(ItemMapper itemMapper) {
 		this.itemMapper = itemMapper;
+	}
+
+	// 모든 상품 삭제
+	public void deleteAllItems() {
+		itemMapper.deleteItemTable();
+		itemMapper.dropSequence();
+		itemMapper.createSequence();
+	}
+
+	// 상품 수정
+	public void updateItem(ItemDTO itemDTO) {
+		itemMapper.updateItem(itemDTO);
+	}
+
+	// 상품 삭제
+	public void deleteItem(int item_num) {
+		itemMapper.deleteItem(item_num);
+	}
+
+	// 상품 정보 DB저장
+	public void insertItem(ItemDTO itemDTO) {
+		itemMapper.insertItem(itemDTO);
+	}
+
+	// 존재하는 모든 아이템 읽어오기
+	public List<ItemDTO> selectAllItems(int startRow, int endRow) {
+		return itemMapper.selectAllItems(startRow, endRow);
+	}
+
+	// 상품 개수 모두 읽어오기
+	public int getAllCount() {
+		int totalPageNum = itemMapper.getAllCount();
+
+		return totalPageNum;
 	}
 
 	// 아이템 판매량, 재고 업데이트

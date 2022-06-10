@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,11 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kr.co.EZHOME.beans.PageDTO;
 import kr.co.EZHOME.domain.Board;
+import kr.co.EZHOME.domain.FileUploadServiceImpl;
 import kr.co.EZHOME.domain.Item;
 import kr.co.EZHOME.domain.Order;
 import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.BbsDTO;
+import kr.co.EZHOME.dto.ItemDTO;
 import kr.co.EZHOME.dto.OrderDTO;
 import kr.co.EZHOME.dto.UserDTO;
 
@@ -36,12 +41,156 @@ public class ManagePageController {
 	private final Board board;
 	private final Item item;
 	private final Order order;
+	private final FileUploadServiceImpl fileuploadService;
 
-	public ManagePageController(User user, Board board, Item item, Order order) {
+	public ManagePageController(User user, Board board, Item item, Order order,
+			FileUploadServiceImpl fileuploadService) {
 		this.user = user;
 		this.board = board;
 		this.item = item;
 		this.order = order;
+		this.fileuploadService = fileuploadService;
+	}
+	
+	//모든 상품 삭제
+	@GetMapping("/deleteAll")
+	public String deleteAll() {
+		
+		item.deleteAllItems();
+		
+		return "redirect:/itemListManagePage.do";
+	}
+	
+	
+	//상품 수정
+	@PostMapping("/itemUpdateDo")
+	public String itemUpdateDoPost(@ModelAttribute ItemDTO itemDTO, MultipartFile[] uploadfiles, Model model,
+			HttpServletRequest request) {
+		
+		String saveDirectory = request.getServletContext().getRealPath("resources/images/item");
+		// Save mediaFile on system
+		String fileName;
+		int count = 1;
+		double item_discount = itemDTO.getItem_discount();
+
+		//할인율 형식 맞추기
+		if (item_discount > 1) {
+			itemDTO.setItem_discount(item_discount / 100.0);
+		}
+		
+		for (MultipartFile file : uploadfiles) {
+			fileName = fileuploadService.saveFile(file, saveDirectory);
+			if (count == 1) {
+				itemDTO.setItem_pictureUrl1(fileName);
+			} else {
+				itemDTO.setItem_pictureUrl2(fileName);
+			}
+			count++;
+		}
+		
+		// 상품 정보 DB저장
+		item.updateItem(itemDTO);
+		
+		return "redirect:/itemListManagePage.do";
+	}
+	
+	// itemUpdate.jsp 로 이동
+	@GetMapping("/itemUpdateDo")
+	public String itemUpdateDo(int item_num, Model model) {
+		
+		ArrayList<ItemDTO> list = item.selectItem(item_num);
+		
+		model.addAttribute("item", list.get(0));
+		
+		return "managePage/itemUpdate";
+	}
+	
+	// 상품 삭제
+	@PostMapping("itemDeleteDo")
+	public String itemDeleteDo(int item_num) {
+		
+		item.deleteItem(item_num);
+		
+		return "forward:/itemListManagePage.do";
+	}
+	
+	//itemDelete.jsp 페이지로 이동
+	@GetMapping("/itemDeleteDo")
+	public String itemDeleteDo(int item_num, Model model) {
+		
+		ArrayList<ItemDTO> list = item.selectItem(item_num);
+		ItemDTO itemDTO = list.get(0);
+		
+		model.addAttribute("item", itemDTO);
+		
+		return "managePage/itemDelete";
+	}
+	
+	// 상품등록 기능
+	@PostMapping("/itemWriteDo")
+	public String itemWriteDo(@ModelAttribute ItemDTO itemDTO, MultipartFile[] uploadfiles, Model model,
+			HttpServletRequest request) throws IOException {
+
+		String saveDirectory = request.getServletContext().getRealPath("resources/images/item");
+		// Save mediaFile on system
+		String fileName;
+		double item_discount = itemDTO.getItem_discount();
+		int count = 1;
+
+		for (MultipartFile file : uploadfiles) {
+			fileName = fileuploadService.saveFile(file, saveDirectory);
+			if (count == 1) {
+				itemDTO.setItem_pictureUrl1(fileName);
+			} else {
+				itemDTO.setItem_pictureUrl2(fileName);
+			}
+			count++;
+		}
+		if (item_discount > 0) {
+			itemDTO.setItem_discount(item_discount / 100.0);
+		}
+		// 상품 정보 DB저장
+		item.insertItem(itemDTO);
+		return "redirect:/itemListManagePage.do";
+	}
+
+	// 아이템 리스트 관리자 페이지 (post방식)
+	@PostMapping("/itemListManagePage.do")
+	public String itemListManagePageDo(@ModelAttribute("pageInfo") PageDTO pageBean, Model model) {
+
+		// 게시글 출력될 페이지 번호 계산(페이징 작업)
+		item.calculatingPageNumber(pageBean);
+
+		// 모든 상품 리스트 뽑아오기
+		List<ItemDTO> list = item.selectAllItems(pageBean.getStartRow(), pageBean.getEndRow());
+
+		model.addAttribute("items", list);
+		model.addAttribute("page", pageBean);
+
+		return "managePage/itemListManagement";
+	}
+
+	// 상품등록 창으로 이동
+	@GetMapping("/itemWriteDo")
+	public String itemWriteDo() {
+
+		return "managePage/itemWrite";
+	}
+
+	// 아이템 리스트 관리자 페이지
+	@GetMapping("/itemListManagePage")
+	public String itemListManagePage(@ModelAttribute("pageInfo") PageDTO pageBean, Model model) {
+
+		// 게시글 출력될 페이지 번호 계산(페이징 작업)
+		item.calculatingPageNumber(pageBean);
+
+		// 모든 상품 리스트 뽑아오기
+		List<ItemDTO> list = item.selectAllItems(pageBean.getStartRow(), pageBean.getEndRow());
+
+		model.addAttribute("items", list);
+		model.addAttribute("page", pageBean);
+
+		return "managePage/itemListManagement";
 	}
 
 	@GetMapping("/refundManageOk.do")
