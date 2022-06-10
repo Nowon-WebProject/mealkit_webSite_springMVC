@@ -32,6 +32,7 @@ import kr.co.EZHOME.database.UserMapper;
 @ComponentScan("kr.co.EZHOME.domain")
 @ComponentScan("kr.co.EZHOME.dao")
 @ComponentScan("kr.co.EZHOME.dto")
+@ComponentScan("kr.co.EZHOME.beans")
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer {
 
