@@ -48,7 +48,7 @@
 								휴대폰 번호 </td>
 								<td> <input type='tel' class="phone" name='phone' maxlength="13" size="13"/>
 								<!-- findId의 경우 phonCheck에 매개변수 1을 넘긴다 -->				
-								<input type="button" value="인증번호 받기" onclick="return phoneCheck(1)">
+								<input type="button" value="인증번호 받기" onclick="return phoneCheck(1)" class="page">
 								<input type="hidden" id="phoneValid" name="phoneValid" value="false" size="20">
 								<input type="hidden" name="checkedPhone">
 							</td>

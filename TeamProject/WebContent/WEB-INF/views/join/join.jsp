@@ -42,7 +42,7 @@
 				<td>
 					<input type="text" id="userid" name="userid" size="20" maxlength="16">
 					<input type="hidden" name="reid" size="20">
-					<input type="button" value="중복체크" onclick="idCheck()">
+					<input type="button" value="중복체크" onclick="idCheck()" class="page">
 				</td>
 			</tr>
 			<tr>
@@ -119,7 +119,7 @@
 				<td>
 					<input type='tel' class="phone" name='phone' maxlength="13"/>
 					<!--  -->
-					<input type="button" value="인증번호 받기" onclick="return phoneCheck(0)">
+					<input type="button" value="인증번호 받기" onclick="return phoneCheck(0)" class="page">
 					<input type="hidden" id="phoneValid" name="phoneValid" value="false" size="20">
 					<input type="hidden" name="checkedPhone" size="20">
 				</td>
@@ -128,7 +128,7 @@
 				<td>주소 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
 					<input type="text" id="sample4_postcode" name="addr1" placeholder="우편번호" readonly>
-					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="page"><br>
 					<input type="text" id="sample4_roadAddress" name="roadAddr" placeholder="도로명주소" size="60" readonly><br>
 					<input type="hidden" id="sample4_jibunAddress" name="jibunAddr" placeholder="지번주소"  size="60">
 					<span id="guide" style="color:#999;display:none"></span>

@@ -53,8 +53,11 @@ $(document).ready(
 							</c:otherwise>
 						</c:choose>
 					</td>
-					<td>
-						<table>
+				</tr>
+				</thead>
+						</table>
+						<table class="ezen">
+						<thead>
 							<tr>
 								<th style="width:80px">상품명</th>
 								<td>${item.item_name}</td>
@@ -75,10 +78,7 @@ $(document).ready(
 								<th>재고</th>
 								<td>${item.item_quantity}</td>
 							</tr>
-						</table>
-					</td>
-				</tr>
-				</thead>
+							</thead>
 			</table><br>
 			<div align='center'>
 			<input type="hidden" name="item_num" value="${item.item_num}">
@@ -87,6 +87,7 @@ $(document).ready(
 			</div>
 		</form>
 	</div>
+	<br>
 		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>

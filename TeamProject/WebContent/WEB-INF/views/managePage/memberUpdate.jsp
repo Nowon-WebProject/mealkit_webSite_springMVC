@@ -125,7 +125,7 @@ $(document).ready(
 				<td>주소 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
 					<input type="text" id="sample4_postcode" name="addr1" value="<%=arr[0] %>" readonly>
-					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="page"><br>
 					<input type="text" id="sample4_roadAddress" name="roadAddr" value="<%=arr[1] %>" size="60" readonly><br>
 					<input type="hidden" id="sample4_jibunAddress" name="jibunAddr" placeholder="지번주소"  size="60">
 					<span id="guide" style="color:#999;display:none"></span>
