@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원가입</title>
+<title>이젠, 집에서 | 사이트소개</title>
 <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>

@@ -88,6 +88,12 @@ public class ManagePageController {
 			count++;
 		}
 		
+		String check = request.getParameter("item_category");
+		System.out.println(check);
+		if(check.equals("new")) {
+			itemDTO.setItem_category(request.getParameter("newCategory"));
+		}
+		
 		// 상품 정보 DB저장
 		item.updateItem(itemDTO);
 		
@@ -96,11 +102,14 @@ public class ManagePageController {
 	
 	// itemUpdate.jsp 로 이동
 	@GetMapping("/itemUpdateDo")
-	public String itemUpdateDo(int item_num, Model model) {
+	public String itemUpdateDo(int item_num, Model model, HttpServletRequest request) {
 		
 		ArrayList<ItemDTO> list = item.selectItem(item_num);
 		
 		model.addAttribute("item", list.get(0));
+		
+		Vector<ItemDTO> categoryList = item.getCategoryList();
+		request.setAttribute("categoryList", categoryList);
 		
 		return "managePage/itemUpdate";
 	}
@@ -149,6 +158,16 @@ public class ManagePageController {
 		if (item_discount > 0) {
 			itemDTO.setItem_discount(item_discount / 100.0);
 		}
+		
+		
+		String check = request.getParameter("item_category");
+		System.out.println(check);
+		if(check.equals("new")) {
+			itemDTO.setItem_category(request.getParameter("newCategory"));
+		}
+		
+		
+		
 		// 상품 정보 DB저장
 		item.insertItem(itemDTO);
 		return "redirect:/itemListManagePage.do";
@@ -172,7 +191,10 @@ public class ManagePageController {
 
 	// 상품등록 창으로 이동
 	@GetMapping("/itemWriteDo")
-	public String itemWriteDo() {
+	public String itemWriteDo(HttpServletRequest request) {
+		
+		Vector<ItemDTO> categoryList = item.getCategoryList();
+		request.setAttribute("categoryList", categoryList);
 
 		return "managePage/itemWrite";
 	}
@@ -594,7 +616,7 @@ public class ManagePageController {
 		vec = board.getBBSList();
 
 		int all = vec.size();
-
+		if(vec.size() != 0) {
 		int count = 0;
 		if (all % sizeNum != 0) {
 			count = 1;
@@ -614,11 +636,11 @@ public class ManagePageController {
 			vec1.add(bdto);
 		}
 
-		int start = ((pageNum / 10) * 10) + 1;
-		int end = start + 9;
-		if (end > all) {
-			end = all;
-		}
+		int start=0;
+        if(pageNum % 10 == 0) {start = pageNum - 9;}
+        else { start = ((pageNum / 10) * 10) + 1;}
+        int end = start + 9 ;
+        if(end > all) {end = all;}
 
 		request.setAttribute("page", page);
 		request.setAttribute("start", start);
@@ -626,7 +648,19 @@ public class ManagePageController {
 		request.setAttribute("all", all);
 		request.setAttribute("vec", vec1);
 		request.setAttribute("arr", arr);
-
+		request.setAttribute("check", 0);
+		}else {
+			request.setAttribute("page", page);
+			request.setAttribute("start", 0);
+			request.setAttribute("end", 0);
+			request.setAttribute("all", all);
+			request.setAttribute("vec", vec1);
+			request.setAttribute("arr", arr);
+			request.setAttribute("check", 1);
+			
+		}
+		
+		
 		return "managePage/userbbs";
 	}
 
@@ -724,7 +758,7 @@ public class ManagePageController {
 		vec = board.getBBSList();
 
 		int all = vec.size();
-
+		if(vec.size() != 0) {
 		int count = 0;
 		if (all % sizeNum != 0) {
 			count = 1;
@@ -744,11 +778,11 @@ public class ManagePageController {
 			vec1.add(bdto);
 		}
 
-		int start = ((pageNum / 10) * 10) + 1;
-		int end = start + 9;
-		if (end > all) {
-			end = all;
-		}
+		int start=0;
+        if(pageNum % 10 == 0) {start = pageNum - 9;}
+        else { start = ((pageNum / 10) * 10) + 1;}
+        int end = start + 9 ;
+        if(end > all) {end = all;}
 
 		request.setAttribute("page", page);
 		request.setAttribute("start", start);
@@ -756,7 +790,18 @@ public class ManagePageController {
 		request.setAttribute("all", all);
 		request.setAttribute("vec", vec1);
 		request.setAttribute("arr", arr);
-
+		request.setAttribute("check", 0);
+		}else {
+			request.setAttribute("page", page);
+			request.setAttribute("start", 0);
+			request.setAttribute("end", 0);
+			request.setAttribute("all", all);
+			request.setAttribute("vec", vec1);
+			request.setAttribute("arr", arr);
+			request.setAttribute("check", 1);
+			
+		}
+		
 		return "managePage/bbsList";
 	}
 

@@ -15,6 +15,7 @@
 <!-- ajax -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/member.js"></script>
+<script type="text/javascript" src="js/sunwoo.js?test=73"></script>
 </head>
 <body>
 <%
@@ -27,6 +28,9 @@ String email = (String)session.getAttribute("email");
 int find = email.indexOf("@");
 String email1 = email.substring(0, find);
 String email2 = email.substring(find+1);
+
+String[] arr=(String[])request.getAttribute("arr");
+
 
 %>
 		<div id="wrap">	
@@ -41,7 +45,7 @@ String email2 = email.substring(find+1);
 <form action="modify.do" method="post" name="frm">	
 		<table>
 			<tr>
-				<td>이름 <i class="bi bi-check-lg" style="color:red"></i></td>
+				<td style="width:25%">이름 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td><input type="text" name="name" size="20" value="<%=session.getAttribute("name") %>"><br>
 				<!-- <span> 숫자, 특수문자 입력 불가 </span> -->
 				</td>
@@ -66,7 +70,21 @@ String email2 = email.substring(find+1);
 				<td width="80">비밀번호 확인 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td><input type="password" name="pwd_check" size="20"></td>
 			</tr>
-
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<input type="text" id="birth" name="birth" value="<%=arr[3]%>" maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<td/>
+				<td>
+					<p class="txt_guideBirth" >
+						<span class="goodBirthGuide">유효한 생년월일입니다</span>
+						<input type="hidden" name="birthValid" value="true" size="20">
+					</p>
+				</td>
+			</tr>
 			<tr>
 				<td>이메일</td>
 				<td><input type="text" name="email1" value="<%=email1%>"> @ <input type="text" name="eMailSite" value="<%=email2%>" readonly>
@@ -101,8 +119,11 @@ String email2 = email.substring(find+1);
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-				<input type="submit" value="확인" onclick="return check()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="reset" value="취소"><br>
+					<br>
+					<input type="hidden" name="pageNum" value="1">
+					<input type="hidden" name="pageSize" value="10">
+					<input type="submit" value="확인" class="back-btn"onclick="return check()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="reset" value="다시작성" class="back-btn">
 					<br>
 				</td>
 			</tr>

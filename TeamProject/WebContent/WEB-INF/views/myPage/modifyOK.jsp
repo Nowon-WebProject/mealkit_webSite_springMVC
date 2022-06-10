@@ -6,6 +6,15 @@
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원정보수정</title>
 <link href="css/styles.css" rel="stylesheet" />
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var message = "${message}";
+			if(message.length > 0 ){
+				alert(message);
+			}
+		});
+</script>
 <style>
 /* CSS RESET */
 * {
@@ -115,6 +124,10 @@ section {
 	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/ui/side.jsp"></jsp:include>
+	<br>
+	<br>
+	<br>
+			
 		<section align="center"
 			style="width: 60%; margin-left: auto; margin-right: auto;">
 		<div class="table" align="center">
@@ -128,10 +141,7 @@ section {
 						<span style="color: red">※ 회원님의 정보 보호를 위해 비밀번호를 다시 확인해주세요!
 							※</span> <br> <br>
 
-						<div align="left">
-							<label class=form-input--title for="userid">아이디</label>
-						</div>
-						<input type="text" id="pwd" name="userid" class="form-input"
+						<input type="hidden" id="pwd" name="userid" class="form-input"
 							value="<%=session.getAttribute("userid")%>" readonly>
 
 

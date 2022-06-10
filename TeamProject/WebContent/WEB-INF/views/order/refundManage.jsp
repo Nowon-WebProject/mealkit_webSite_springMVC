@@ -8,16 +8,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/scripts.js"></script>
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <style type="text/css">
-.table-btn{
-    display: inline-block;
+.form-btn {
+	width: 100px !important; 
+	float: center !important;
 }
 </style>
 <script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+		
 $(document).ready(function() {
 	$("#cbx_chkAll").click(function() {
 		if($("#cbx_chkAll").is(":checked")) $("input[name=orderInfo]").prop("checked", true);
@@ -66,7 +75,7 @@ function fnCopyToClipboard(str) {
 <body>
 <div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
 	<section>
 	<%
 	int checkboxCount = 0;
@@ -109,33 +118,31 @@ function fnCopyToClipboard(str) {
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="cbx_chkAll"></th>
-						<th width="25%">주문번호</th>
-						<th>주문자</th>
-						<th></th>
-						<th>상품명</th>
-						<th>상품가격</th>
-						<th>상품갯수</th>
+						<th width="25%">주문번호<br>주문자</th>
+						<th width="75px"></th>
+						<th width="20%">상품명<br>상품가격</th>
+						<th width="5%">수량</th>
 						<th>취소/환불사유</th>
 						<th>거절사유</th>
 					</tr>
 					</thead>
 					<c:forEach var="list" items="${olist}">
 						<tr>							
-							<td><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
+							<td style="text-align:center"><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
 							<%
 								checkboxCount++;
 							%>
 							<td>
 							<i style="cursor:pointer" class="bi-clipboard-check" onclick="fnCopyToClipboard('${list.order_num}')"></i>
 							<a href="orderInfo.do?order_num=${list.order_num}&infoCheck=0">${list.order_num}</a>
-							</td>
-							<td>
+							<br>
 							<i style="cursor:pointer" class="bi-clipboard-check" onclick="fnCopyToClipboard('${list.userid}')"></i>
 							${list.userid}</td>
 							<td><img src="images/item/${list.item_pictureUrl1}" width="75px" height="75px">
-							<td>${list.item_name}</td>
-							<td>${list.item_price}</td>
-							<td>${list.item_cnt}</td>
+							<td>${list.item_name}<br>
+							<fmt:formatNumber value="${list.item_price}"/>원
+							</td>
+							<td style="text-align:center">${list.item_cnt}</td>
 							<td>${list.refund_request}</td>
 							<td>${list.refund_reject}</td>
 						</tr>
@@ -143,12 +150,14 @@ function fnCopyToClipboard(str) {
 				</table>
 				<br>
 				<div align="center">
+				<div align="right" style="width:100px">
 				<input type="hidden" name="pageSize" value="<%=pageSize%>">
 				<input type="hidden" name="pageNum" value="1">
 				<input type="hidden" name="category" value="<%=category%>">
 				<input type="hidden" name="keyword" value="<%=keyword%>">
-				<input type="submit" class="table-btn" name="check" value="승인" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
-				<input type="submit" class="table-btn" name="check" value="거절" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				<input type="submit" class="confirm-btn" name="check" value="승인" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				<input type="submit" class="confirm-btn" name="check" value="거절" onclick="return refundSubmitCheck('<%=checkboxCount%>')">
+				</div>
 				<br>
 				거절 사유 :
 				<select name="reject" id="select">
@@ -159,20 +168,23 @@ function fnCopyToClipboard(str) {
 				</select>
 				<br>
 				<div id="form1">
-					<input type="text" name="reject2" size="50" value="">
+					<input type="text" name="reject2" size="50" value="" placeholder="직접입력시 입력해주세요.">
 				</div>
 				</div>
 			</form>
-		</div>
 		<script type="text/javascript">
 		    $("#select").change(function () {
 				$("#form1").hide();
 				$('#form' + $(this).find('option:selected').attr('id')).show();
 			});
 		</script>
+	<hr>
 	<%
 		} else {
 	%>
+		<br>
+	<br>
+	<br>
 	<div align="center">
 		<i style="font-size: 200px; color: orange"
 			class="bi-file-earmark-x-fill"></i>
@@ -180,10 +192,7 @@ function fnCopyToClipboard(str) {
 		<%
 			}
 		%>
-	</div>
 
-	<hr>
-	<br>
 	<div align="center">
 		<h4>
 			<%
@@ -207,10 +216,13 @@ function fnCopyToClipboard(str) {
 				if (endPage < pageCount) {
 			%>
 			<a href="refundManage.do?pageNum=<%=startPage + 10%>&pageSize=<%=pageSize%>&category=<%=category%>&keyword=<%=keyword%>" style="color: black;"><i class="bi-chevron-compact-right"></i></a>
+			
 			<%
 				}
 			%>
 		</h4>
+	</div>
+		</div>
 	</div>
 	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>

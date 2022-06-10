@@ -21,7 +21,9 @@
 				<span style="color:black"><strong> 03 주문완료 </strong></span>
 			</div>
 			<hr>
-			<br>
+	<br>
+	<br>
+	<br>
 			<div style="font-size:200px;color:orange"><i class="bi-bag-check"></i></div>
 			<div style="font-size:30px;color:gray">결제가 정상적으로 완료되었습니다.<br>
 			잠시 후 주문 내역페이지로 이동합니다.

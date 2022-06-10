@@ -4,56 +4,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-.cart {
-	margin-left: auto; margin-right: auto;
-}
-
-.cart table {
-	
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
-}
-.cart th {
-	background-color: orange;
-	border: 1px solid orange;
-
-	
-}
-
-
-.cart td {
-	border: 1px solid orange;
-	
-}
-.cart tbody tr:nth-child(2n+1){
-    background-color: 	#F8AD7B;
-}
-</style>
+<title>이젠, 집에서 | 관리자페이지</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+</script>
 </head>
 <body>
 <div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-<section>
+<section style="width: 60%; margin-left: auto; margin-right: auto;">
 	<div align="center">
-        <br><br>
-        <b><font size="6" color="gray">공지 사항 </font></b>
-        <br><br><br>
+			<br>
+			<br>
+			<h2>공지사항</h2>
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+			<br>
+			<hr>
     </div>
-	<div class="cart" align="center">
-	<table>
+    <form action="bbsWrite.do" method="post" encType="multipart/form-data">
+	<div align="center">
+	<table class="ezen">
     <thead>
         <tr>
-            <th colspan="2">글쓰기</th>
-            
+            <th>글쓰기</th>
         </tr>
     </thead> 
-    <form action="bbsWrite.do" method="post" encType="multipart/form-data">
     <tbody>	
 			<tr>
-			<td><input type="text" name="bbstitle" placeholder="제목" maxlength="50" style="width:50%;"></td>
+			<td><input type="text" name="bbstitle" placeholder="제목" maxlength="50" style="width:100%;"></td>
 			</tr>
 			<tr>
 			<td><textarea type="text" name="bbscontent" placeholder="글내용" maxlength="2048" style="width:100%; height:350px;"></textarea></td>
@@ -64,10 +50,12 @@
     	<input type="file" name="mediaFile">
     </div>
     <br>
-    <div align="center">
-	<input type="submit" value="등록">
+    <div align="right">
+    <div style="width:100px">
+    <input type="submit" value="등록" class="back-btn">
+    </div>
+    </div>
 	</form>
-	</div>
 	<br>
 	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>

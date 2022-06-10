@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 비밀번호찾기</title>
 	<script type="text/javascript" >
 		var message = "<c:out value='${message}'/>";
 		alert(message);

@@ -6,59 +6,60 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 공지사항</title>
 <style>
-.cart {
-	margin-left: auto;
-	margin-right: auto;
-	border: 1px solid orange;
+a:link {
+  color : black;
+  text-decoration:none;
 }
-
-.cart table {
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
+a:visited {
+  color : black;
 }
-
-.cart th {
-	background-color: orange;
-	border: 1px solid orange;
-	white-space: nowrap;
+a:hover {
+  color : black;
 }
-
-.cart td {
-	border: 1px solid orange;
-	white-space: nowrap;
-}
-
-.cart tbody tr:nth-child(2n+1) {
-	background-color: #F8AD7B;
+a:active {
+  color : black;
 }
 </style>
 <script type="text/javascript" src="js/sunwoo.js"></script>
-
-
 </head>
 <body>
-<div id="wrap">
-	<%
-	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
-	int start = (int)request.getAttribute("start");
-	int end = (int)request.getAttribute("end");
-	int all = (int)request.getAttribute("all");
-	String pageNum = (String)request.getAttribute("page");
-	String[] arr=(String[])request.getAttribute("arr");
+
+
+<%
+	   Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
+	   int start = (int)request.getAttribute("start");
+	   int end = (int)request.getAttribute("end");
+	   int all = (int)request.getAttribute("all");
+	   String pageNum = (String)request.getAttribute("page");
+	   int Page = Integer.parseInt(pageNum);
+	   String[] arr=(String[])request.getAttribute("arr");
 %>
-<section>
+<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section style="width: 60%; margin-left: auto; margin-right: auto;">
 	<div align="center">
-		<br>
-		<br> <b><font size="6" color="gray">공지 사항</font></b> <br>
-		<br>
-		<br>
+<%  int check = (int) request.getAttribute("check");
+	   if (check == 0){
+%>
+			<br>
+			<br>
+			<h2>공지사항</h2>
+			<div style="float:right">
+				<form action="userBbs.do" method="post" name="frm">
+			<select name="size">
+				<option value="10" <%=arr[0] %>>10</option>
+				<option value="15" <%=arr[1] %>>15</option>
+				<option value="20" <%=arr[2] %>>20</option>
+			</select> <input type="hidden" value="<%=pageNum%>" name="page"> <input
+				type="submit" value="개씩 보기" class="page">
+				</form>
+				</div>
+			<br>
+			<hr>
 	</div>
-	<div class="cart">
-		<table>
+		<table class="ezen">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -73,38 +74,58 @@
     		BbsDTO bdto=vec.get(i);		
     %>
 				<tr>
-					<td><%=bdto.getBbsid() %></td>
-					<td><a href="javascript:method1('<%=bdto.getBbsid()%>')"><%=bdto.getBbstitle() %></a></td>
-					<td><%=bdto.getUserid() %></td>
-					<td><%=bdto.getBbsdate() %></td>
-					<td><%=bdto.getBbscount() %></td>
+					<td style="text-align:center"><%=bdto.getBbsid() %></td>
+					<td width="40%"><a href="javascript:method1('<%=bdto.getBbsid()%>')"><%=bdto.getBbstitle() %></a></td>
+					<td style="text-align:center"><%=bdto.getUserid() %></td>
+					<td style="text-align:center"><%=bdto.getBbsdate() %></td>
+					<td style="text-align:center"><%=bdto.getBbscount() %></td>
 				</tr>
 				<%} %>
 
 			</tbody>
 		</table>
-	</div>
 	<br>
+	
 	<div align="center">
-		<form action="/TeamProject/userBbs.do" method="post">
-			<% if((start / 10) != 0){%>
-			<span><button type="submit" name="page"
-					value="<%=start - 10 %>">이전</button></span>
+	
+        <h4>
+      <%
+         if (start > 10) {
+      %>
+      <a href="javascript:method3_1('<%=start - 10 %>')" style="color:black;"><i class="bi-chevron-compact-left"></i></a>
+      <%
+         }
+         for (int i = start; i <= end; i++) {
+            if(Page == i){
+               %>
+      <a href="javascript:method3_1('<%=i %>')" style="color:white;background-color:gray;border-radius:75px;text-decoration-line: none;">　<%=i %>　</a>
+      <%
+            }else{
+               %>
+      <a href="javascript:method3_1('<%=i %>')" style="color:black;text-decoration-line: none;">　<%=i %>　</a>
+               
+               <%
+            }
+         }
+         if (all > end) {
+      %>
+      <a href="javascript:method3_1('<%=start + 10 %>')" style="color:black;"><i class="bi-chevron-compact-right"></i></a>
+      <%
+         }
+      %>
+      </h4>
+	<%}else{ %>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+		<div align="center">
+			<i style="font-size:200px;color:orange" class="bi bi-megaphone-fill"></i>
+			<div style="font-size:30px;color:gray">공지사항이 없습니다.</div>
+			</div>
 			<%} %>
-			<% for(int i=start;i<=end;i++){%>
-			<span><input type="submit" value="<%=i %>" name="page"></span>
-			<%} %>
-			<% if(all > end){%>
-			<span><button type="submit" name="page"
-					value="<%=start + 10 %>">다음</button></span>
-			<%} %>
-			<br> <br> <select name="size">
-				<option value="10" <%=arr[0] %>>10</option>
-				<option value="15" <%=arr[1] %>>15</option>
-				<option value="20" <%=arr[2] %>>20</option>
-			</select> <input type="hidden" value="<%=pageNum%>" name="page"> <input
-				type="submit" value="페이지씩 보기">
-		</form>
+			<br> <br> 
 	</div>
 	</section>	
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
