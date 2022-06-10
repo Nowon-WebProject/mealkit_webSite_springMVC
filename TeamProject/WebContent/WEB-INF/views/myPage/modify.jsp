@@ -108,7 +108,7 @@ String[] arr=(String[])request.getAttribute("arr");
 				<td>주소 <i class="bi bi-check-lg" style="color:red"></i></td>
 				<td>
 				<input type="text" name="addr" id="sample4_postcode" value="<%=postcode%>" placeholder="우편번호" >
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="page"><br>
 				<input type="text"  name="addr1" id="sample4_roadAddress" value="<%=addr1%>" placeholder="도로명주소">
 				<input type="hidden" name="1" id="sample4_jibunAddress" placeholder="지번주소"><br>
 				<span id="guide" id="deli1" style="color:#999;display:none"></span> <!-- 예상주소 -->
