@@ -41,7 +41,7 @@ public interface OrderMapper {
 	void updateReject(@Param("reject")String reject, @Param("order_num")String order_num, @Param("item_num")int item_num);
 	
 	//자신의 주문내역 출력시 페이지 사이즈 조절을 위한 카운트 조회
-	@Select("select count(*) from (select * from (select ROW_NUMBER() OVER(PARTITION BY order_num ORDER BY order_num ) AS RNUM, ordertbl.* FROM ordertbl where userid = 'swc0516') where rnum=1)")
+	@Select("select count(*) from (select * from (select ROW_NUMBER() OVER(PARTITION BY order_num ORDER BY order_num ) AS RNUM, ordertbl.* FROM ordertbl where userid = #{userid}) where rnum=1)")
 	int getOrderCnt(@Param("userid")String userid);
 	
 	//취소/환불 요청이 들어온 건 출력

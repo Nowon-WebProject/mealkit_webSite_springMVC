@@ -120,7 +120,7 @@ function fnCopyToClipboard(str) {
 					</thead>
 					<c:forEach var="list" items="${olist}">
 						<tr>							
-							<td><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
+							<td style="text-align:center"><input type="checkbox" class="checkbox<%= checkboxCount%>" value="${list.item_num}/${list.item_cnt}/${list.order_num}" name="orderInfo"></td>
 							<%
 								checkboxCount++;
 							%>

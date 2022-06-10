@@ -38,7 +38,15 @@ a:active {
 }
 </style>
 <script type="text/javascript">
-
+$(document).ready(
+		function() {
+			var message = "${message}";
+			if(message.length > 0 ){
+				alert(message);
+			}
+		});
+		
+		
        function loginCheck() {
     		var userid = "${userid}";
     		if (userid == "") {

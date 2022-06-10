@@ -72,6 +72,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+			<hr>
 	<%}else{ %>
 	<div align="center">
 	<i style="font-size:200px;color:orange" class="bi-file-earmark-x-fill"></i>
@@ -109,8 +110,8 @@
 			}
 		%>
 		</h4>
+
 		</div>
-	<hr>
 	</div>
 		</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>

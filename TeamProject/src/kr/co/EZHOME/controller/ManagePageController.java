@@ -465,11 +465,11 @@ public class ManagePageController {
 			vec1.add(bdto);
 		}
 
-		int start = ((pageNum / 10) * 10) + 1;
-		int end = start + 9;
-		if (end > all) {
-			end = all;
-		}
+		int start=0;
+        if(pageNum % 10 == 0) {start = pageNum - 9;}
+        else { start = ((pageNum / 10) * 10) + 1;}
+        int end = start + 9 ;
+        if(end > all) {end = all;}
 
 		request.setAttribute("page", page);
 		request.setAttribute("start", start);
@@ -595,11 +595,11 @@ public class ManagePageController {
 			vec1.add(bdto);
 		}
 
-		int start = ((pageNum / 10) * 10) + 1;
-		int end = start + 9;
-		if (end > all) {
-			end = all;
-		}
+		int start=0;
+        if(pageNum % 10 == 0) {start = pageNum - 9;}
+        else { start = ((pageNum / 10) * 10) + 1;}
+        int end = start + 9 ;
+        if(end > all) {end = all;}
 
 		request.setAttribute("page", page);
 		request.setAttribute("start", start);
