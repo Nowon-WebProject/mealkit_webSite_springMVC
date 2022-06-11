@@ -7,7 +7,9 @@ import java.util.Vector;
 import org.springframework.stereotype.Repository;
 
 import kr.co.EZHOME.database.ItemMapper;
+import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.dto.ItemDTO;
+import kr.co.EZHOME.dto.PostscriptDTO;
 
 @Repository
 public class ItemDAO {
@@ -16,6 +18,76 @@ public class ItemDAO {
 
 	public ItemDAO(ItemMapper itemMapper) {
 		this.itemMapper = itemMapper;
+	}
+
+	// 후기 좋아요 개수 추가
+	public void addPostLike(int post_num) {
+		itemMapper.addPostLike(post_num);
+	}
+
+	// 좋아요한 아이디 저장
+	public void registUser(int post_num, String userid) {
+		itemMapper.registUser(post_num, userid);
+	}
+
+	// 해당 유저로 좋아요한 이력이 있는지 확인
+	public DataStatus userLikeCheck(int post_num, String userid) {
+
+		DataStatus result;
+		int selectResult = itemMapper.userLikeCheck(post_num, userid);
+
+		if (selectResult > 0) {
+			result = DataStatus.Exist;
+		} else {
+			result = DataStatus.Not_Exist;
+		}
+
+		return result;
+	}
+
+	// 후기 삭제
+	public void deletePostscript(int post_num) {
+		itemMapper.deletePostscript(post_num);
+	}
+
+	// 후기 작성 (insert)
+	public void insertPostscript(PostscriptDTO postscriptDTO) {
+		itemMapper.insertPostscript(postscriptDTO);
+	}
+
+	// 해당 post_num의 조회수 증가
+	public void updateHits(int post_num) {
+
+		itemMapper.updateHits(post_num);
+	}
+
+	// post_num 로 후기 DB 정보 가져오기
+	public PostscriptDTO selectPostByPost_num(int post_num) {
+
+		return itemMapper.selectPostByPost_num(post_num);
+	}
+
+	// 모든 후기글 가져오기
+	public List<PostscriptDTO> selectAllPostscript(int startRow, int endRow, int item_num, String order) {
+
+		String variableSqlWord = "invalid order value";
+		// 최근 등록순
+		if (order.equals("1")) {
+			variableSqlWord = "post_num";
+		}
+		// 도움 많은순
+		else if (order.equals("2")) {
+			variableSqlWord = "post_help";
+		} else if (order.equals("3")) {
+			variableSqlWord = "post_hits";
+		}
+
+		return itemMapper.selectAllPostscript(startRow, endRow, item_num, variableSqlWord);
+	}
+
+	// 해당 아이템의 후기 게시글 개수 가져오기
+	public int countPostscrpit(int item_num) {
+		return itemMapper.countPostscript(item_num);
 	}
 
 	// 모든 상품 삭제

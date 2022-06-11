@@ -10,7 +10,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.dto.ItemDTO;
+import kr.co.EZHOME.dto.PostscriptDTO;
 
 public interface ItemMapper {
 	@Select("select * from item where item_main like #{mainCategory}")
@@ -64,4 +66,32 @@ public interface ItemMapper {
 	
 	@Update("create sequence item_seq start with 1 increment by 1")
 	public void createSequence();
+	
+	@Select("select count(*) from postScript where item_num = #{item_num}")
+	public int countPostscript(int item_num);
+	
+	@Select("select * from(select A.*, Rownum Rnum from(select * from postScript where item_num = #{item_num} order by ${variableSqlWord} desc)A) where Rnum >= #{startRow} and Rnum <= #{endRow}")
+	public List<PostscriptDTO> selectAllPostscript(@Param("startRow")int startRow, @Param("endRow")int endRow,
+													@Param("item_num")int item_num, @Param("variableSqlWord")String variableSqlWord);
+	
+	@Select("select * from postScript where post_num=#{post_num}")
+	public PostscriptDTO selectPostByPost_num(int post_num);
+	
+	@Select("update postScript set post_hits=post_hits+1 where post_num=#{post_num}")
+	public void updateHits(int post_num);
+	
+	@Insert("insert into postScript values(#{item_num}, postScript_seq.nextval, #{post_subject}, #{post_writer}, sysdate, #{post_help}, #{post_hits}, #{post_stars}, #{post_content}, #{post_image})")
+	public void insertPostscript(PostscriptDTO postscriptDTO);
+	
+	@Delete("delete from postScript where post_num=#{post_num}")
+	public void deletePostscript(int post_num);
+	
+	@Select("select count(*) from postLikeUser where post_num=#{post_num} AND userid=#{userid}")
+	public int userLikeCheck(@Param("post_num")int post_num, @Param("userid")String userid);
+	
+	@Insert("insert into POSTLIKEUSER values(#{post_num}, #{userid})")
+	public void registUser(@Param("post_num")int post_num, @Param("userid")String userid);
+	
+	@Insert("update postScript set post_help=post_help+1 where post_num=#{post_num}")
+	public void addPostLike(int post_num);
 }

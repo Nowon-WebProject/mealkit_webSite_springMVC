@@ -1,4 +1,4 @@
-package kr.co.EZHOME.dto;
+package kr.co.EZHOME.controller;
 
 import java.io.IOException;
 
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.EZHOME.domain.DataStatus;
 import kr.co.EZHOME.domain.User;
+import kr.co.EZHOME.dto.UserDTO;
 
 @Controller
 public class JoinController {

@@ -62,6 +62,12 @@ function itemCheck() {
 }
 
 function displayWrite(id) {
+	var userid = document.postWriteForm.post_writer.value;
+	if (userid == "") {
+		alert("후기를 작성하려면 로그인을 먼저 해주세요");
+		return false;
+	}
+	
 	var openClose = document.getElementById(id);
 	if (openClose.style.display == 'none') {
 		openClose.style.display = '';
@@ -82,21 +88,37 @@ function displayContent(id, post_num) {
 	}
 }
 
-function helpful(post_num) {
-	alert("도움된 후기예요!");
-	
-	location.href = "updateHelp?post_num=" + post_num;
+function helpful(post_num, item_num, userid) {
+	var userid = document.postWriteForm.post_writer.value;
+	if (userid != "") {
+		var itemNum = Number(item_num);
+		location.href = "updatePostscriptHelp.do?post_num=" + post_num + "&item_num=" + itemNum + "&userid=" + userid;
+	}
+	else {
+		alert("후기 평가를 하려면 로그인 하셔야합니다");
+	}
+	return false;
 }
 
-function deleteOK(post_num, post_writer, userid) {
-	if (post_writer == userid) {
+function deleteOK(post_num, post_writer, userid, item_num, admin) {
+	if (post_writer == userid || admin == 1) {
 		var result = confirm("정말 후기를 삭제하시겠습니까?");
-
+		var itemNum = Number(item_num);
 		if (result == true) {
-			location.href = "postDelete?post_num=" + post_num;
+			location.href = "postDelete?post_num=" + post_num + "&item_num=" + itemNum;
 		}
 	} else {
 		alert("이 후기는 다른 사람이 쓴 거예요!");
 	}
 
+}
+
+function checkUserid() {
+	var userid = document.postWriteForm.post_writer.value;
+	if (userid == "") {
+		alert("후기를 작성하려면 로그인을 먼저 해주세요");
+		return false;
+	}
+	
+	return true;
 }

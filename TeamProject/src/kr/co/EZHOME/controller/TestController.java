@@ -2,6 +2,7 @@ package kr.co.EZHOME.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,17 +16,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.EZHOME.beans.TestBean;
+import kr.co.EZHOME.dao.ItemDAO;
 import kr.co.EZHOME.domain.FileUploadServiceImpl;
+import kr.co.EZHOME.domain.Item;
+import kr.co.EZHOME.dto.PageDTO;
+import kr.co.EZHOME.dto.PostscriptDTO;
 
 @Controller
 public class TestController {
-	
+
 	private final FileUploadServiceImpl fileuploadService;
+	private final Item item;
 	
-	public TestController(FileUploadServiceImpl fileuploadService) {
+	public TestController(FileUploadServiceImpl fileuploadService, Item item) {
 		this.fileuploadService = fileuploadService;
+		this.item = item;
 	}
-	
+
+	@GetMapping("/testPost")
+	public String testPost(@ModelAttribute PageDTO pageDTO, Model model, String order) {
+
+		int item_num = 107;
+		if (order == null) {
+			order = "1";
+		}
+		
+		item.postscriptPaging(pageDTO, item_num);		
+		List<PostscriptDTO> postscripts = item.selectAllPostscript(pageDTO, item_num, order);	
+		model.addAttribute("page", pageDTO);
+		model.addAttribute("postscripts",  postscripts);
+		model.addAttribute("order", order);
+		
+		return "item/postScript";
+	}
+
 	@GetMapping("/test")
 	public String test() {
 		return "test/martiPartRequest";
@@ -48,7 +72,7 @@ public class TestController {
 //	   }
 //	   return "test/fileUploadForm";
 //	}
-	
+
 	@PostMapping("/singleFileUpload")
 	public String singleFileUpload(MultipartFile[] uploadfiles, Model model, HttpServletRequest request)
 			throws IOException {
@@ -56,7 +80,7 @@ public class TestController {
 		// Save mediaFile on system
 		int count = 1;
 		String fileName;
-		for(MultipartFile file : uploadfiles) {
+		for (MultipartFile file : uploadfiles) {
 			System.out.println("upload() POST 호출");
 			//파일 이름을 String 값으로 반환한다
 			System.out.println("파일 이름(uploadfile.getOriginalFilename()) : "+ file.getOriginalFilename());
@@ -64,13 +88,14 @@ public class TestController {
 			System.out.println("파일 크기(uploadfile.getSize()) : "+ file.getSize());
 			
 			fileName = fileuploadService.saveFile(file, saveDirectory, count);
+
 			model.addAttribute("file" + String.valueOf(count), fileName);
 			count++;
 		}
 
 		return "test/fileUploadForm";
 	}
-	
+
 //	@PostMapping("/singleFileUpload")
 //	public String singleFileUpload(MultipartFile[] uploadfiles, Model model, HttpServletRequest request)
 //			throws IOException {

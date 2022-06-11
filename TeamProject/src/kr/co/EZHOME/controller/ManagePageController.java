@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import kr.co.EZHOME.beans.PageDTO;
 import kr.co.EZHOME.domain.Board;
 import kr.co.EZHOME.domain.FileUploadServiceImpl;
 import kr.co.EZHOME.domain.Item;
@@ -32,6 +31,7 @@ import kr.co.EZHOME.domain.User;
 import kr.co.EZHOME.dto.BbsDTO;
 import kr.co.EZHOME.dto.ItemDTO;
 import kr.co.EZHOME.dto.OrderDTO;
+import kr.co.EZHOME.dto.PageDTO;
 import kr.co.EZHOME.dto.UserDTO;
 
 @Controller

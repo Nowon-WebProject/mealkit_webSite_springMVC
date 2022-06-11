@@ -78,10 +78,9 @@ $(document).ready(
 	}
 </script>
 <style>
-input[type='number']{
-    width: 42px;
-} 
-
+input[type='number'] {
+	width: 42px;
+}
 
 .login-container {
 	width: 500px;
@@ -137,14 +136,14 @@ input[type='number']{
 }
 
 .Menu {
- 	display: flex; 
+	display: flex;
 	justify-content: space-evenly;
 	background-color: #fff;
 	width: 60%;
 	align: center;
 	margin-left: auto;
 	margin-right: auto;
-	border:2px solid gray;
+	border: 2px solid gray;
 }
 
 .Menu a {
@@ -162,7 +161,7 @@ input[type='number']{
 	font-size: 20px;
 }
 
-.back{
+.back {
 	border: 0;
 	width: 100px;
 	font-size: 16px;
@@ -173,7 +172,6 @@ input[type='number']{
 	margin: 5px 0;
 	cursor: pointer;
 }
-
 </style>
 <script>
 	$(document).ready(function() {
@@ -196,10 +194,20 @@ input[type='number']{
 			alert("장바구니에 담았습니다.");
 		}
 	}
+	
+	window.onload = function(){
+			  var viewNumber = '${viewNumber}';
+			  
+			  if (viewNumber == "2") {
+				  document.getElementById("review").focus();
+// 				  alert(viewNumber);
+			  }
+		  }
 </script>
 
 </head>
 <body>
+
 <div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<section>
@@ -215,221 +223,228 @@ input[type='number']{
 		                        <c:choose>
 						<c:when test="${ilist[0].item_pictureUrl1 == null}">
 							<img width="70%" height="70%" src="images/item/no_image1.jpg">
-                            </c:when>
-                            <c:otherwise>
-							<img width="70%" height="70%" src="images/item/${ilist[0].item_pictureUrl1}">
-                            </c:otherwise>
-                            </c:choose>
-		</div>
-		<div style="width: 40%; float: left;" align="left">
-			<form action="cartInsert.do" method="post">
-				<p>[${ilist[0].item_category}]</p>
-				<p>
-					<strong><h2>${ilist[0].item_name}</h2></strong>
-				</p>
-				<p style="color:gray">
-					${ilist[0].item_content}
-				</p>
-				 <p>
-											<c:choose>
-												<c:when test="${ilist[0].item_starsAvg == 5}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 4.5}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-half"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 4.0}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 3.5}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-half"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 3.0}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 2.5}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-half"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 2.0}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 1.5}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star-half"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 1.0}">
-													<i style="color: orange;" class="bi-star-fill"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:when test="${ilist[0].item_starsAvg >= 0.5}">
-													<i style="color: orange;" class="bi-star-half"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:when>
-												<c:otherwise>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-													<i style="color: orange;" class="bi-star"></i>
-												</c:otherwise>
-											</c:choose></p>
-				<hr>
-				<c:choose>
-					<c:when test="${ilist[0].item_discount == 0.00 }">
-					<p><h3><fmt:formatNumber value="${ilist[0].item_price}"/>원</h3></p>
-                                    	</c:when>
-					<c:otherwise>
-						<del>
-							<fmt:formatNumber value="${ilist[0].item_price}" />
-							원
-						</del>
-						<br>
-				<p><h3><fmt:formatNumber value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}"/>원</h3>
-                                    	</c:otherwise>
-				</c:choose>
-				<p style="color:green">
-					[구매 혜택 / 적립포인트 (개당) +
-					<fmt:formatNumber value="${(ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount))*0.05}" pattern="#,#00"/>p]
-				</p>
-				<hr>
-				<p>${ilist[0].item_total}인분</p>
-				<p>조리시간 ${ilist[0].item_time}분</p>
-				<hr>
-				<% String userid = (String) session.getAttribute("userid");  %>
-                <c:set var="userid" value="<%=userid%>"/>
-                <input type="hidden" name="userid" value="${userid}">
-				<input type="hidden" name="item_quantity" value="${ilist[0].item_quantity}">
-				<input type="hidden" name="item_num" value="${ilist[0].item_num}">
-				<input type="hidden" name="item_pictureUrl1" value="${ilist[0].item_pictureUrl1}">
-				<input type="hidden" name="item_name" value="${ilist[0].item_name}">
-				<fmt:parseNumber var="item_price" integerOnly="true" value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}" />
-												<input type="hidden" name="item_price" value="${item_price}">
-				<c:choose>
-					<c:when test="${ilist[0].item_quantity != 0}">
+						</c:when>
+						<c:otherwise>
+							<img width="70%" height="70%"
+								src="images/item/${ilist[0].item_pictureUrl1}">
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div style="width: 40%; float: left;" align="left">
+					<form action="cartInsert.do" method="post">
+						<p>[${ilist[0].item_category}]</p>
 						<p>
-							수량 : 
-							<i style="cursor:pointer; user-select: none;" class="bi-dash-circle" onclick="count('minus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
-							<input type="number" class="cnt" id="${ilist[0].item_num}" name="item_cnt" value="1" readonly>
-							<i style="cursor:pointer; user-select: none;" class="bi-plus-circle" onclick="count('plus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
-							<span style="color:gray;font-size:8pt">남은 수량(${ilist[0].item_quantity})</span>
+							<strong><h2>${ilist[0].item_name}</h2></strong>
 						</p>
-						<p>누적 판매량 ${ilist[0].item_sales} (취소, 환불건 제외)</p>
-						
+						<p style="color: gray">${ilist[0].item_content}</p>
 						<p>
-							총 합계 금액 <span id="total_price"></span>원
+							<c:choose>
+								<c:when test="${ilist[0].item_starsAvg == 5}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 4.5}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-half"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 4.0}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 3.5}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-half"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 3.0}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 2.5}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-half"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 2.0}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 1.5}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star-half"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 1.0}">
+									<i style="color: orange;" class="bi-star-fill"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:when test="${ilist[0].item_starsAvg >= 0.5}">
+									<i style="color: orange;" class="bi-star-half"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+									<i style="color: orange;" class="bi-star"></i>
+								</c:otherwise>
+							</c:choose>
 						</p>
-						
-						<input type="submit" class="form-btn" value="장바구니" id="cart" onClick="loginCheck()">
+						<hr>
+						<c:choose>
+							<c:when test="${ilist[0].item_discount == 0.00 }">
+								<p>
+								<h3>
+									<fmt:formatNumber value="${ilist[0].item_price}" />
+									원
+								</h3>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<del>
+									<fmt:formatNumber value="${ilist[0].item_price}" />
+									원
+								</del>
+								<br>
+								<p>
+								<h3>
+									<fmt:formatNumber
+										value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}" />
+									원
+								</h3>
+							</c:otherwise>
+						</c:choose>
+						<p style="color: green">
+							[구매 혜택 / 적립포인트 (개당) +
+							<fmt:formatNumber
+								value="${(ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount))*0.05}"
+								pattern="#,#00" />
+							p]
+						</p>
+						<hr>
+						<p>${ilist[0].item_total}인분</p>
+						<p>조리시간 ${ilist[0].item_time}분</p>
+						<hr>
+						<%
+							String userid = (String) session.getAttribute("userid");
+						%>
+						<c:set var="userid" value="<%=userid%>" />
+						<input type="hidden" name="userid" value="${userid}"> <input
+							type="hidden" name="item_quantity"
+							value="${ilist[0].item_quantity}"> <input type="hidden"
+							name="item_num" value="${ilist[0].item_num}"> <input
+							type="hidden" name="item_pictureUrl1"
+							value="${ilist[0].item_pictureUrl1}"> <input
+							type="hidden" name="item_name" value="${ilist[0].item_name}">
+						<fmt:parseNumber var="item_price" integerOnly="true"
+							value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}" />
+						<input type="hidden" name="item_price" value="${item_price}">
+						<c:choose>
+							<c:when test="${ilist[0].item_quantity != 0}">
+								<p>
+									수량 : <i class="bi-dash-circle"
+										onclick="count('minus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
+									<input type="number" class="cnt" id="${ilist[0].item_num}"
+										name="item_cnt" value="1" readonly> <i
+										class="bi-plus-circle"
+										onclick="count('plus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
+									<span style="color: gray; font-size: 8pt">남은
+										수량(${ilist[0].item_quantity})</span>
+								</p>
+								<p>누적 판매량 ${ilist[0].item_sales} (취소, 환불건 제외)</p>
+
+								<p>
+									총 합계 금액 <span id="total_price"></span>원
+								</p>
+
+								<input type="submit" class="form-btn" value="장바구니" id="cart"
+									onClick="loginCheck()">
+							</c:when>
+							<c:otherwise>
+								<br>
+								<br>
+								<br>
+								<input type="button" class="form-btn" value="품절되어 구매가 불가능합니다."
+									id="cart">
+							</c:otherwise>
+						</c:choose>
+						<br> <br> <br> <br>
+					</form>
+					<!-- 가격 자동 계산용 -->
+					<input type="hidden" value="${ilist[0].item_price}" id="price">
+				</div>
+			</div>
+			<div class="Menu">
+				<a href="#info">상세정보</a> <a href="#review">후기</a> <a href="#qna">문의</a>
+			</div>
+
+			<div id="info" align="center">
+				<c:choose>
+					<c:when test="${ilist[0].item_pictureUrl2 == null}">
+						<img src="images/item/no_image2.jpg">
 					</c:when>
 					<c:otherwise>
-					<br>
-					<br>
-					<br>
-						<input type="button" class="form-btn" value="품절되어 구매가 불가능합니다."
-							id="cart">
+						<img src="images/item/${ilist[0].item_pictureUrl2}">
 					</c:otherwise>
 				</c:choose>
-				<br>
-				<br>
-				<br>
-				<br>
-			</form>
-			<!-- 가격 자동 계산용 -->
-			<input type="hidden" value="${ilist[0].item_price}" id="price">
-		</div>
+			</div>
+
+			<div id="review"
+				style="width: 60%; margin-left: auto; margin-right: auto;"
+				align="center">
+				<br> <br> <br> <br> <br>
+				<div align="left">
+					<h1>후기</h1>
+				</div>
+				<hr>
+				<jsp:include page="/WEB-INF/views/item/postScript.jsp"></jsp:include>
+				
+			</div>
+
+			<div id="qna"
+				style="width: 60%; margin-left: auto; margin-right: auto;"
+				align="center">
+				<br> <br> <br> <br> <br> <br>
+				<div align="left">
+					<h1>문의</h1>
+				</div>
+				<hr>
+				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
+				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
+				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
+				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
+				a<br> a<br> a<br> a<br> a<br> a<br>
+			</div>
+		</section>
+		<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 	</div>	
-	<div class="Menu">
-		<a href="#info">상세정보</a> <a href="#review">후기</a> <a href="#qna">문의</a>
-	</div>
-	
-	<div id="info"
-		align="center">
-		<c:choose>
-		<c:when test="${ilist[0].item_pictureUrl2 == null}">
-			<img src="images/item/no_image2.jpg">
-		</c:when>
-		<c:otherwise>
-			<img src="images/item/${ilist[0].item_pictureUrl2}">
-		</c:otherwise>
-		</c:choose>
-	</div>
-
-	<div id="review"
-		style="width: 60%; margin-left: auto; margin-right: auto;"
-		align="center">
-		<br> <br> <br> <br> <br>
-		<div align="left">
-			<h1>후기</h1>
-		</div>
-		<hr>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br>
-
-	</div>
-
-	<div id="qna"
-		style="width: 60%; margin-left: auto; margin-right: auto;"
-		align="center">
-		<br> <br> <br> <br> <br> <br>
-		<div align="left">
-			<h1>문의</h1>
-		</div>
-		<hr>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br>
-	</div>
-	
-	</section>
-	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
-	</div>
 </body>
 </html>
