@@ -71,39 +71,39 @@
 					<!-- 별 그림 출처: https://hwasin.tistory.com/9 -->
 						<c:set var="stars" value="${post.post_stars}"/>
 						<c:choose>
-							<c:when test="${stars == 0}">
-								<img class="stars" src="images/stars/0.jpg">
+							<c:when test="${stars == 5}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i>
 							</c:when>
-							<c:when test="${stars > 0 and stars < 0.5}">
-								<img class="stars" src="images/stars/0.5.jpeg">
+							<c:when test="${stars >= 4.5}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-half"></i>
 							</c:when>
-							<c:when test="${stars >= 0.5 and stars < 1}">
-								<img class="stars" src="images/stars/1.0.jpeg">
+							<c:when test="${stars >= 4.0}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 1 and stars < 1.5}">
-								<img class="stars" src="images/stars/1.5.jpeg">
+							<c:when test="${stars >= 3.5}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-half"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 1.5 and stars < 2}">
-								<img class="stars" src="images/stars/2.0.jpeg">
+							<c:when test="${stars >= 3.0}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 2 and stars < 2.5}">
-								<img class="stars" src="images/stars/2.5.jpeg">
+							<c:when test="${stars >= 2.5}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-half"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 2.5 and stars < 3}">
-								<img class="stars" src="images/stars/3.0.jpeg">
+							<c:when test="${stars >= 2.0}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 3 and stars < 3.5}">
-								<img class="stars" src="images/stars/3.5.jpeg">
+							<c:when test="${stars >= 1.5}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star-half"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 3.5 and stars < 4}">
-								<img class="stars" src="images/stars/4.0.jpeg">
+							<c:when test="${stars >= 1.0}">
+								<i style="color: orange;" class="bi-star-fill"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 4 and stars < 4.5}">
-								<img class="stars" src="images/stars/4.5.jpeg">
+							<c:when test="${stars >= 0.5}">
+								<i style="color: orange;" class="bi-star-half"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
 							</c:when>
-							<c:when test="${stars >= 4.5 and stars <= 5}">
-								<img class="stars" src="images/stars/5.0.jpeg">
-							</c:when>
+							<c:otherwise>
+								<i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i><i style="color: orange;" class="bi-star"></i>
+							</c:otherwise>
 						</c:choose>
 					</td>
 				</tr>

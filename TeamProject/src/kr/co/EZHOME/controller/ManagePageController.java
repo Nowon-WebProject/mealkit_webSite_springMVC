@@ -51,33 +51,32 @@ public class ManagePageController {
 		this.order = order;
 		this.fileuploadService = fileuploadService;
 	}
-	
-	//모든 상품 삭제
+
+	// 모든 상품 삭제
 	@GetMapping("/deleteAll")
 	public String deleteAll() {
-		
+
 		item.deleteAllItems();
-		
+
 		return "redirect:/itemListManagePage.do";
 	}
-	
-	
-	//상품 수정
+
+	// 상품 수정
 	@PostMapping("/itemUpdateDo")
 	public String itemUpdateDoPost(@ModelAttribute ItemDTO itemDTO, MultipartFile[] uploadfiles, Model model,
 			HttpServletRequest request) {
-		
+
 		String saveDirectory = request.getServletContext().getRealPath("resources/images/item");
 		// Save mediaFile on system
 		String fileName;
 		int count = 1;
 		double item_discount = itemDTO.getItem_discount();
 
-		//할인율 형식 맞추기
+		// 할인율 형식 맞추기
 		if (item_discount > 1) {
 			itemDTO.setItem_discount(item_discount / 100.0);
 		}
-		
+
 		for (MultipartFile file : uploadfiles) {
 			fileName = fileuploadService.saveFile(file, saveDirectory, count);
 			if (count == 1) {
@@ -87,54 +86,54 @@ public class ManagePageController {
 			}
 			count++;
 		}
-		
+
 		String check = request.getParameter("item_category");
 		System.out.println(check);
-		if(check.equals("new")) {
+		if (check.equals("new")) {
 			itemDTO.setItem_category(request.getParameter("newCategory"));
 		}
-		
+
 		// 상품 정보 DB저장
 		item.updateItem(itemDTO);
-		
+
 		return "redirect:/itemListManagePage.do";
 	}
-	
+
 	// itemUpdate.jsp 로 이동
 	@GetMapping("/itemUpdateDo")
 	public String itemUpdateDo(int item_num, Model model, HttpServletRequest request) {
-		
+
 		ArrayList<ItemDTO> list = item.selectItem(item_num);
-		
+
 		model.addAttribute("item", list.get(0));
-		
+
 		Vector<ItemDTO> categoryList = item.getCategoryList();
 		request.setAttribute("categoryList", categoryList);
-		
+
 		return "managePage/itemUpdate";
 	}
-	
+
 	// 상품 삭제
 	@PostMapping("itemDeleteDo")
 	public String itemDeleteDo(int item_num) {
-		
+
 		item.deleteItem(item_num);
-		
+
 		return "forward:/itemListManagePage.do";
 	}
-	
-	//itemDelete.jsp 페이지로 이동
+
+	// itemDelete.jsp 페이지로 이동
 	@GetMapping("/itemDeleteDo")
 	public String itemDeleteDo(int item_num, Model model) {
-		
+
 		ArrayList<ItemDTO> list = item.selectItem(item_num);
 		ItemDTO itemDTO = list.get(0);
-		
+
 		model.addAttribute("item", itemDTO);
-		
+
 		return "managePage/itemDelete";
 	}
-	
+
 	// 상품등록 기능
 	@PostMapping("/itemWriteDo")
 	public String itemWriteDo(@ModelAttribute ItemDTO itemDTO, MultipartFile[] uploadfiles, Model model,
@@ -158,16 +157,13 @@ public class ManagePageController {
 		if (item_discount > 0) {
 			itemDTO.setItem_discount(item_discount / 100.0);
 		}
-		
-		
+
 		String check = request.getParameter("item_category");
 		System.out.println(check);
-		if(check.equals("new")) {
+		if (check.equals("new")) {
 			itemDTO.setItem_category(request.getParameter("newCategory"));
 		}
-		
-		
-		
+
 		// 상품 정보 DB저장
 		item.insertItem(itemDTO);
 		return "redirect:/itemListManagePage.do";
@@ -192,7 +188,7 @@ public class ManagePageController {
 	// 상품등록 창으로 이동
 	@GetMapping("/itemWriteDo")
 	public String itemWriteDo(HttpServletRequest request) {
-		
+
 		Vector<ItemDTO> categoryList = item.getCategoryList();
 		request.setAttribute("categoryList", categoryList);
 
@@ -492,7 +488,7 @@ public class ManagePageController {
 	}
 
 	@PostMapping("bbsUpdate.do")
-	public String bbsUpdateDo(@RequestParam("mediaFile") MultipartFile file, Model model, HttpServletRequest request) {
+	public String bbsUpdateDo(@RequestParam("mediaFile") MultipartFile file, Model model, HttpServletRequest request) throws IOException {
 
 		BbsDTO bdto = new BbsDTO();
 		String path = request.getServletContext().getRealPath("resources/images/board");
@@ -506,6 +502,15 @@ public class ManagePageController {
 		bdto.setBbstitle(bbstitle);
 		bdto.setBbscontent(bbscontent);
 		bdto.setBbsimg(fileName);
+
+		// Save mediaFile on system
+		if (!file.getOriginalFilename().isEmpty()) {
+			file.transferTo(new File(path, fileName));
+			model.addAttribute("msg", "File uploaded successfully.");
+			model.addAttribute("file", fileName);
+		} else {
+			model.addAttribute("msg", "Please select a valid mediaFile..");
+		}
 
 		board.updateMember(bdto);
 
@@ -616,40 +621,45 @@ public class ManagePageController {
 		vec = board.getBBSList();
 
 		int all = vec.size();
-		if(vec.size() != 0) {
-		int count = 0;
-		if (all % sizeNum != 0) {
-			count = 1;
-		}
-		all = all / sizeNum;
-		if (count == 1) {
-			all = all + 1;
-		}
-		int endNum = pageNum * sizeNum;
-		if (endNum > vec.size()) {
-			endNum = vec.size();
-		}
-		int startNum = endNum - sizeNum + 1;
+		if (vec.size() != 0) {
+			int count = 0;
+			if (all % sizeNum != 0) {
+				count = 1;
+			}
+			all = all / sizeNum;
+			if (count == 1) {
+				all = all + 1;
+			}
+			int endNum = pageNum * sizeNum;
+			if (endNum > vec.size()) {
+				endNum = vec.size();
+			}
+			int startNum = endNum - sizeNum + 1;
 
-		for (int i = startNum; i <= endNum; i++) {
-			bdto = vec.get(i - 1);
-			vec1.add(bdto);
-		}
+			for (int i = startNum; i <= endNum; i++) {
+				bdto = vec.get(i - 1);
+				vec1.add(bdto);
+			}
 
-		int start=0;
-        if(pageNum % 10 == 0) {start = pageNum - 9;}
-        else { start = ((pageNum / 10) * 10) + 1;}
-        int end = start + 9 ;
-        if(end > all) {end = all;}
+			int start = 0;
+			if (pageNum % 10 == 0) {
+				start = pageNum - 9;
+			} else {
+				start = ((pageNum / 10) * 10) + 1;
+			}
+			int end = start + 9;
+			if (end > all) {
+				end = all;
+			}
 
-		request.setAttribute("page", page);
-		request.setAttribute("start", start);
-		request.setAttribute("end", end);
-		request.setAttribute("all", all);
-		request.setAttribute("vec", vec1);
-		request.setAttribute("arr", arr);
-		request.setAttribute("check", 0);
-		}else {
+			request.setAttribute("page", page);
+			request.setAttribute("start", start);
+			request.setAttribute("end", end);
+			request.setAttribute("all", all);
+			request.setAttribute("vec", vec1);
+			request.setAttribute("arr", arr);
+			request.setAttribute("check", 0);
+		} else {
 			request.setAttribute("page", page);
 			request.setAttribute("start", 0);
 			request.setAttribute("end", 0);
@@ -657,10 +667,9 @@ public class ManagePageController {
 			request.setAttribute("vec", vec1);
 			request.setAttribute("arr", arr);
 			request.setAttribute("check", 1);
-			
+
 		}
-		
-		
+
 		return "managePage/userbbs";
 	}
 
@@ -758,40 +767,45 @@ public class ManagePageController {
 		vec = board.getBBSList();
 
 		int all = vec.size();
-		if(vec.size() != 0) {
-		int count = 0;
-		if (all % sizeNum != 0) {
-			count = 1;
-		}
-		all = all / sizeNum;
-		if (count == 1) {
-			all = all + 1;
-		}
-		int endNum = pageNum * sizeNum;
-		if (endNum > vec.size()) {
-			endNum = vec.size();
-		}
-		int startNum = endNum - sizeNum + 1;
+		if (vec.size() != 0) {
+			int count = 0;
+			if (all % sizeNum != 0) {
+				count = 1;
+			}
+			all = all / sizeNum;
+			if (count == 1) {
+				all = all + 1;
+			}
+			int endNum = pageNum * sizeNum;
+			if (endNum > vec.size()) {
+				endNum = vec.size();
+			}
+			int startNum = endNum - sizeNum + 1;
 
-		for (int i = startNum; i <= endNum; i++) {
-			bdto = vec.get(i - 1);
-			vec1.add(bdto);
-		}
+			for (int i = startNum; i <= endNum; i++) {
+				bdto = vec.get(i - 1);
+				vec1.add(bdto);
+			}
 
-		int start=0;
-        if(pageNum % 10 == 0) {start = pageNum - 9;}
-        else { start = ((pageNum / 10) * 10) + 1;}
-        int end = start + 9 ;
-        if(end > all) {end = all;}
+			int start = 0;
+			if (pageNum % 10 == 0) {
+				start = pageNum - 9;
+			} else {
+				start = ((pageNum / 10) * 10) + 1;
+			}
+			int end = start + 9;
+			if (end > all) {
+				end = all;
+			}
 
-		request.setAttribute("page", page);
-		request.setAttribute("start", start);
-		request.setAttribute("end", end);
-		request.setAttribute("all", all);
-		request.setAttribute("vec", vec1);
-		request.setAttribute("arr", arr);
-		request.setAttribute("check", 0);
-		}else {
+			request.setAttribute("page", page);
+			request.setAttribute("start", start);
+			request.setAttribute("end", end);
+			request.setAttribute("all", all);
+			request.setAttribute("vec", vec1);
+			request.setAttribute("arr", arr);
+			request.setAttribute("check", 0);
+		} else {
 			request.setAttribute("page", page);
 			request.setAttribute("start", 0);
 			request.setAttribute("end", 0);
@@ -799,9 +813,9 @@ public class ManagePageController {
 			request.setAttribute("vec", vec1);
 			request.setAttribute("arr", arr);
 			request.setAttribute("check", 1);
-			
+
 		}
-		
+
 		return "managePage/bbsList";
 	}
 
