@@ -149,7 +149,7 @@ function deleteAll(){
 					<td>
 					<a href="itemAbout.do?item_num=${item.item_num}">
 					<c:choose>
-							<c:when test="${item.item_pictureUrl1 eq 'no_image1.jpg'}">
+							<c:when test="${item.item_pictureUrl1 eq null}">
 								<img id="imgList" src="images/item/no_image1.jpg">
 							</c:when>
 							<c:otherwise>

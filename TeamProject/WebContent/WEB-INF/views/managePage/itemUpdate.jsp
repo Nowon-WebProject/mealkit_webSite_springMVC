@@ -67,8 +67,8 @@ width:50% !important;
 					<th>대표 사진</th>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.item_pictureUrl1}">
-								<img id="imgUpdate" src="images/item/noimage.gif">
+							<c:when test="${item.item_pictureUrl1 eq null}">
+								<img id="imgUpdate" src="images/item/no_image1.jpg">
 							</c:when>
 							<c:otherwise>
 								<img id="imgUpdate" src="images/item/${item.item_pictureUrl1}">
@@ -80,8 +80,8 @@ width:50% !important;
 					<th>상세 사진</th>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.item_pictureUrl2}">
-								<img id="imgUpdate" src="images/item/noimage.gif">
+							<c:when test="${item.item_pictureUrl2 eq null}">
+								<img id="imgUpdate" src="images/item/no_image2.jpg">
 							</c:when>
 							<c:otherwise>
 								<img id="imgUpdate" src="images/item/${item.item_pictureUrl2}">

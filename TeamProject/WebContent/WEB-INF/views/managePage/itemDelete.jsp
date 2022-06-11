@@ -40,7 +40,7 @@ width:50% !important;
 				<tr>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.item_pictureUrl1}">
+							<c:when test="${item.item_pictureUrl1 eq null}">
 								<img src="images/item/no_image1.jpg">
 							</c:when>
 							<c:otherwise>
@@ -50,8 +50,8 @@ width:50% !important;
 					</td>
 					<td>
 						<c:choose>
-							<c:when test="${empty item.item_pictureUrl2}">
-								<img src="images/item/no_image1.jpg">
+							<c:when test="${item.item_pictureUrl2 eq null}">
+								<img src="images/item/no_image2.jpg">
 							</c:when>
 							<c:otherwise>
 								<img src="images/item/${item.item_pictureUrl2}">

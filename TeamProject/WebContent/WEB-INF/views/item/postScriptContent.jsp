@@ -27,8 +27,8 @@
 }
 
 textarea{
-font-size:20px
-
+font-size:20px;
+font-family:inherit;
 }
 </style>
 </head>
@@ -45,10 +45,8 @@ font-size:20px
 			</c:if>
 	</div>
 	<div style="float:left;width:60%">
-	<hr>
 			<textarea class="content" rows="30" cols="65" readonly><%=postscript.getPost_content()%>
 			</textarea>
-	<hr>
 	</div>
 	</div>
 </body>
