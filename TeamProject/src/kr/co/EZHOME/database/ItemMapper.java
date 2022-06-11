@@ -44,14 +44,14 @@ public interface ItemMapper {
 	@Select("select * from(select A.*, Rownum Rnum from(select * from item order by item_num desc)A) where Rnum >= #{startRow} and Rnum <= #{endRow}")
 	public List<ItemDTO> selectAllItems(@Param("startRow")int startRow, @Param("endRow")int endRow);
 	
-	@Insert("insert into item values(#{item_pictureUrl1}, #{item_pictureUrl2}, item_seq.nextval, #{item_category}, #{item_name}, #{item_content}, #{item_price}, "
+	@Insert("insert into item values(#{item_pictureUrl1, jdbcType=VARCHAR}, #{item_pictureUrl2, jdbcType=VARCHAR}, item_seq.nextval, #{item_category}, #{item_name}, #{item_content}, #{item_price}, "
 			+ "#{item_quantity}, sysdate, #{item_total}, #{item_time}, #{item_main}, #{item_sales}, #{item_discount}, #{item_starsAvg})")
 	public void insertItem(ItemDTO itemDTO);
 	
 	@Delete("delete from item where item_num=#{item_num}")
 	public void deleteItem(int item_num);
 	
-	@Update("update item set item_pictureUrl1=#{item_pictureUrl1}, item_pictureUrl2=#{item_pictureUrl2}, "
+	@Update("update item set item_pictureUrl1=#{item_pictureUrl1, jdbcType=VARCHAR}, item_pictureUrl2=#{item_pictureUrl2, jdbcType=VARCHAR}, "
 			+ "item_category=#{item_category}, item_name=#{item_name}, item_content=#{item_content}, item_price=#{item_price}, "
 			+ "item_quantity=#{item_quantity}, item_total=#{item_total}, "
 			+ "item_time=#{item_time}, item_main=#{item_main}, item_sales=#{item_sales}, item_discount=#{item_discount}, "
@@ -75,12 +75,12 @@ public interface ItemMapper {
 													@Param("item_num")int item_num, @Param("variableSqlWord")String variableSqlWord);
 	
 	@Select("select * from postScript where post_num=#{post_num}")
-	public PostscriptDTO selectPostByPost_num(int post_num);
+	public PostscriptDTO selectPostByPost_num(@Param("post_num")int post_num);
 	
 	@Select("update postScript set post_hits=post_hits+1 where post_num=#{post_num}")
 	public void updateHits(int post_num);
 	
-	@Insert("insert into postScript values(#{item_num}, postScript_seq.nextval, #{post_subject}, #{post_writer}, sysdate, #{post_help}, #{post_hits}, #{post_stars}, #{post_content}, #{post_image})")
+	@Insert("insert into postScript values(#{item_num}, postScript_seq.nextval, #{post_subject}, #{post_writer}, sysdate, #{post_help}, #{post_hits}, #{post_stars}, #{post_content}, #{post_image, jdbcType=VARCHAR})")
 	public void insertPostscript(PostscriptDTO postscriptDTO);
 	
 	@Delete("delete from postScript where post_num=#{post_num}")
@@ -92,6 +92,18 @@ public interface ItemMapper {
 	@Insert("insert into POSTLIKEUSER values(#{post_num}, #{userid})")
 	public void registUser(@Param("post_num")int post_num, @Param("userid")String userid);
 	
-	@Insert("update postScript set post_help=post_help+1 where post_num=#{post_num}")
+	@Update("update postScript set post_help=post_help+1 where post_num=#{post_num}")
 	public void addPostLike(int post_num);
+	
+	@Update("update item set item_starsAvg=#{item_starsAvg} where item_num=#{item_num}")
+	public void updateStar(@Param("item_starsAvg")double averageStar, @Param("item_num")int item_num);
+	
+	@Select("select count(*) from ITEMPOSTUSER where item_num=#{item_num} AND userid=#{userid}")
+	public int userPostCheck(@Param("item_num") int item_num, @Param("userid") String userid);
+	
+	@Insert("insert into ITEMPOSTUSER values(#{post_num}, #{userid})")
+	public void registUserToItemPost(@Param("post_num") int item_num, @Param("userid") String userid);
+	
+	@Delete("delete from ITEMPOSTUSER where item_num=#{item_num} AND userid=#{userid}")
+	public void deleteUserToItemPost(@Param("item_num") int item_num, @Param("userid") String userid);
 }

@@ -20,9 +20,9 @@ public class FileUploadServiceImpl implements FileUploadService {
 		
 		if(file.getOriginalFilename().equals("")) {
 			if(count == 1) {
-				saveName = "no_image1.jpg";
+				saveName = null;
 			}else {
-				saveName = "no_image2.jpg";
+				saveName = null;
 			}
 			
 			return saveName;
