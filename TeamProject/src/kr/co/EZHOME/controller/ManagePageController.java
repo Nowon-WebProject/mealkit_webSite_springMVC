@@ -79,7 +79,7 @@ public class ManagePageController {
 		}
 		
 		for (MultipartFile file : uploadfiles) {
-			fileName = fileuploadService.saveFile(file, saveDirectory);
+			fileName = fileuploadService.saveFile(file, saveDirectory, count);
 			if (count == 1) {
 				itemDTO.setItem_pictureUrl1(fileName);
 			} else {
@@ -147,7 +147,7 @@ public class ManagePageController {
 		int count = 1;
 
 		for (MultipartFile file : uploadfiles) {
-			fileName = fileuploadService.saveFile(file, saveDirectory);
+			fileName = fileuploadService.saveFile(file, saveDirectory, count);
 			if (count == 1) {
 				itemDTO.setItem_pictureUrl1(fileName);
 			} else {

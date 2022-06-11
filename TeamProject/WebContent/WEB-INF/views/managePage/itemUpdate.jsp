@@ -33,6 +33,11 @@ th{
 background-color:orange;
 padding:20px;
 }
+
+.ezen{
+width:50% !important;
+}
+
 </style>
 </head>
 <body>
@@ -88,13 +93,13 @@ padding:20px;
 					<th>카테고리</th>
 					<td>
 					<select name="item_category" id="select">
-						<option value="new" id="1">새로입력</option>
+						<option value="new" id="1">직접입력</option>
 						<c:forEach var="category" items="${categoryList}" >
        					<option value="${category.item_category}">${category.item_category}</option>
          				</c:forEach>
 					</select>   
 				<div id="form1">
-					<input type="text" name="newCategory" size="10" placeholder="카테고리">
+					<input type="text" name="newCategory" size="10" placeholder="카테고리" value="${item.item_category}">
 				</div>
 <script type="text/javascript">
    $("#select").change(function () {
