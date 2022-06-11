@@ -1,5 +1,5 @@
 <%@page import="kr.co.EZHOME.dto.ItemDTO"%>
-<%@page import="kr.co.EZHOME.beans.PageDTO"%>
+<%@page import="kr.co.EZHOME.dto.PageDTO"%>
 <%@page import="kr.co.EZHOME.dao.ItemDAO"%>
 
 <%@page import="java.util.List"%>

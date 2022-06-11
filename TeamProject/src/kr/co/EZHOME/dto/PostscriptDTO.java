@@ -1,15 +1,24 @@
 package kr.co.EZHOME.dto;
 
-public class PostScriptVO {
-	private Integer post_num;
+public class PostscriptDTO {
+	private int item_num;
+	private int post_num;
 	private String post_subject;
 	private String post_writer;
 	private String post_date;
-	private Integer post_help;
-	private Integer post_hits;
+	private int post_help;
+	private int post_hits;
 	private Double post_stars;
 	private String post_content;
 	private String post_image;
+
+	public Integer getItem_num() {
+		return item_num;
+	}
+
+	public void setItem_num(Integer item_num) {
+		this.item_num = item_num;
+	}
 
 	public Integer getPost_num() {
 		return post_num;

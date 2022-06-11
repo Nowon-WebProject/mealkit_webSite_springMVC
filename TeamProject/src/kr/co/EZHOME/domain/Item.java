@@ -1,14 +1,18 @@
 package kr.co.EZHOME.domain;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.Vector;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.EZHOME.beans.PageDTO;
 import kr.co.EZHOME.dao.ItemDAO;
 import kr.co.EZHOME.dto.ItemDTO;
+import kr.co.EZHOME.dto.PageDTO;
+import kr.co.EZHOME.dto.PostscriptDTO;
 
 @Service
 public class Item {
@@ -19,21 +23,155 @@ public class Item {
 		this.itemDAO = itemDAO;
 	}
 
-	//모든 상품 삭제
+	// 후기 삭제
+	public void deletePostscript(int post_num) {
+		itemDAO.deletePostscript(post_num);
+	}
+	
+	// 후기 작성 (insert)
+	public void insertPostscript(PostscriptDTO postscriptDTO, MultipartFile file, String saveDirectory) {
+		
+		String saveName;
+		
+		// 파일 이름 변경
+		if (file != null) {
+			UUID uuid = UUID.randomUUID();
+			saveName = uuid + "_" + file.getOriginalFilename(); // 서버상의 파일이름이 겹치는것을 방지
+		}
+		else {
+			saveName = "no_image1";
+		}
+		saveName = saveName.substring(30);
+		
+		try {
+			file.transferTo(new File(saveDirectory, saveName));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		postscriptDTO.setPost_image(saveName);
+		postscriptDTO.setPost_help(0);
+		postscriptDTO.setPost_hits(0);
+		
+		itemDAO.insertPostscript(postscriptDTO);
+	}
+
+	// 해당 post_num의 조회수 증가
+	public void updateHits(int post_num) {
+
+		itemDAO.updateHits(post_num);
+	}
+
+	// post_num 로 후기 DB 정보 가져오기
+	public PostscriptDTO selectPostByPost_num(int post_num) {
+
+		return itemDAO.selectPostByPost_num(post_num);
+	}
+
+	// 해당 상품 번호의 모든 후기글 가져오기
+	public List<PostscriptDTO> selectAllPostscript(PageDTO pageDTO, int item_num, String order) {
+
+		int startRow = pageDTO.getStartRow();
+		int endRow = pageDTO.getEndRow();
+
+		return itemDAO.selectAllPostscript(startRow, endRow, item_num, order);
+
+	}
+
+	// 후기 페이징 작업
+	public void postscriptPaging(PageDTO pageDTO, int item_num) {
+
+		int pageSize = pageDTO.getPageSize(); // 화면에 보여질 총 게시글 개수
+		int totalPageNum = 0; // 전체 글 개수
+		int pageCount = 0; // 페이지 숫자 세기
+		int startRow; // 클릭하여 이동할 수 있는 버튼의 시작번호
+		int endRow; // 클릭하여 이동할 수 있는 버튼의 끝번호
+		int startPage = 1; // 시작 페이지
+		int endPage; // 끝 페이지
+		int pageBlock = 10; // 한번에 보여주는 총 컨텐츠 개수
+		int pageNum = pageDTO.getPageNum(); // 이동한 페이지
+
+		// step1. 초기값 설정
+
+		if (pageDTO.getPageSize() == 0) {
+			// 처음일경우 초기값
+			pageSize = 7;
+		}
+
+		// 처음엔 1페이지
+		if (pageNum == 0) {
+			pageNum = 1;
+		}
+
+		// 출력한 총 상품 개수 가져오기
+		totalPageNum = itemDAO.countPostscrpit(item_num);
+
+		// 지금 페이지에 보여질 시작 번호와 끝 번호
+		// ex.
+		// p1 p2 p3 p4
+		// 1 11 21 31 ...
+		// 10 20 30 40 ...
+		startRow = (pageNum - 1) * pageSize + 1;
+		endRow = (pageNum * pageSize);
+
+		// 전체 페이지 개수 구하기
+		// totalPageNum: 전체 글 개수, pageSize: 화면에 보여질 총 게시글 개수
+		pageCount = totalPageNum / pageSize + (totalPageNum % pageSize == 0 ? 0 : 1);
+
+		// 시작 페이지 구하기
+		// currentPage: 현재 페이지
+		if (pageNum % 10 != 0) {
+			startPage = (pageNum / 10) * 10 + 1;
+		} else {
+			startPage = (pageNum / 10 - 1) * 10 + 1;
+		}
+
+		// 끝 페이지 구하기
+		endPage = startPage + pageBlock - 1;
+
+		if (endPage > pageCount) {
+			endPage = pageCount;
+		}
+
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setStartRow(startRow);
+		pageDTO.setEndRow(endRow);
+		pageDTO.setPageCount(pageCount);
+		pageDTO.setPageSize(pageSize);
+	}
+	
+	//후기 좋아요 개수 추가
+	public void addPostLike(int post_num) {
+		itemDAO.addPostLike(post_num);
+	}
+	
+	//좋아요한 아이디 저장
+	public void registUser(int post_num , String userid) {
+		itemDAO.registUser(post_num, userid);
+	}
+	
+	//해당 유저로 좋아요한 이력이 있는지 확인
+	public DataStatus userLikeCheck(int post_num, String userid) {
+		
+		return itemDAO.userLikeCheck(post_num, userid);
+	}
+	
+	// 모든 상품 삭제
 	public void deleteAllItems() {
 		itemDAO.deleteAllItems();
 	}
-	
-	//상품 수정
+
+	// 상품 수정
 	public void updateItem(ItemDTO itemDTO) {
 		itemDAO.updateItem(itemDTO);
 	}
-	
+
 	// 상품 삭제
 	public void deleteItem(int item_num) {
 		itemDAO.deleteItem(item_num);
 	}
-	
+
 	// 상품 정보 DB저장
 	public void insertItem(ItemDTO itemDTO) {
 		itemDAO.insertItem(itemDTO);
