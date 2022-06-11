@@ -57,23 +57,50 @@ public class ItemController {
 	}
 	
 	@GetMapping("/postDelete")
-	public String postDelete(String post_num, Model model) {
+	public String postDelete(String post_num, Model model, String item_num, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		String userid = (String) session.getAttribute("userid");
+		int itemNum = Integer.parseInt(item_num);
+		//삭제되는 별점으로 평균값 구하기
+		double averageStar = item.minusAverageStar(Integer.parseInt(post_num), itemNum);
 		item.deletePostscript(Integer.parseInt(post_num));
-		model.addAttribute("message", "후기글 삭제가 완료되었습니다");
+		//갱신된 별점 itemDB 에 갱신하기
+		item.updateStar(averageStar, itemNum);
+		//기록해놨던 userid 삭제
+		item.deleteUserToItemPost(itemNum, userid);
 		
+		model.addAttribute("message", "후기글 삭제가 완료되었습니다");
 		return "item/afterPostAction";
 	}
 	
 	
 	//후기글 작성 요청
 	@PostMapping("/postWriteDo")
-	public String postWriteDo(@ModelAttribute PostscriptDTO postscriptDTO, MultipartFile file, HttpServletRequest request, Model model) {
+	public String postWriteDo(@ModelAttribute PostscriptDTO postscriptDTO, MultipartFile file, HttpServletRequest request, Model model, String item_num) {
 		
+		HttpSession session = request.getSession();
+		String userid = (String) session.getAttribute("userid");
+		int itemNum = Integer.parseInt(item_num);
 		String saveDirectory = request.getServletContext().getRealPath("resources/images/postscript");
 		
+		DataStatus result = item.userPostCheck(itemNum, userid);
+		if (result == DataStatus.Exist) {
+			model.addAttribute("message", "해당 상품에 이미 후기를 작성하셨습니다");
+			return "item/afterPostAction";
+		}
+		//새롭게 들어오는 별점으로 평균값 구하기
+		double averageStar = item.addAverageStar(postscriptDTO, itemNum);
+		//후기 정보 DB에 넣기
 		item.insertPostscript(postscriptDTO, file, saveDirectory);
+		//갱신된 별점 itemDB 에 갱신하기
+		item.updateStar(averageStar, Integer.parseInt(item_num));
+		item.registUserToItemPost(itemNum, userid);
+		
 		model.addAttribute("message", "후기글 작성이 완료되었습니다");
+
+		
+		
 		return "item/afterPostAction";
 	}
 

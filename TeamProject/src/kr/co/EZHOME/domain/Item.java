@@ -22,37 +22,93 @@ public class Item {
 	public Item(ItemDAO itemDAO) {
 		this.itemDAO = itemDAO;
 	}
+	
+	//기록해놨던 userid 삭제
+	public void deleteUserToItemPost(int item_num, String userid) {
+		itemDAO.deleteUserToItemPost(item_num, userid);
+	}
+	
+	//ItemPostUser Table에 해당 유저기록
+	public void registUserToItemPost(int item_num, String userid) {
+		itemDAO.registUserToItemPost(item_num, userid);
+	}
+	
+	// 해당 아이디로 해당아이템 후기작성을 한적이 있는지 채크
+	public DataStatus userPostCheck(int item_num, String userid) {
+		
+		return itemDAO.userPostCheck(item_num, userid);
+
+	}
+	
+	// 갱신된 별점 itemDB 에 갱신하기
+	public void updateStar(double averageStar, int item_num) {
+		itemDAO.updateStar(averageStar, item_num);
+	}
+
+	public double minusAverageStar(int post_num, int item_num) {
+
+		double newAverageStar; // 최신화 되는 평균 별점
+		int allPostscriptNumber = itemDAO.countPostscrpit(item_num); // 총 후기 개수
+		double minusStar = itemDAO.selectPostByPost_num(post_num).getPost_stars(); //삭제되는 별점
+		double beforeAverageStar = itemDAO.selectItem(item_num).get(0).getItem_starsAvg(); // 이전 별 평균값
+		// 총 별점 = 이전 별 평균값 * 총 후기 개수
+		double totalStar = beforeAverageStar * allPostscriptNumber;
+
+		// 최신화되는 평균값 = (총 별점 + 현재 후기 별점) / (후기 개수 + 1)
+		newAverageStar = (totalStar - minusStar) / (allPostscriptNumber - 1);
+
+		return newAverageStar;
+	}
+
+	// 별점 평균 내기
+	public double addAverageStar(PostscriptDTO postscriptDTO, int item_num) {
+
+		double newAverageStar; // 최신화 되는 평균 별점
+		int allPostscriptNumber = itemDAO.countPostscrpit(item_num); // 총 후기 개수
+		double addStar = postscriptDTO.getPost_stars(); // 이번에 추가되는 별점
+		// 첫평가일 경우
+		if (allPostscriptNumber == 0) {
+			return addStar;
+		}
+		double beforeAverageStar = itemDAO.selectItem(item_num).get(0).getItem_starsAvg(); // 이전 별 평균값
+		// 총 별점 = 이전 별 평균값 * 총 후기 개수
+		double totalStar = beforeAverageStar * allPostscriptNumber;
+
+		// 최신화되는 평균값 = (총 별점 + 현재 후기 별점) / (후기 개수 + 1)
+		newAverageStar = (totalStar + addStar) / (allPostscriptNumber + 1);
+
+		return newAverageStar;
+	}
 
 	// 후기 삭제
 	public void deletePostscript(int post_num) {
 		itemDAO.deletePostscript(post_num);
 	}
-	
+
 	// 후기 작성 (insert)
 	public void insertPostscript(PostscriptDTO postscriptDTO, MultipartFile file, String saveDirectory) {
-		
+
 		String saveName;
-		
+
 		// 파일 이름 변경
 		if (file != null) {
 			UUID uuid = UUID.randomUUID();
 			saveName = uuid + "_" + file.getOriginalFilename(); // 서버상의 파일이름이 겹치는것을 방지
-		}
-		else {
+		} else {
 			saveName = "no_image1";
 		}
 		saveName = saveName.substring(30);
-		
+
 		try {
 			file.transferTo(new File(saveDirectory, saveName));
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		postscriptDTO.setPost_image(saveName);
 		postscriptDTO.setPost_help(0);
 		postscriptDTO.setPost_hits(0);
-		
+
 		itemDAO.insertPostscript(postscriptDTO);
 	}
 
@@ -140,23 +196,23 @@ public class Item {
 		pageDTO.setPageCount(pageCount);
 		pageDTO.setPageSize(pageSize);
 	}
-	
-	//후기 좋아요 개수 추가
+
+	// 후기 좋아요 개수 추가
 	public void addPostLike(int post_num) {
 		itemDAO.addPostLike(post_num);
 	}
-	
-	//좋아요한 아이디 저장
-	public void registUser(int post_num , String userid) {
+
+	// 좋아요한 아이디 저장
+	public void registUser(int post_num, String userid) {
 		itemDAO.registUser(post_num, userid);
 	}
-	
-	//해당 유저로 좋아요한 이력이 있는지 확인
+
+	// 해당 유저로 좋아요한 이력이 있는지 확인
 	public DataStatus userLikeCheck(int post_num, String userid) {
-		
+
 		return itemDAO.userLikeCheck(post_num, userid);
 	}
-	
+
 	// 모든 상품 삭제
 	public void deleteAllItems() {
 		itemDAO.deleteAllItems();

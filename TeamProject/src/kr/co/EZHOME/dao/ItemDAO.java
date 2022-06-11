@@ -20,6 +20,32 @@ public class ItemDAO {
 		this.itemMapper = itemMapper;
 	}
 
+	// 기록해놨던 userid 삭제
+	public void deleteUserToItemPost(int item_num, String userid) {
+		itemMapper.deleteUserToItemPost(item_num, userid);
+	}
+
+	public void registUserToItemPost(int item_num, String userid) {
+		itemMapper.registUserToItemPost(item_num, userid);
+	}
+
+	public DataStatus userPostCheck(int item_num, String userid) {
+
+		int checkResult = itemMapper.userPostCheck(item_num, userid);
+
+		if (checkResult > 0) {
+			return DataStatus.Exist;
+		} else {
+			return DataStatus.Not_Exist;
+		}
+
+	}
+
+	// 갱신된 별점 itemDB 에 갱신하기
+	public void updateStar(double averageStar, int item_num) {
+		itemMapper.updateStar(averageStar, item_num);
+	}
+
 	// 후기 좋아요 개수 추가
 	public void addPostLike(int post_num) {
 		itemMapper.addPostLike(post_num);

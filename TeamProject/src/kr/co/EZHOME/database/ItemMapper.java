@@ -75,7 +75,7 @@ public interface ItemMapper {
 													@Param("item_num")int item_num, @Param("variableSqlWord")String variableSqlWord);
 	
 	@Select("select * from postScript where post_num=#{post_num}")
-	public PostscriptDTO selectPostByPost_num(int post_num);
+	public PostscriptDTO selectPostByPost_num(@Param("post_num")int post_num);
 	
 	@Select("update postScript set post_hits=post_hits+1 where post_num=#{post_num}")
 	public void updateHits(int post_num);
@@ -92,6 +92,18 @@ public interface ItemMapper {
 	@Insert("insert into POSTLIKEUSER values(#{post_num}, #{userid})")
 	public void registUser(@Param("post_num")int post_num, @Param("userid")String userid);
 	
-	@Insert("update postScript set post_help=post_help+1 where post_num=#{post_num}")
+	@Update("update postScript set post_help=post_help+1 where post_num=#{post_num}")
 	public void addPostLike(int post_num);
+	
+	@Update("update item set item_starsAvg=#{item_starsAvg} where item_num=#{item_num}")
+	public void updateStar(@Param("item_starsAvg")double averageStar, @Param("item_num")int item_num);
+	
+	@Select("select count(*) from ITEMPOSTUSER where item_num=#{item_num} AND userid=#{userid}")
+	public int userPostCheck(@Param("item_num") int item_num, @Param("userid") String userid);
+	
+	@Insert("insert into ITEMPOSTUSER values(#{post_num}, #{userid})")
+	public void registUserToItemPost(@Param("post_num") int item_num, @Param("userid") String userid);
+	
+	@Delete("delete from ITEMPOSTUSER where item_num=#{item_num} AND userid=#{userid}")
+	public void deleteUserToItemPost(@Param("item_num") int item_num, @Param("userid") String userid);
 }
