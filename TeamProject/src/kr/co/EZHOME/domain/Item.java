@@ -94,10 +94,11 @@ public class Item {
 		if (file != null) {
 			UUID uuid = UUID.randomUUID();
 			saveName = uuid + "_" + file.getOriginalFilename(); // 서버상의 파일이름이 겹치는것을 방지
+			saveName = saveName.substring(30);
 		} else {
-			saveName = "no_image1";
+			saveName = null;
 		}
-		saveName = saveName.substring(30);
+		
 
 		try {
 			file.transferTo(new File(saveDirectory, saveName));
