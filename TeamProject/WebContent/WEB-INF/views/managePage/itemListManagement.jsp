@@ -149,7 +149,7 @@ function deleteAll(){
 					<td>
 					<a href="itemAbout.do?item_num=${item.item_num}">
 					<c:choose>
-							<c:when test="${empty item.item_pictureUrl1}">
+							<c:when test="${item.item_pictureUrl1 eq 'no_image1.jpg'}">
 								<img id="imgList" src="images/item/no_image1.jpg">
 							</c:when>
 							<c:otherwise>
@@ -175,7 +175,7 @@ function deleteAll(){
 					${item.item_time}분</td>
 					<td style="text-align:center">${item.item_main}</td>
 					<td style="text-align:center">${item.item_sales}</td>
-					<td style="text-align:center">${item.item_discount}</td>
+					<td style="text-align:center"><fmt:formatNumber value="${item.item_discount * 100}"/>%</td>
 					<td style="text-align:center">${item.item_starsAvg}</td>
 					<td style="text-align:center">
 					<button type="button" onclick="location.href='itemUpdateDo?item_num=${item.item_num}'" class="confirm-btn">수정</button><br>

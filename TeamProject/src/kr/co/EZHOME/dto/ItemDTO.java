@@ -1,5 +1,7 @@
 package kr.co.EZHOME.dto;
 
+import java.sql.Date;
+
 public class ItemDTO {
 	private String item_pictureUrl1; //섬네일
 	private String item_pictureUrl2; //상세이미지
@@ -9,7 +11,7 @@ public class ItemDTO {
 	private String item_content; // 상품설명
 	private int item_price; //가격
 	private int item_quantity; //재고량
-	private String item_date; //상품 추가된 시간
+	private Date item_date; //상품 추가된 시간
 	private String item_total; //몇인분
 	private String item_time; //조리시간
 	private String item_main; //메인 출력할 카테고리
@@ -85,12 +87,12 @@ public class ItemDTO {
 	public void setItem_quantity(int item_quantity) {
 		this.item_quantity = item_quantity;
 	}
-
-	public String getItem_date() {
+	
+	public Date getItem_date() {
 		return item_date;
 	}
 
-	public void setItem_date(String item_date) {
+	public void setItem_date(Date item_date) {
 		this.item_date = item_date;
 	}
 

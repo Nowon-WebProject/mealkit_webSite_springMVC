@@ -5,5 +5,5 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileUploadService {
-	public String saveFile(MultipartFile file, String saveDirectory);
+	public String saveFile(MultipartFile file, String saveDirectory, int count);
 }

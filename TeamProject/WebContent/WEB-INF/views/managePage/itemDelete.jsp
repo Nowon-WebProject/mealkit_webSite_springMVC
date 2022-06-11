@@ -18,13 +18,18 @@ $(document).ready(
 			}
 		});
 </script>
+<style type="text/css">
+.ezen{
+width:50% !important;
+}
+</style>
 </head>
 <body>
 	<div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
 	<section>
-		<div style="width: 60%; margin-left: auto; margin-right: auto;">
+		<div style="width: 60%; margin-left: auto; margin-right: auto;" align="center">
 			<h2>상품 삭제 - 관리자 페이지</h2>
 			<br>
 			<hr>

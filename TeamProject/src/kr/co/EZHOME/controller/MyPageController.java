@@ -39,7 +39,7 @@ public class MyPageController {
 		session.invalidate();
 		
 		request.setAttribute("message", "회원탈퇴가 정상적으로 완료되었습니다.");
-		return "forward:/index";
+		return "myPage/delete";
 	}
 	
 	@PostMapping("deleteOK.do")

@@ -63,7 +63,7 @@ public class TestController {
 			//파일 크기를 반환한다
 			System.out.println("파일 크기(uploadfile.getSize()) : "+ file.getSize());
 			
-			fileName = fileuploadService.saveFile(file, saveDirectory);
+			fileName = fileuploadService.saveFile(file, saveDirectory, count);
 			model.addAttribute("file" + String.valueOf(count), fileName);
 			count++;
 		}
