@@ -7,47 +7,27 @@
 <meta charset="UTF-8">
 <title>이젠, 집에서 | 회원가입</title>
 <link href="css/styles.css?test1=5" rel="stylesheet" />
-    <title>회원가입 화면</title>
-    
-    <style>
-        
-        table{
-           /* border:3px solid #fd7e14 */
-           overflow: visible;
-           margin-left:auto; 
-           margin-right:auto;
-           border-collapse: separate;
-           border-spacing: 0 10px;
-        }
-        
-        td{
-            border:1px solid #fd7e14
-        }
-        
-        #title{
-            background-color:#fd7e14
-        }
-        
-        .bi bi-check-lg {
-        	color: red;
-        }
-    </style>
-    <script type="text/javascript" src="js/libs/jquery-3.6.0.min.js"></script>
+<title>회원가입 화면</title>
+<style>
+
+.bi bi-check-lg {
+	color: red;
+}
+</style>
+<script type="text/javascript" src="js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="js/member.js?test=12"></script>
-    <!-- 도로명 주소 검색시 사용하는 daum api -->
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="js/member.js?test=12"></script>
+<!-- 도로명 주소 검색시 사용하는 daum api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 <div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<br><br><br><br><br>
 <section style="width: 60%; margin-left: auto; margin-right: auto;">
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">
-        <br><br>
-        <b><font size="6" color="gray">회원가입</font></b>
-        <br>
-    </div>
+			<h2>회원가입</h2>
 	<form action="join.do" method="post" name="frm">
 		<table>
 			<tr>
@@ -62,7 +42,7 @@
 				<td>
 					<input type="text" id="userid" name="userid" size="20" maxlength="16">
 					<input type="hidden" name="reid" size="20">
-					<input type="button" value="중복체크" onclick="idCheck()">
+					<input type="button" value="중복체크" onclick="idCheck()" class="page">
 				</td>
 			</tr>
 			<tr>
@@ -139,7 +119,7 @@
 				<td>
 					<input type='tel' class="phone" name='phone' maxlength="13"/>
 					<!--  -->
-					<input type="button" value="인증번호 받기" onclick="return phoneCheck(0)">
+					<input type="button" value="인증번호 받기" onclick="return phoneCheck(0)" class="page">
 					<input type="hidden" id="phoneValid" name="phoneValid" value="false" size="20">
 					<input type="hidden" name="checkedPhone" size="20">
 				</td>
@@ -148,7 +128,7 @@
 				<td>주소 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
 					<input type="text" id="sample4_postcode" name="addr1" placeholder="우편번호" readonly>
-					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="page"><br>
 					<input type="text" id="sample4_roadAddress" name="roadAddr" placeholder="도로명주소" size="60" readonly><br>
 					<input type="hidden" id="sample4_jibunAddress" name="jibunAddr" placeholder="지번주소"  size="60">
 					<span id="guide" style="color:#999;display:none"></span>
@@ -166,8 +146,8 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="hidden" name="admin" value="0">
-					<input type="submit" value="확인" onclick="return joinCheck()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="reset" value="취소">
+					<input type="submit" value="확인" class="back-btn"onclick="return joinCheck()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="reset" value="다시작성" class="back-btn">
 				</td>
 			</tr>
 			<tr>
@@ -175,6 +155,7 @@
 			</tr>
 		</table>
 	</form>
+    </div>
 </section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </div>

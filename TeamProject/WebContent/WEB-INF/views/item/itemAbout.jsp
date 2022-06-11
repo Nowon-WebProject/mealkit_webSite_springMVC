@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원가입</title>
+<title>이젠, 집에서 | 상품 상세 페이지</title>
 <link href="css/styles.css" rel="stylesheet" />
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -207,14 +207,20 @@ input[type='number'] {
 
 </head>
 <body>
-	<div id="wrap">
-		<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
-		<section>
-			<br> <br> <br>
-			<div style="width: 60%; margin-left: auto; margin-right: auto;"
-				align="center">
-				<div style="width: 60%; float: left;">
-					<c:choose>
+
+<div id="wrap">
+	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<section>
+	<br>
+	<br>
+	<div style="width:60%; margin-left: auto; margin-right: auto;"	align="center">
+	<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+	</div>
+	<br>
+	<br>
+	<div style="width: 60%; margin-left: auto; margin-right: auto;"	align="center">
+		<div style="width: 60%; float: left;">
+		                        <c:choose>
 						<c:when test="${ilist[0].item_pictureUrl1 == null}">
 							<img width="70%" height="70%" src="images/item/no_image1.jpg">
 						</c:when>

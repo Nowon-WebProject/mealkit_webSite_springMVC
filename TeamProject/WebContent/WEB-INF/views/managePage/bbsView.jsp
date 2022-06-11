@@ -6,61 +6,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <script type="text/javascript" src="js/sunwoo.js?test=12"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+</script>
 <style>
-.cart {
-	margin-left: auto; margin-right: auto;
-	border: 1px solid orange;
-	overflow : auto;
+.table-btn {
+	background-color : #f9b868 !important;
 }
 
-.cart table {
-	
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
-}
-.cart th {
-	background-color: orange;
-	border: 1px solid orange;
-
-	
-}
-
-
-.cart td {
-	border: 1px solid orange;
-	
-}
-.cart tbody tr:nth-child(2n+1){
-    background-color: 	#F8AD7B;
-}
 </style>
 </head>
 <body>
 <div id="wrap">
-<section>
+<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section style="width: 60%; margin-left: auto; margin-right: auto;">
 <%
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");
 	BbsDTO bdto = new BbsDTO();
 	bdto=vec.get(0);
 	String file = (String) request.getAttribute("file");
 %>
-<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<div align="center">
-        <br><br>
-        <a href="javascript:method3()"><b><font size="6" color="gray">공지 사항 </font></b></a>
-        <br><br><br>
+			<br>
+			<br>
+			<h2>공지사항</h2>
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+			<br>
+			<hr>
     </div>
-    <p style="align:left; margin-left: 20px;"> 조회수 : <%=bdto.getBbscount() %></p>
+  		<p style="align:left; margin-left: 20px;" style="float:left"> 조회수 : <%=bdto.getBbscount() %></p>
 	<form action="bbsView.do" method="post">
-	<div class="cart">
-	<table>
+	<table class="ezen">
     <thead>
         <tr>
-            <th colspan="2"></th>
-            
+            <th>관리자페이지 - 공지사항 수정삭제</th>
         </tr>
     </thead> 
     <tbody>	
@@ -68,7 +57,7 @@
 			<td><%=bdto.getBbstitle() %></td>
 			</tr>
 			<tr>
-			<td>
+			<td style="vertical-align:top"height="400px">
 			<%if(file != ""){%>
 			<img src="images/board/${file }" style = "width:20%; heigth:auto;"></img><br>
 			<%} %>
@@ -77,14 +66,16 @@
 			</tr>
     </tbody>
     </table>
-    </div>
     <br>
-    <div align="center">
+    <div align="right">
+    <div style="width:100px">
     <input type="hidden" name="bbsid" value=<%=bdto.getBbsid() %>>
-    <button type="submit" value="수정" name="update">수정</button>
-    <button type="submit" formaction="bbsDelete.do" name="delete" value=<%=bdto.getBbsid() %>>삭제</button>
+    <button type="submit" value="수정" name="update" class="table-btn">수정</button>
+    <button type="submit" formaction="bbsDelete.do" name="delete"  class="table-btn-a"  value=<%=bdto.getBbsid() %>>삭제</button>
+    </div>
     </div>
     </form>
+    <br>
 	</section>
 	<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </div>

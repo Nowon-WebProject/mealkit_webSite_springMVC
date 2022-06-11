@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <title>이젠, 집에서 | 메인화면</title>
+ <title>이젠, 집에서 | 상품목록</title>
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -25,23 +25,19 @@
 input[type='number']{
     width: 42px;
 } 
-
-
-table {
-	border: 1px solid orange;
-	text-align: center;
-	width: 100%;
+a:link {
+  color : black;
+  text-decoration:none;
 }
-
-th {
-	background-color: orange;
-	border: 1px solid orange;
+a:visited {
+  color : black;
 }
-
-td {
-	border: 1px solid orange;
+a:hover {
+  color : black;
 }
-
+a:active {
+  color : black;
+}
 
 </style>
 <script type="text/javascript">
@@ -118,16 +114,26 @@ function count(type,item_quantity,item_num){
       				  if(keyword.equals("")){
       					  keyword = "전체";
       				  }
+      				  if(priceSort.equals("high")){
+      					  priceSort = "가격 높은 순 정렬";
+      				  }
+      				  if(priceSort.equals("low")){
+      					  priceSort = "가격 낮은 순 정렬";
+      				  }
+      				  if(priceSort.equals("default")){
+      					  priceSort = "가격 기본 정렬";
+      				  }
       			  %>
-      			  <h4>'<%=category%>' 카테고리의 '<%=keyword%>' 검색 결과입니다. 가격정렬<%=priceSort%></h4>
+      			  <h4>'<%=category%>' 카테고리의 '<%=keyword%>' 검색 결과입니다. <%=priceSort%></h4>
       			  <%
    				  category = request.getParameter("category");
    				  keyword = request.getParameter("keyword");
+   				  priceSort = request.getParameter("priceSort");
       				  } %>
       			  <hr>
 			<div align="right">
 			<a href="itemList.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=high&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 높은 순<i class="bi-arrow-bar-up"></i>&nbsp;</a>
-			<a href="itemList.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=low&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 낮은순<i class="bi-arrow-bar-down"></i>&nbsp;</a>
+			<a href="itemList.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=low&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 낮은 순<i class="bi-arrow-bar-down"></i>&nbsp;</a>
 			<a href="itemList.do?view=${view}&pageSize=<%=pageSize%>&check=${check}&category=<%=category%>&priceSort=default&keyword=<%=keyword%>" style="color:white;background-color:#FF8868;border-radius:5px;text-decoration-line: none;">&nbsp;가격 정렬 기본&nbsp;</a>
 <br>
 					<c:choose>
@@ -154,7 +160,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 12}">
@@ -170,7 +176,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 16}">
@@ -186,7 +192,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 					<c:when test="${pageSize == 20}">
@@ -202,7 +208,7 @@ function count(type,item_quantity,item_num){
 							<input type="hidden" name="category" value="<%=category%>">
 							<input type="hidden" name="check" value="${check}">
 							<input type="hidden" name="keyword" value="<%=keyword%>">
-							<button type="submit" class="pageSize" >개씩 보기</button>
+							<button type="submit" class="page" >개씩 보기</button>
 						</form>
 					</c:when>
 				</c:choose>
@@ -246,9 +252,9 @@ function count(type,item_quantity,item_num){
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">
-										<div
-											style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+										<div style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 											<!-- Product name-->
+											<a href="itemAbout.do?item_num=${item.item_num}">
 											<c:choose>
 												<c:when test="${fn:length(item.item_name)>11}">
 													<marquee width="100%" scrollamount="5">
@@ -259,6 +265,7 @@ function count(type,item_quantity,item_num){
 													<h5 class="fw-bolder">${item.item_name}</h5>
 												</c:otherwise>
 											</c:choose>
+											</a>
 										</div>
 										<div
 											style="height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -418,35 +425,157 @@ function count(type,item_quantity,item_num){
 			</div>
                    </c:when>
                    <c:otherwise>
-				<c:forEach var="item" items="${ilist}">
                 	<form action="cartInsert.do" method="post">
-                		<table width="100%">
+                		<table class="ezen">
+                		<thead>
+                		<tr>
+                			<th></th>
+                			<th>상품명</th>
+                			<th>할인율</th>
+                			<th>가격</th>
+                			<th>별점</th>
+                			<th>장바구니</th>
+                		</tr>
+                		</thead>
+				<c:forEach var="item" items="${ilist}">
                 			<tr>
-                				<td width="100px" height="100px"> 
-                				                        <c:choose>
-						<c:when test="${item.item_pictureUrl1 == null}">
-                            <!-- Product image-->
-                             <a href="itemAbout.do?item_num=${item.item_num}">
-                            <img class="card-img-top" src="images/item/no_image1.jpg" alt="..." />
-                            </a>
-                            </c:when>
-                            <c:otherwise>
-                              <a href="itemAbout.do?item_num=${item.item_num}">
-                            <img class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
-                            </a>
-                            </c:otherwise>
-                            </c:choose>
-                				
+                				<td width="10%"> 
+     								<a href="itemAbout.do?item_num=${item.item_num}">
+								<c:choose>
+									<c:when test="${item.item_pictureUrl1 == null}">
+										<!-- Product image-->
+										<img class="card-img-top" src="images/item/no_image1.jpg" alt="..." />
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${item.item_quantity != 0}">
+												<img class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
+											</c:when>
+											<c:otherwise>
+												<img style="background: #000; opacity: 0.2" class="card-img-top" src="images/item/${item.item_pictureUrl1}" alt="..." />
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+								</a>
                 				 </td>
-                            	<td width="40%">${item.item_name}<br>
-                            	${item.item_content}
+                            	<td width="42%"><a href="itemAbout.do?item_num=${item.item_num}"><h5>${item.item_name}</h5></a><br>
+                            	<p style="color: gray">${item.item_content}</p>
                             	</td>
-                            	<td width="20%"><fmt:formatNumber value="${item.item_price}"/></td>
-                            	<c:choose>
-                            	<c:when test="${item.item_quantity != 0}">
+                            	<td width="8%" style="text-align:center;">
+                            		<c:choose>
+										<c:when test="${item.item_discount != 0.00 }">
+										<fmt:formatNumber value="${item.item_discount*100}" />% <br>
+										</c:when>
+									</c:choose>
+                            	</td>
+                            	<td width="10%" style="text-align:center">
+                            	
+											<!-- Product price-->
+											<c:choose>
+												<c:when test="${item.item_discount == 0.00 }">
+													<fmt:formatNumber value="${item.item_price}" />원<br>
+		                                    &nbsp;
+                                    	</c:when>
+												<c:otherwise>
+													<del>
+														<fmt:formatNumber value="${item.item_price}" />
+														원
+													</del>
+													<br>
+													<fmt:formatNumber
+														value="${item.item_price -(item.item_price * item.item_discount)}" />원
+                                    	</c:otherwise>
+											</c:choose>
+                            	
+                            	</td>
+
                             	<% String userid = (String) session.getAttribute("userid");  %>
+                            	<td width="13%" style="text-align:center">
+											<c:choose>
+												<c:when test="${item.item_starsAvg == 5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 4.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 4.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 3.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 3.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 2.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 2.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 1.5}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 1.0}">
+													<i style="color: orange;" class="bi-star-fill"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:when test="${item.item_starsAvg >= 0.5}">
+													<i style="color: orange;" class="bi-star-half"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:when>
+												<c:otherwise>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+													<i style="color: orange;" class="bi-star"></i>
+												</c:otherwise>
+											</c:choose>
+								</td>
+								                            	<c:choose>
+                            	<c:when test="${item.item_quantity != 0}">
                          		<c:set var="userid" value="<%=userid%>"/>
-                            	<td width="30%"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
+                            	<td width="10%" style="text-align:center"><a class="btn btn-outline-dark mt-auto"><i class="bi-cart-fill me-1"></i>
                					     <input type="hidden" name="userid" value="${userid}">
               					     <input type="hidden" name="item_quantity" value="${item.item_quantity}">
                					     <input type="hidden" name="item_pictureUrl1" value="${item.item_pictureUrl1}">
@@ -454,29 +583,27 @@ function count(type,item_quantity,item_num){
                					     <input type="hidden" name="item_name" value="${item.item_name}">
                				     <input type="hidden" name="item_price" value="${item.item_price}">
                				     
-                    
-                    
                     <i class="bi-dash-circle" onclick="count('minus',${item.item_quantity},${item.item_num})"></i>
                     <input type="number"id="${item.item_num}" name="item_cnt" value="1" readonly>
 					<i class="bi-plus-circle" onclick="count('plus',${item.item_quantity},${item.item_num})"></i>
 								 <input type="submit" class="form-btn" value="장바구니에 담기" onClick="loginCheck()"></a></td>
 								 </c:when>
                   				 <c:otherwise>
-                  				 <td width="30%">품절된 상품입니다</td>
+                  				 <td width="30%" style="text-align:center">품절된 상품입니다</td>
                					  </c:otherwise>
 							    </c:choose>
                 			</tr>
+			</c:forEach>
                 		</table>
                     </form>
-			</c:forEach>
 		</c:otherwise> 
 		</c:choose>
                 </div>
     <%} else {%>
 		<div align="center">
-			<i style="font-size:200px;color:orange" class="bi-search"></i>
-			<div style="font-size:30px;color:gray">검색 결과가 없습니다.</div>
-		</div>
+			<i style="font-size:200px;color:orange" class="bi bi-pencil-square"></i>
+			<div style="font-size:30px;color:gray">상품이 없습니다.</div>
+			</div>
 	<%
 		}
 	%>

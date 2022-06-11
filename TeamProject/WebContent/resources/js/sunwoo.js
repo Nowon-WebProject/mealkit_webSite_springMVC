@@ -53,14 +53,60 @@ function method2(){
 	form.submit();
 }
 
-function method3(){
-	let form = document.createElement("form");
+function method3(a) {
+	   var b = document.frm.size.value;
+	   
+	   var newForm = document.createElement('form');
+	   
+	   newForm.method = 'post';
+	   newForm.action = 'bbsList.do';
+
+	   
+	   var input1 = document.createElement('input');
+	   var input2 = document.createElement('input');
+	   
+	   input1.setAttribute("type", "hidden");
+	   input1.setAttribute("name", "page");
+	   input1.setAttribute("value", a);
+	   input2.setAttribute("type", "hidden");
+	   input2.setAttribute("name", "size");
+	   input2.setAttribute("value", b);
+
+	   newForm.appendChild(input1);
+	   newForm.appendChild(input2);
+
+	   document.body.appendChild(newForm);
+	   
+	   newForm.submit();
+
+	 }
+
+function method3_1(a) {
+	var b = document.frm.size.value;
 	
-	form.setAttribute("method" , "post");
-	form.setAttribute("action" , "bbsList.do");
-	document.body.append(form);
+	var newForm = document.createElement('form');
 	
-	form.submit();
+	newForm.method = 'post';
+	newForm.action = 'userBbs.do';
+	
+	
+	var input1 = document.createElement('input');
+	var input2 = document.createElement('input');
+	
+	input1.setAttribute("type", "hidden");
+	input1.setAttribute("name", "page");
+	input1.setAttribute("value", a);
+	input2.setAttribute("type", "hidden");
+	input2.setAttribute("name", "size");
+	input2.setAttribute("value", b);
+	
+	newForm.appendChild(input1);
+	newForm.appendChild(input2);
+	
+	document.body.appendChild(newForm);
+	
+	newForm.submit();
+	
 }
 
 function method4(){

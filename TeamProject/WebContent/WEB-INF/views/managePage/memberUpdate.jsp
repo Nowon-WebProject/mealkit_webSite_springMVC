@@ -7,32 +7,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이젠, 집에서 | 회원수정</title>
+<title>이젠, 집에서 | 관리자페이지</title>
 <link href="css/styles.css?test1=7" rel="stylesheet" />
-    <title>회원수정 화면</title>
-    <style>
-        table{
-        	margin-left:auto; 
-            margin-right:auto;
-           /* border:3px solid #fd7e14 */
-        }
-        
-        td{
-            border:1px solid #fd7e14
-        }
-        
-        #title{
-            background-color:#fd7e14
-        }
-        
-    </style>
-    
-    <script type="text/javascript" src="js/libs/jquery-3.6.0.min.js"></script>
+<title>회원수정 화면</title>
+<script type="text/javascript" src="js/libs/jquery-3.6.0.min.js"></script>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="js/member.js?test=73"></script>
-    <script type="text/javascript" src="js/sunwoo.js?test=73"></script>
-    <!-- 도로명 주소 검색시 사용하는 daum api -->
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="js/member.js?test=73"></script>
+<script type="text/javascript" src="js/sunwoo.js?test=73"></script>
+<!-- 도로명 주소 검색시 사용하는 daum api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			var admin = <%=(Integer)session.getAttribute("admin")%>
+			if(admin != 1){
+			alert("접근 권한이 없습니다.");
+			location.href="index";
+			}
+		});
+</script>
 </head>
 <body>
 <%
@@ -40,22 +33,24 @@
 	String[] arr=(String[])request.getAttribute("arr");
 %>
 <div id="wrap">
-<section>
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+<section style="width: 40%; margin-left: auto; margin-right: auto;">
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">
-        <br><br>
-        <b><font size="6" color="gray">회원수정</font></b>
-        
-    </div>
+			<br>
+			<br>
+			<h2>회원수정</h2>
+			<button class="back-btn" onclick="history.back()" style="float:right">이전</button>
+			<br>
+			<hr>
 	<form action="memberUpdate.do" method="post" name="frm">
 		<table>
 			<tr>
-			<td colspan="2"><hr> </td>
+			<td colspan="2"> </td>
 			</tr>
 			<tr>
-				<td>이름 <i class="bi bi-check-lg" style="color: red;"></i> </td>
-				<td><input type="text" name="name" size="20" maxlength="16"></td>
+				<td>이름 <i class="bi bi-check-lg" style="color: red;"></i></td>
+				<td><input type="text" name="name" size="20" maxlength="16" value="<%=bean.getName()%>"></td>
 			</tr>
 			<tr>
 				<td>아이디</td>
@@ -130,7 +125,7 @@
 				<td>주소 <i class="bi bi-check-lg" style="color: red;"></i></td>
 				<td>
 					<input type="text" id="sample4_postcode" name="addr1" value="<%=arr[0] %>" readonly>
-					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="page"><br>
 					<input type="text" id="sample4_roadAddress" name="roadAddr" value="<%=arr[1] %>" size="60" readonly><br>
 					<input type="hidden" id="sample4_jibunAddress" name="jibunAddr" placeholder="지번주소"  size="60">
 					<span id="guide" style="color:#999;display:none"></span>
@@ -142,18 +137,16 @@
 			<tr>
 				
 			</tr>
-			<tr>
-				<td colspan="2"><hr></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="수정" onclick="return birthCheck()">
-					<input type="submit" value="취소" formaction="memberSearch.do" name="test">
-				</td>
-			</tr>
 		</table>
-		
+			<hr>		
+			<div align="center">
+ 				   <div style="width:100px">
+					<input type="submit" value="수정" onclick="return birthCheck()" class="confirm-btn" style="display:inline">
+					<input type="submit" value="취소" formaction="memberSearch.do" name="test" class="table-btn" style="display:inline">
+			    </div>
+		    </div>
 	</form>
+    </div>
 	</section>
 <jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
 </div>

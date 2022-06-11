@@ -10,6 +10,13 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .page{
+	color:white;
+	background-color:#FF8868;
+	border-radius:5px;
+	border:0;
+ }
+ 
  .form-input {
 	width: 100%;
 	padding: 10px 20px;
@@ -32,24 +39,13 @@
 	box-sizing: border-box;
 }
 
+
 .form-btn {
 	border: 0;
 	display: block;
 	width: 100%;
 	font-size: 16px;
 	height: 40px;
-	background-color: #fd7e14;
-	color: #fff;
-	box-sizing: border-box;
-	margin: 5px 0;
-	cursor: pointer;
-}
-
-.pageSize{
-	border: 0;
-	width: 100px;
-	font-size: 16px;
-	height: 30px;
 	background-color: #fd7e14;
 	color: #fff;
 	box-sizing: border-box;
@@ -96,9 +92,27 @@ table.ezen .even {
 	background-color: #FDF5E6;
 } */
  
+.back-btn {
+    display: inline-block;
+	width: 100px;
+	font-size: 16px;
+	height: 30px;
+	background-color: #f9b868;
+	color: #000000;
+	border-radius:25px;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+	border: 0;
+}
+
+.back-btn:hover {
+	background-color: #f9b868;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
 .table-btn {
     display: inline-block;
-	width: 50px;
+	width: 100%;
 	font-size: 16px;
 	height: 40px;
 	background-color: #f3f3ef;
@@ -110,9 +124,41 @@ table.ezen .even {
 	border: 0;
 }
 
+.confirm-btn:hover {
+	background-color: #f9b868;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+ 
+.confirm-btn {
+    display: inline-block;
+	width: 100%;
+	font-size: 16px;
+	height: 40px;
+	background-color: #f9b868;
+	color: #000000;
+	border-radius:25px;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+	border: 0;
+}
 .table-btn:hover {
 	background-color: #f3f3ef;
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+ 
+ .table-btn-a {
+    display: inline-block;
+	width: 100%;
+	font-size: 16px;
+	height: 40px;
+	background-color: #f3f3ef;
+	color: #000000;
+	border-radius:25px;
+	box-sizing: border-box;
+	margin: 5px 0;
+	cursor: pointer;
+	border: 0;
 }
  
 #wrap {

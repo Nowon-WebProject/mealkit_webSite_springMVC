@@ -53,7 +53,7 @@ public interface ItemMapper {
 	
 	@Update("update item set item_pictureUrl1=#{item_pictureUrl1}, item_pictureUrl2=#{item_pictureUrl2}, "
 			+ "item_category=#{item_category}, item_name=#{item_name}, item_content=#{item_content}, item_price=#{item_price}, "
-			+ "item_quantity=#{item_quantity}, item_date=#{item_date}, item_total=#{item_total}, "
+			+ "item_quantity=#{item_quantity}, item_total=#{item_total}, "
 			+ "item_time=#{item_time}, item_main=#{item_main}, item_sales=#{item_sales}, item_discount=#{item_discount}, "
 			+ "item_starsAvg=#{item_starsAvg} where item_num=#{item_num}")
 	public void updateItem(ItemDTO itemDTO);

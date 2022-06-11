@@ -82,12 +82,13 @@ public class TestController {
 		String fileName;
 		for (MultipartFile file : uploadfiles) {
 			System.out.println("upload() POST 호출");
-			// 파일 이름을 String 값으로 반환한다
-			System.out.println("파일 이름(uploadfile.getOriginalFilename()) : " + file.getOriginalFilename());
-			// 파일 크기를 반환한다
-			System.out.println("파일 크기(uploadfile.getSize()) : " + file.getSize());
+			//파일 이름을 String 값으로 반환한다
+			System.out.println("파일 이름(uploadfile.getOriginalFilename()) : "+ file.getOriginalFilename());
+			//파일 크기를 반환한다
+			System.out.println("파일 크기(uploadfile.getSize()) : "+ file.getSize());
+			
+			fileName = fileuploadService.saveFile(file, saveDirectory, count);
 
-			fileName = fileuploadService.saveFile(file, saveDirectory);
 			model.addAttribute("file" + String.valueOf(count), fileName);
 			count++;
 		}

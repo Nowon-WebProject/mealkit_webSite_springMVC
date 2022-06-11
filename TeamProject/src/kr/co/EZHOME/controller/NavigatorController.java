@@ -24,14 +24,29 @@ public class NavigatorController {
 	@GetMapping("/index")
 	public String getIndex(HttpServletRequest request) { 
 		
-		ArrayList<ItemDTO> ilist1 = item.selectMainItem("샐러드");
+		ArrayList<ItemDTO> ilist1 = item.selectMainItem("야식");
 		request.setAttribute("ilist1", ilist1);
 
-		ArrayList<ItemDTO> ilist2 = item.selectMainItem("세계여행");
+		ArrayList<ItemDTO> ilist2 = item.selectMainItem("스테이크");
 		request.setAttribute("ilist2", ilist2);
 		
-		ArrayList<ItemDTO> ilist3 = item.selectMainItem("찌개");
+		ArrayList<ItemDTO> ilist3 = item.selectMainItem("일본여행");	
 		request.setAttribute("ilist3", ilist3);
+		
+		ArrayList<ItemDTO> ilist4 = item.selectMainItem("집밥");
+		request.setAttribute("ilist4", ilist4);
+		
+		ArrayList<ItemDTO> ilist5 = item.selectMainItem("파스타");
+		request.setAttribute("ilist5", ilist5);
+		
+		ArrayList<ItemDTO> ilist6 = item.selectMainItem("샐러드");
+		request.setAttribute("ilist6", ilist6);
+		
+		ArrayList<ItemDTO> ilist7 = item.selectMainItem("동남아여행");
+		request.setAttribute("ilist7", ilist7);
+		
+		ArrayList<ItemDTO> ilist8 = item.selectMainItem("중국여행");
+		request.setAttribute("ilist8", ilist8);
 		
 		return "index";
 	}
@@ -39,17 +54,33 @@ public class NavigatorController {
 	@PostMapping("/index")
 	public String postIndex(HttpServletRequest request) { 
 		
-		ArrayList<ItemDTO> ilist1 = item.selectMainItem("샐러드");
+		ArrayList<ItemDTO> ilist1 = item.selectMainItem("야식");
 		request.setAttribute("ilist1", ilist1);
 
-		ArrayList<ItemDTO> ilist2 = item.selectMainItem("세계여행");
+		ArrayList<ItemDTO> ilist2 = item.selectMainItem("스테이크");
 		request.setAttribute("ilist2", ilist2);
 		
-		ArrayList<ItemDTO> ilist3 = item.selectMainItem("찌개");
+		ArrayList<ItemDTO> ilist3 = item.selectMainItem("일본여행");	
 		request.setAttribute("ilist3", ilist3);
+		
+		ArrayList<ItemDTO> ilist4 = item.selectMainItem("집밥");
+		request.setAttribute("ilist4", ilist4);
+		
+		ArrayList<ItemDTO> ilist5 = item.selectMainItem("파스타");
+		request.setAttribute("ilist5", ilist5);
+		
+		ArrayList<ItemDTO> ilist6 = item.selectMainItem("샐러드");
+		request.setAttribute("ilist6", ilist6);
+		
+		ArrayList<ItemDTO> ilist7 = item.selectMainItem("동남아여행");
+		request.setAttribute("ilist7", ilist7);
+		
+		ArrayList<ItemDTO> ilist8 = item.selectMainItem("중국여행");
+		request.setAttribute("ilist8", ilist8);
 		
 		return "index";
 	}
+	
 	
 	//사이트소개
 	@GetMapping("/about")

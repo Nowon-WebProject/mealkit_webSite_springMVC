@@ -13,11 +13,24 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadServiceImpl implements FileUploadService {
 
 	
-	public String saveFile(MultipartFile file, String saveDirectory) {
+	public String saveFile(MultipartFile file, String saveDirectory, int count) {
 		// 파일 이름 변경
 		UUID uuid = UUID.randomUUID();
-		String saveName = uuid + "_" + file.getOriginalFilename(); //서버상의 파일이름이 겹치는것을 방지
-		saveName = saveName.substring(30);
+		String saveName;
+		
+		if(file.getOriginalFilename().equals("")) {
+			if(count == 1) {
+				saveName = "no_image1.jpg";
+			}else {
+				saveName = "no_image2.jpg";
+			}
+			
+			return saveName;
+		}else {
+			saveName = uuid + "_" + file.getOriginalFilename(); //서버상의 파일이름이 겹치는것을 방지
+			saveName = saveName.substring(30);
+		}
+		
 		System.out.println("saveName: " + saveName);
 
 		// 저장할 File 객체를 생성(껍데기 파일)
