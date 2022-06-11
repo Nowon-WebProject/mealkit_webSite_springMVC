@@ -541,6 +541,9 @@ li {
 									<button type="button" class="btn-open-popup table-btn">배송지 관리</button>
 									<div class="modal">
 											<div class="modal_body">
+														<div style="float:right">
+																<i style="font-size:30px; cursor:pointer; user-select: none" class="bi-x-lg" id="close"></i>
+																</div>
 									<input type="button" name="modal" id="modal1" onclick="modalDisplay1()" value="나의 배송지" class="table-btn">
 									<input type="button" name="modal" id="modal2" onclick="modalDisplay2()" value="최근 배송지" class="table-btn">
 											<div id="manage">
@@ -593,6 +596,7 @@ li {
 										<script>
 									const body = document.querySelector('body');
 									const modal = document.querySelector('.modal');
+									const close = document.getElementById('close');
 									const btnOpenPopup = document.querySelector('.btn-open-popup');
 
 									btnOpenPopup.addEventListener('click', () => {
@@ -608,7 +612,7 @@ li {
 									});
 
 									modal.addEventListener('click', (event) => {
-									  if (event.target === modal) {
+									  if (event.target === close) {
 									    modal.classList.toggle('show');
 
 									    if (!modal.classList.contains('show')) {

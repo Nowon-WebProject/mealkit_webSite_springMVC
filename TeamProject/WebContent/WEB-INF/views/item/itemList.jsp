@@ -66,7 +66,6 @@ function count(type,item_quantity,item_num){
 		 }
 	 }
 }
-
 </script>        
         
 </head>

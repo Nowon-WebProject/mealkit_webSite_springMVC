@@ -40,6 +40,11 @@ function count(type,item_quantity,item_num){
 input[type='number']{
     width: 42px;
 } 
+
+.table-btn {
+	width: 50px !important;
+}
+
 </style>
 </head>
 <body>
@@ -99,7 +104,7 @@ input[type='number']{
                 			    <i style="cursor:pointer; user-select: none;" class="bi-dash-circle" onclick="count('minus',${cart.item_quantity},${cart.cart_seq})"></i>
 								<input type="number" id="${cart.cart_seq}" name="item_cnt" value="${cart.item_cnt}" readonly>
 								<i style="cursor:pointer; user-select: none;" class="bi-plus-circle" onclick="count('plus',${cart.item_quantity},${cart.cart_seq})"></i>
-								<input type="submit" value="변경">
+								<input type="submit" value="변경" class="table-btn">
 							</form>
 						</td>
 						<td><fmt:formatNumber value="${cart.item_price*cart.item_cnt}" pattern="#,##0" />원</td>
@@ -108,7 +113,7 @@ input[type='number']{
 							<form action="cartDelete.do" method="post">
 								<input type="hidden" name="cart_seq" value="${cart.cart_seq}">
 								<input type="hidden" name="check" value="0">
-								<input type="submit" value="삭제">
+								<input type="submit" value="삭제" class="back-btn">
 							</form>
 						</td>
 					</tr>
@@ -120,7 +125,7 @@ input[type='number']{
 				<form action="cartDelete.do" method="post" align="right">
 					<input type="hidden" name="userid" value="<%=session.getAttribute("userid")%>">
 					<input type="hidden" name="check" value="1">
-					<input type="submit" value="전체 상품 삭제">
+					<input type="submit" value="전체 삭제" class="back-btn">
 				</form>
 				<Strong><fmt:formatNumber value="${result}" pattern="#,##0" /></Strong>원 입니다.
 				<form action="order.do" method="post">
