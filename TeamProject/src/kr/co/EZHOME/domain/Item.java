@@ -49,8 +49,11 @@ public class Item {
 
 		double newAverageStar; // 최신화 되는 평균 별점
 		int allPostscriptNumber = itemDAO.countPostscrpit(item_num); // 총 후기 개수
-		double minusStar = itemDAO.selectPostByPost_num(post_num).getPost_stars(); //삭제되는 별점
 		double beforeAverageStar = itemDAO.selectItem(item_num).get(0).getItem_starsAvg(); // 이전 별 평균값
+		if (allPostscriptNumber  == 1) { //후기가 하나밖에없을때는 0으로 나눠지기 때문에 바로 리턴을 해준다
+			return beforeAverageStar;
+		}
+		double minusStar = itemDAO.selectPostByPost_num(post_num).getPost_stars(); //삭제되는 별점
 		// 총 별점 = 이전 별 평균값 * 총 후기 개수
 		double totalStar = beforeAverageStar * allPostscriptNumber;
 
