@@ -76,6 +76,83 @@ $(document).ready(
 		 }
 		 
 	}
+	
+	$(document).ready(function() {
+		var Offset = $('.Menu').offset();
+		$(window).scroll(function() {
+			if ($(document).scrollTop() > Offset.top) {
+				$('.Menu').addClass('Fixed');
+			} else {
+				$('.Menu').removeClass('Fixed');
+			}
+		});
+	});
+	
+	
+	function loginCheck() {
+		var userid = "${userid}";
+		if (userid == "") {
+			alert("로그인 후 이용 가능합니다.");
+		} else {
+			alert("장바구니에 담았습니다.");
+		}
+	}
+	
+	window.onload = function(){
+			  var viewNumber = '${viewNumber}';
+			  
+			  if (viewNumber == "2") {
+				  document.getElementById("review").focus();
+			  }
+		  }
+	
+
+	var db = (document.body) ? 1 : 0
+	var scroll = (window.scrollTo) ? 1 : 0
+
+			function setCookie(name, value, expires, path, domain, secure) {
+			  var curCookie = name + "=" + escape(value) +
+			    ((expires) ? "; expires=" + expires.toGMTString() : "") +
+			    ((path) ? "; path=" + path : "") +
+			    ((domain) ? "; domain=" + domain : "") +
+			    ((secure) ? "; secure" : "");
+			  document.cookie = curCookie;
+			}
+
+			function getCookie(name) {
+			  var dc = document.cookie;
+			  var prefix = name + "="
+			  var begin = dc.indexOf("; " + prefix);
+			  if (begin == -1) {
+			    begin = dc.indexOf(prefix);
+			    if (begin != 0) return null;
+			  } else {
+			    begin += 2
+			  }
+			  var end = document.cookie.indexOf(";", begin);
+			  if (end == -1) end = dc.length;
+			  return unescape(dc.substring(begin + prefix.length, end));
+			}
+
+			function saveScroll() {
+			  if (!scroll) return
+			  var now = new Date();
+			  now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+			  var x = (db) ? document.body.scrollLeft : pageXOffset;
+			  var y = (db) ? document.body.scrollTop : pageYOffset;
+			  setCookie("xy", x + "_" + y, now);
+			}
+
+			function loadScroll() {
+			  if (!scroll) return
+			  var xy = getCookie("xy");
+			  if (!xy) return
+			  var ar = xy.split("_");
+			  if (ar.length == 2) scrollTo(parseInt(ar[0]), parseInt(ar[1]));
+			}
+
+	
+
 </script>
 <style>
 input[type='number'] {
@@ -173,41 +250,8 @@ input[type='number'] {
 	cursor: pointer;
 }
 </style>
-<script>
-	$(document).ready(function() {
-		var Offset = $('.Menu').offset();
-		$(window).scroll(function() {
-			if ($(document).scrollTop() > Offset.top) {
-				$('.Menu').addClass('Fixed');
-			} else {
-				$('.Menu').removeClass('Fixed');
-			}
-		});
-	});
-	
-	
-	function loginCheck() {
-		var userid = "${userid}";
-		if (userid == "") {
-			alert("로그인 후 이용 가능합니다.");
-		} else {
-			alert("장바구니에 담았습니다.");
-		}
-	}
-	
-	window.onload = function(){
-			  var viewNumber = '${viewNumber}';
-			  
-			  if (viewNumber == "2") {
-				  document.getElementById("review").focus();
-// 				  alert(viewNumber);
-			  }
-		  }
-</script>
-
 </head>
-<body>
-
+<body onLoad="loadScroll()" onUnload="saveScroll()">
 <div id="wrap">
 	<jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
 	<section>
@@ -370,10 +414,10 @@ input[type='number'] {
 						<c:choose>
 							<c:when test="${ilist[0].item_quantity != 0}">
 								<p>
-									수량 : <i class="bi-dash-circle"
+									수량 : <i style="cursor:pointer; user-select: none;" class="bi-dash-circle"
 										onclick="count('minus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
 									<input type="number" class="cnt" id="${ilist[0].item_num}"
-										name="item_cnt" value="1" readonly> <i
+										name="item_cnt" value="1" readonly> <i style="cursor:pointer; user-select: none;"
 										class="bi-plus-circle"
 										onclick="count('plus',${ilist[0].item_quantity},${ilist[0].item_num})"></i>
 									<span style="color: gray; font-size: 8pt">남은
@@ -402,7 +446,7 @@ input[type='number'] {
 					<input type="hidden" value="${ilist[0].item_price}" id="price">
 				</div>
 			</div>
-			<div class="Menu">
+			<div class="Menu"  style=" z-index: 1;">
 				<a href="#info">상세정보</a> <a href="#review">후기</a> <a href="#qna">문의</a>
 			</div>
 
@@ -426,22 +470,36 @@ input[type='number'] {
 				</div>
 				<hr>
 				<jsp:include page="/WEB-INF/views/item/postScript.jsp"></jsp:include>
-				
 			</div>
 
 			<div id="qna"
 				style="width: 60%; margin-left: auto; margin-right: auto;"
 				align="center">
+				
 				<br> <br> <br> <br> <br> <br>
 				<div align="left">
+				
 					<h1>문의</h1>
 				</div>
 				<hr>
-				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-				a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-				a<br> a<br> a<br> a<br> a<br> a<br>
+			<br>
+			<br>
+			<br>
+			<div align="center">
+			<i style="font-size:200px;color:orange" class="bi-chat-dots"></i>
+			<div style="font-size:30px;color:gray">문의사항이 없습니다.</div>
+			</div>
+			<br>
+			<br>
+			<br>		<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 			</div>
 		</section>
 		<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>

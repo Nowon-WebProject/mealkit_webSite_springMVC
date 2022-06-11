@@ -74,7 +74,7 @@ public class ManagePageController {
 		double item_discount = itemDTO.getItem_discount();
 
 		//할인율 형식 맞추기
-		if (item_discount > 1) {
+		if (item_discount >= 1) {
 			itemDTO.setItem_discount(item_discount / 100.0);
 		}
 		
