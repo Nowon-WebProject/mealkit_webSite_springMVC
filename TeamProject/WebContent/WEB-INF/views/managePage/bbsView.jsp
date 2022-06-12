@@ -60,7 +60,7 @@ $(document).ready(
 			<tr>
 			<td style="vertical-align:top"height="400px">
 			<%if(file != ""){%>
-			<img src="images/board/${file }" style = "width:20%; heigth:auto;"></img><br>
+			<img src="images/board/${file }" style="heigth:auto;"></img><br>
 			<%} %>
 			<%=bdto.getBbscontent() %>
 			</td>
