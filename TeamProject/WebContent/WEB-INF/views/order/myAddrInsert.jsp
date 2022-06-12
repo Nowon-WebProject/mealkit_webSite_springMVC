@@ -58,8 +58,8 @@ width:40%;
 				<td><input type="text" name="deli_pwd" size="35" placeholder="예) #1234*/ 열쇠버튼+abcd+OK버튼"></td>
 			</tr>
 		</table>
-		<button type="button" onclick="history.back()">이전</button>
-		<input type="submit" value="등록">
+		<button type="button" onclick="history.back()"class="table-btn">이전</button>
+		<input type="submit" value="등록" class="confirm-btn">
 	</form>
 </div>
 </body>
