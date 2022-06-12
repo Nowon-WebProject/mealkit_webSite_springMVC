@@ -102,7 +102,7 @@ String[] arr=(String[])request.getAttribute("arr");
 				</tr>
 				<tr>
 				<td><!-- <span class="form-label"> -->전화번호<!-- </span> --></td>
-				<td><input type="text" name="phone" onkeyup="mobile_keyup(this)" size="20" value="<%=session.getAttribute("phone") %>" ><br></td>
+				<td><input type="text" class="phone" name="phone" onkeyup="mobile_keyup(this)" size="20" value="<%=session.getAttribute("phone") %>" maxlength="13"><br></td>
 			</tr>
 			<tr>
 				<td>주소 <i class="bi bi-check-lg" style="color:red"></i></td>

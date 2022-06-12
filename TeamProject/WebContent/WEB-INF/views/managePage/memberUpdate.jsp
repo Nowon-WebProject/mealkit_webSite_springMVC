@@ -34,6 +34,7 @@ $(document).ready(
 %>
 <div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
 <section style="width: 40%; margin-left: auto; margin-right: auto;">
 <!-- 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div align="center">

@@ -84,7 +84,7 @@ function fnCopyToClipboard(str) {
         <i class="bi-search" style="font-size:20px"></i>
 		&nbsp;
         <input type="text" name="keyword" placeholder="" size="40">
-        <input type="submit" value="검색">
+        <input type="submit" value="검색" class="page">
         </form>
         </div>
         <br>

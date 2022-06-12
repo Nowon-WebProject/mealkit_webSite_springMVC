@@ -306,8 +306,8 @@ public class Item {
 	}
 
 	// 아이템 판매량, 재고 업데이트
-	public void updateSalesAndQuantity(int itemCnt, int itemNum) {
-		itemDAO.updateSalesAndQuantity(itemCnt, itemNum);
+	public void updateSalesAndQuantity(int itemCnt, int itemNum, String sql1, String sql2) {
+		itemDAO.updateSalesAndQuantity(itemCnt, itemNum, sql1, sql2);
 	}
 
 	// 카테고리 종류 가져오기

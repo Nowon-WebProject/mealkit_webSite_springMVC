@@ -119,7 +119,9 @@ public class OrderController {
 
 			order.insertOrder(orderDTO);
 			// 재고, 판매량 갱신
-			item.updateSalesAndQuantity(itemCnt, itemNum);
+			String sql1 = "+";
+			String sql2 = "-";
+			item.updateSalesAndQuantity(itemCnt, itemNum, sql1, sql2);
 		}
 
 		// 장바구니 비우기

@@ -443,7 +443,7 @@ input[type='number'] {
 						<br> <br> <br> <br>
 					</form>
 					<!-- 가격 자동 계산용 -->
-					<input type="hidden" value="${ilist[0].item_price}" id="price">
+					<input type="hidden" value="${ilist[0].item_price -(ilist[0].item_price * ilist[0].item_discount)}" id="price">
 				</div>
 			</div>
 			<div class="Menu"  style=" z-index: 1;">

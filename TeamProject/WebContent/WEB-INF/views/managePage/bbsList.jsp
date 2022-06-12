@@ -122,15 +122,7 @@ a:active {
 			<br> <br> 
 		
 	</div>
-	
-	<div align="right">
-		<form action="bbsWrite">
-		<h2>
-			<input type="submit" class="back-btn" value="글쓰기">
-		</h2>
-		</form>
-	</div>
-		<%}else{ %>
+			<%}else{ %>
 	<br>
 	<br>
 	<br>
@@ -141,6 +133,15 @@ a:active {
 			<div style="font-size:30px;color:gray">공지사항이 없습니다.</div>
 			</div>
 			<%} %>
+	
+	<div align="right">
+		<form action="bbsWrite">
+		<h2>
+			<input type="submit" class="back-btn" value="글쓰기">
+		</h2>
+		</form>
+	</div>
+
 	<br>
 	<br>
 	<br>

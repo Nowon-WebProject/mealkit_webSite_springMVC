@@ -192,7 +192,7 @@ function refundSubmitCheck(count) {
 							<td>${list.item_name}</td>
 							<td style="text-align:center">${list.item_price}</td>
 							<td style="text-align:center">${list.item_cnt}</td>
-							<td>${list.refund_status}</td>
+							<td style="text-align:center">${list.refund_status}</td>
 							<td>${list.refund_reject}</td>
 						</tr>
 						<c:if test="${list.refund_status eq '미신청'}">
