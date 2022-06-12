@@ -623,7 +623,7 @@ function count(type,item_quantity,item_num){
         <i class="bi-search" style="font-size:20px"></i>
 		&nbsp;
         <input type="text" name="keyword" placeholder="검색할 상품을 입력해주세요" size="40">
-        <input type="submit" value="검색">
+        <input type="submit" value="검색" class="page">
         </form>
         </div>
         <hr>

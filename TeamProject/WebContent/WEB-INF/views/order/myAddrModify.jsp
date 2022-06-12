@@ -64,9 +64,9 @@ width:40%;
 				<td><input type="text" name="deli_pwd" size="35" value="<%=request.getParameter("my_deli_pwd")%>" placeholder="예) #1234*/ 열쇠버튼+abcd+OK버튼"></td>
 			</tr>
 		</table>
-		<button type="button" onclick="history.back()">이전</button>
+		<button type="button" onclick="history.back()" class="table-btn">이전</button>
 		<input type="hidden" name="my_deli_addr_seq" value="<%=request.getParameter("my_deli_addr_seq")%>">
-		<input type="submit" value="수정">
+		<input type="submit" value="수정" class="confirm-btn">
 	</form>
 </div>
 </body>

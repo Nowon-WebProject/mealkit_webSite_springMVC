@@ -29,6 +29,7 @@ $(document).ready(
 <body>
 <div id="wrap">
 <jsp:include page="/WEB-INF/views/ui/nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/ui/sideManage.jsp"></jsp:include>
 <section style="width: 60%; margin-left: auto; margin-right: auto;">
 <%
 	Vector<BbsDTO> vec=(Vector<BbsDTO>)request.getAttribute("vec");

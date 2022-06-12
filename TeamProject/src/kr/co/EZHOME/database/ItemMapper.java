@@ -35,8 +35,8 @@ public interface ItemMapper {
 	@Select("select item_category from item group by item_category order by item_category")
 	Vector<ItemDTO> getCategoryList();
 	
-	@Update("update item set item_sales = item_sales + #{itemCnt}, item_quantity = item_quantity - #{itemCnt} where item_num = #{itemNum}")
-	public void updateSalesAndQuantity(@Param("itemCnt")int itemCnt, @Param("itemNum")int itemNum);
+	@Update("update item set item_sales = item_sales ${sql1} #{itemCnt}, item_quantity = item_quantity ${sql2} #{itemCnt} where item_num = #{itemNum}")
+	public void updateSalesAndQuantity(@Param("itemCnt")int itemCnt, @Param("itemNum")int itemNum, @Param("sql1")String sql1, @Param("sql2")String sql2);
 	
 	@Select("select count(*) from item")
 	public int getAllCount();

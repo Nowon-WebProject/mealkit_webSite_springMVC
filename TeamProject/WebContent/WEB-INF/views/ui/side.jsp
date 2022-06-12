@@ -77,7 +77,7 @@ li a:hover:not(.active) {
     <label for="expand-menu">마이 페이지</label>
     <ul>
         <li><div class="a"><a href="orderOkList.do?pageSize=10&pageNum=1" class="item"><i class="bi bi-bag-fill"></i> 주문내역확인</a></div></li>
-        <li><div class="a"><a href="orderOkList.do?pageSize=10&pageNum=1" class="item"><i class="bi bi-folder-x"></i> 주문취소</a></div></li>
+        <li><div class="a"><a href="#" class="item"><i class="bi bi-folder-x"></i> 1:1문의</a></div></li>
         <li><div class="a"><a href="modifyOK" class="item"><i class="bi bi-pencil-square"></i> 회원정보수정</a></div></li>
         <li><div class="a"><a href="deleteOK" class="item"><i class="bi bi-eraser-fill"></i> 회원탈퇴</a></div></li>
     </ul>

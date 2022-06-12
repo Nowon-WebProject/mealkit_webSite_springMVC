@@ -236,10 +236,13 @@ public class ManagePageController {
 				int cnt = Integer.parseInt(orderInfo3[1]); // item_cnt
 				String order_num = orderInfo3[2];
 
-				item.updateSalesAndQuantity(cnt, num);
+				String sql1 = "-";
+				String sql2 = "+";
+				item.updateSalesAndQuantity(cnt, num, sql1, sql2);
 
 				refund_status = "취소 완료";
 				order.modifyRefundStatus(order_num, refund_status, num);
+				order.updateDeli_Status("취소 완료",order_num);
 
 			}
 		} else {
@@ -339,8 +342,11 @@ public class ManagePageController {
 			int cnt = Integer.parseInt(a2[3]); // item_cnt
 			String deli_status = a2[4]; // item_name
 			if (deli_status.equals("결제완료")) {
-				item.updateSalesAndQuantity(cnt, num);
+				String sql1 = "-";
+				String sql2 = "+";
+				item.updateSalesAndQuantity(cnt, num, sql1, sql2);
 				refund_status = "취소 완료";
+				order.updateDeli_Status("취소 완료",order_num);
 				order.modifyRefundStatus(order_num, refund_status, num);
 
 			} else {
