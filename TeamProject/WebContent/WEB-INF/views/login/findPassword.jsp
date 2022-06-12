@@ -55,9 +55,9 @@
 						</tr>
 					</table>
 					<br><br><br>
-				</form>
 					<button class="back-btn" onclick="history.back()" style="float:center">이전</button>
 					<input type="submit" value="확인" onclick="return findId()" class="back-btn" style="float:center">
+				</form>
 				</div>
 			</section>
 		<jsp:include page="/WEB-INF/views/ui/footer.jsp"></jsp:include>
