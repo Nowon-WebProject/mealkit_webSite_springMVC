@@ -215,7 +215,6 @@ $(document).ready(function() {
 				
 			</tr>
 		</table>
-		${certificationNumber}
 	</form>
 	
 </section>
